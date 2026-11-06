@@ -2,14 +2,6 @@
  * ============================================================================
  * API BACK-END SEGURA NA VERCEL — Caminho no projeto: api/produtos.js
  * ============================================================================
- * IMPORTANTE SOBRE SEGURANÇA (GITHUB vs VERCEL):
- * - Este arquivo `api/produtos.js` VAI para o GitHub e para a Vercel porque é
- *   a Vercel quem executa este código 24h por dia quando seu PC está desligado.
- * - NENHUMA SENHA OU CHAVE FICA ESCRITA AQUI DENTRO!
- * - Aqui usamos apenas `process.env.ML_APP_ID`, `process.env.ML_CLIENT_SECRET`
- *   e `process.env.ML_ACCESS_TOKEN`.
- * - As chaves reais ficam trancadas no Cofre da Vercel (Settings -> Environment Variables)
- *   ou num arquivo `.env` local (que o `.gitignore` impede de ir para o GitHub).
  */
 
 const LISTA_LINKS_AFILIADO = [
@@ -33,7 +25,6 @@ const LISTA_LINKS_AFILIADO = [
   { numero: '18', linkMercadoLivre: 'https://meli.la/1fHMNJY', codigoBuscaML: '2WT0PJ-NL8A' }
 ];
 
-// Cache em memória no servidor da Vercel
 let memoryCache = {
   timestamp: 0,
   produtos: []
@@ -42,9 +33,8 @@ let cachedOAuthToken = {
   token: null,
   expiresAt: 0
 };
-const CACHE_TTL_MS = 30 * 60 * 1000; // 30 minutos
+const CACHE_TTL_MS = 30 * 60 * 1000;
 
-// Lista Branca (Allowlist) de domínios permitidos
 const DOMINIOS_PERMITIDOS = [
   'meli.la',
   'www.mercadolivre.com.br',
@@ -64,10 +54,6 @@ function urlEhSegura(urlString) {
   }
 }
 
-/**
- * Detecta automaticamente a categoria pelo título do produto no Mercado Livre
- * caso você envie apenas o link `meli.la` sem especificar categoria!
- */
 function detectarCategoriaAutomatica(titulo = '', categoriaManual = '') {
   if (categoriaManual && categoriaManual.trim()) return categoriaManual.trim();
   const t = titulo.toLowerCase();
@@ -99,10 +85,6 @@ function detectarCategoriaAutomatica(titulo = '', categoriaManual = '') {
   return 'Achadinhos em Destaque';
 }
 
-/**
- * Obtém automaticamente o Access Token oficial do Mercado Livre Developers
- * usando ML_APP_ID e ML_CLIENT_SECRET salvos no Cofre da Vercel (Environment Variables)
- */
 async function obterTokenOficialMercadoLivre() {
   if (process.env.ML_ACCESS_TOKEN) {
     return process.env.ML_ACCESS_TOKEN;
@@ -147,10 +129,6 @@ async function obterTokenOficialMercadoLivre() {
   return null;
 }
 
-/**
- * Opcional: Se você configurar a variável `FIREBASE_DB_URL` na Vercel no próximo passo,
- * puxa os links direto do seu Firebase Realtime Database!
- */
 async function obterListaDeLinks() {
   if (process.env.FIREBASE_DB_URL) {
     try {
@@ -176,10 +154,21 @@ function limparEntidadesHtml(str = '') {
     .replace(/&amp;/g, '&')
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
+    .replace(/&#x27;/g, "'")
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
+    .replace(/\u002F/g, '/')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+function tituloEhValido(t = '') {
+  if (!t || t.length < 5) return false;
+  const lower = t.toLowerCase();
+  if (lower === 'mercado livre' || lower === 'mercadolivre' || lower.startsWith('recomendações de')) {
+    return false;
+  }
+  return true;
 }
 
 async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
@@ -214,7 +203,7 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
     let precoAtualNum = null;
     let precoAntigoNum = null;
 
-    // 1. Procura código MLB na URL redirecionada ou no HTML (ex: MLB384920192)
+    // 1. Tenta via código MLB na API de itens
     const mlbMatch =
       finalUrl.match(/MLB-?(\d{8,12})/i) ||
       html.match(/MLB-?(\d{8,12})/i);
@@ -227,7 +216,7 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
         });
         if (apiResp.ok) {
           const data = await apiResp.json();
-          titulo = data.title || '';
+          if (tituloEhValido(data.title)) titulo = data.title;
           if (data.pictures && data.pictures.length > 0) {
             imagemUrl = data.pictures[0].secure_url || data.pictures[0].url || '';
           } else if (data.thumbnail) {
@@ -239,31 +228,47 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
       } catch (e) {}
     }
 
-    // 2. Extração direta da página Social de Afiliado (/social/...) ou página de Produto
-    if (!titulo) {
-      const polyTitle =
-        html.match(/class=["'][^"']*poly-component__title[^"']*["'][^>]*>([\s\S]*?)<\/(?:a|h[1-4]|span)>/i) ||
-        html.match(/<h1[^>]*class=["'][^"']*ui-pdp-title[^"']*["'][^>]*>([\s\S]*?)<\/h1>/i) ||
-        html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i);
+    // 2. Extração turbinada do Título na página Social (/social/...) ou página do Produto
+    if (!tituloEhValido(titulo)) {
+      const candidatosTitulo = [
+        // Classes de título dos cards do Mercado Livre (poly-component__title / ui-pdp-title)
+        (html.match(/class=["'][^"']*poly-component__title[^"']*["'][^>]*>([\s\S]*?)<\/(?:a|h[1-6]|span)>/i) || [])[1],
+        (html.match(/<h[1-4][^>]*class=["'][^"']*ui-pdp-title[^"']*["'][^>]*>([\s\S]*?)<\/h[1-4]>/i) || [])[1],
+        // Atributo alt da imagem principal do produto no Mercado Livre (sempre traz o nome completo!)
+        (html.match(/<img[^>]+src=["']https:\/\/http2\.mlstatic\.com\/D_[^"']+["'][^>]+alt=["']([^"']{8,220})["']/i) || [])[1],
+        (html.match(/<img[^>]+alt=["']([^"']{8,220})["'][^>]+src=["']https:\/\/http2\.mlstatic\.com\/D_[^"']+["']/i) || [])[1],
+        // Meta tags og:title (nas duas ordens possíveis de atributo)
+        (html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i) || [])[1],
+        (html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i) || [])[1],
+        // JSON embutido na página Social do Mercado Livre
+        (html.match(/"title"\s*:\s*"([^"\\]{10,200})"/) || [])[1]
+      ];
 
-      if (polyTitle && polyTitle[1]) {
-        const candidate = limparEntidadesHtml(polyTitle[1]).replace(/\s*\|\s*Mercado\s*Livre.*/i, '');
-        if (candidate && candidate.toLowerCase() !== 'mercado livre') {
-          titulo = candidate;
+      for (const bruto of candidatosTitulo) {
+        if (!bruto) continue;
+        const limpo = limparEntidadesHtml(bruto).replace(/\s*[-|]\s*Mercado\s*Livre.*/i, '');
+        if (tituloEhValido(limpo)) {
+          titulo = limpo;
+          break;
         }
       }
     }
 
+    // 3. Imagem em Alta Definição (converte miniatura para resolução alta D_NQ_NP e -O)
     if (!imagemUrl) {
       const imgMatch =
         html.match(/https:\/\/http2\.mlstatic\.com\/D_(?:NQ_)?Q?_?NP_[A-Za-z0-9_-]+\.(?:webp|jpg|png)/i) ||
-        html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i);
+        html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i) ||
+        html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
 
       if (imgMatch) {
-        imagemUrl = (imgMatch[1] || imgMatch[0]).replace('D_Q_NP_', 'D_NQ_NP_');
+        imagemUrl = (imgMatch[1] || imgMatch[0])
+          .replace('D_Q_NP_', 'D_NQ_NP_')
+          .replace(/-I\.(webp|jpg|png)$/i, '-O.$1');
       }
     }
 
+    // 4. Preço Atual e Preço Antigo
     if (!precoAtualNum) {
       const fractionMatches = [
         ...html.matchAll(/andes-money-amount__fraction[^>]*>([\d.]+)<\/span>(?:[\s\S]{0,120}?andes-money-amount__cents[^>]*>(\d{2})<\/span>)?/gi)
@@ -304,7 +309,9 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
       descontoTag = `${pct}% OFF HOJE`;
     }
 
-    const tituloFinal = titulo || `Oferta Selecionada #${String(itemConfig.numero).padStart(2, '0')}`;
+    const tituloFinal = tituloEhValido(titulo)
+      ? titulo
+      : `Oferta Selecionada #${String(itemConfig.numero).padStart(2, '0')}`;
     const categoriaFinal = detectarCategoriaAutomatica(tituloFinal, itemConfig.categoria);
 
     return {

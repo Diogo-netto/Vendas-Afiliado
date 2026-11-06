@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Radar de Achadinhos VIP — Ofertas & Promoções Selecionadas</title>
+  <!-- FAVICON EMBUTIDO (ÍCONE NA ABA DO NAVEGADOR E FAVORITOS DO CELULAR) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23FFE600'/%3E%3Cpath d='M36 6L14 36h16l-4 22 24-30H34l2-22z' fill='%23070B14'/%3E%3C/svg%3E" />
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,11 +39,11 @@
       overflow-x: hidden;
     }
     @keyframes pulse-cta {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 230, 0, 0.5); }
-      50% { box-shadow: 0 0 0 8px rgba(255, 230, 0, 0); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 230, 0, 0.45); }
+      50% { box-shadow: 0 0 0 6px rgba(255, 230, 0, 0); }
     }
     .btn-pulse {
-      animation: pulse-cta 2s infinite;
+      animation: pulse-cta 2.2s infinite;
     }
     .custom-scrollbar::-webkit-scrollbar {
       height: 5px;
@@ -72,26 +74,26 @@
     </a>
   </div>
 
-  <!-- BARRA DE URGÊNCIA TOPO (100% DENTRO DAS REGRAS DE AFILIADO) -->
+  <!-- BARRA DE URGÊNCIA TOPO -->
   <div class="bg-gradient-to-r from-amber-400 via-[#FFE600] to-amber-400 text-slate-950 px-3 py-2 text-xs sm:text-sm font-extrabold shadow-md sticky top-0 z-40">
-    <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-2">
+    <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2">
       <div class="flex items-center gap-2">
         <span class="inline-block w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
         <span class="tracking-tight">🔥 SELEÇÃO DE OFERTAS & ACHADINHOS • ENVIO FULL RÁPIDO</span>
       </div>
       <div class="flex items-center gap-1.5 bg-slate-950 text-[#FFE600] px-3 py-0.5 rounded-full text-xs font-black tracking-wide">
-        <span>⏱️ EXPIRA EM:</span>
+        <span>⏱️ OFERTAS ATIVAS:</span>
         <span id="countdown-timer" class="font-mono">02:47:19</span>
       </div>
     </div>
   </div>
 
-  <!-- CABEÇALHO COM MARCA PRÓPRIA DE CURADORIA (SEM VIOLAR MARCA REGISTRADA) -->
-  <header class="border-b border-slate-800/80 bg-gradient-to-b from-slate-900/95 to-[#070B14] pt-6 pb-5 px-4">
-    <div class="max-w-5xl mx-auto">
+  <!-- CABEÇALHO DA VITRINE -->
+  <header class="border-b border-slate-800/80 bg-gradient-to-b from-slate-900/95 to-[#070B14] pt-5 pb-4 px-4">
+    <div class="max-w-6xl mx-auto">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div class="flex items-center gap-3.5">
-          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#FFE600] text-slate-950 flex items-center justify-center text-2xl font-black shadow-lg shadow-yellow-400/20 flex-shrink-0">
+          <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-[#FFE600] text-slate-950 flex items-center justify-center text-2xl font-black shadow-lg shadow-yellow-400/20 flex-shrink-0">
             ⚡
           </div>
           <div>
@@ -103,28 +105,28 @@
                 ✓ Curadoria Verificada
               </span>
             </div>
-            <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
-              Digite o <strong class="text-[#FFE600]">Nº do vídeo (ex: 01)</strong> ou clique no botão do produto para abrir no Mercado Livre
+            <p class="text-xs sm:text-sm text-slate-300 mt-0.5">
+              Digite o <strong class="text-[#FFE600]">Nº do produto (ex: 01)</strong>, pesquise pelo nome ou clique na foto para ampliar
             </p>
           </div>
         </div>
 
         <div class="flex items-center gap-2 self-start sm:self-center">
-          <button id="btn-how-to-code" type="button" class="text-xs font-bold bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3.5 py-2.5 rounded-xl transition flex items-center gap-1.5 whitespace-nowrap">
+          <button id="btn-how-to-code" type="button" class="text-xs font-bold bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 whitespace-nowrap">
             <span>🔍</span> Como buscar pelo Código no App?
           </button>
         </div>
       </div>
 
       <!-- BUSCA RÁPIDA POR NÚMERO OU NOME -->
-      <div class="mt-5">
+      <div class="mt-4">
         <div class="relative flex items-center">
           <span class="absolute left-4 text-slate-400 text-base pointer-events-none">🔎</span>
           <input
             id="search-input"
             type="text"
-            placeholder="Digite o Nº do vídeo (ex: 01) ou o nome do produto..."
-            class="w-full bg-slate-900/95 border-2 border-slate-700/80 focus:border-[#FFE600] rounded-2xl pl-11 pr-24 py-3 text-sm sm:text-base text-white placeholder-slate-400 focus:outline-none transition"
+            placeholder="Digite o Nº (ex: 01, 05, 12) ou o nome do produto que você procura..."
+            class="w-full bg-slate-900/95 border-2 border-slate-700/80 focus:border-[#FFE600] rounded-2xl pl-11 pr-24 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none transition"
           />
           <button
             id="btn-clear-search"
@@ -144,38 +146,38 @@
     </div>
   </header>
 
-  <!-- ÁREA PRINCIPAL DA VITRINE -->
-  <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6 sm:py-8">
-    <!-- Barra de Confiança -->
-    <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+  <!-- ÁREA PRINCIPAL DA VITRINE (CARDS COMPACTOS EM GRADE DE ATÉ 4 COLUNAS) -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-5 sm:py-7">
+    <!-- Barra de Status -->
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
       <div class="flex items-center gap-2">
         <span id="api-status-dot" class="inline-block w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
         <span class="text-xs sm:text-sm font-bold text-slate-200" id="results-count-label">
-          Vitrine limpa — aguardando sincronização de ofertas via API
+          Carregando ofertas verificadas...
         </span>
       </div>
-      <div class="flex items-center gap-3 text-xs text-slate-400">
-        <span>🛡️ Compra Segura na Plataforma Oficial</span>
+      <div class="flex items-center gap-3 text-xs text-slate-300">
+        <span>🔍 Clique na foto para dar Zoom</span>
         <span>•</span>
-        <span class="text-emerald-400 font-semibold">⚡ Entrega Full Disponível</span>
+        <span class="text-emerald-400 font-semibold">⚡ Entrega Full Mercado Livre</span>
       </div>
     </div>
 
-    <!-- Container dos Produtos (Vem 100% limpo, alimentado apenas pela API) -->
+    <!-- Container dos Produtos -->
     <div id="products-grid" class="w-full"></div>
 
-    <!-- Estado Limpo / Sem Card Cadastrado (Exibido quando a lista está vazia ou sincronizando) -->
-    <div id="empty-state" class="text-center py-14 bg-slate-900/50 rounded-3xl border border-slate-800 my-4 px-6">
-      <div class="w-14 h-14 rounded-2xl bg-slate-800/90 border border-slate-700 flex items-center justify-center text-2xl mx-auto mb-3">
+    <!-- Estado Limpo / Carregando -->
+    <div id="empty-state" class="text-center py-12 bg-slate-900/50 rounded-3xl border border-slate-800 my-4 px-6">
+      <div class="w-12 h-12 rounded-2xl bg-slate-800/90 border border-slate-700 flex items-center justify-center text-2xl mx-auto mb-3">
         ⚡
       </div>
       <h3 id="empty-title" class="text-base sm:text-lg font-extrabold text-white">
-        Nenhum produto cadastrado no momento
+        Sincronizando vitrine de ofertas...
       </h3>
-      <p id="empty-subtitle" class="text-xs sm:text-sm text-slate-400 mt-1.5 max-w-md mx-auto leading-relaxed">
-        A estrutura da vitrine está pronta e sem nenhum card fixo no código. Assim que a API for conectada, seus produtos aparecerão automaticamente aqui.
+      <p id="empty-subtitle" class="text-xs sm:text-sm text-slate-300 mt-1.5 max-w-md mx-auto leading-relaxed">
+        Buscando produtos atualizados diretamente da API.
       </p>
-      <button id="btn-empty-reset" type="button" class="mt-5 bg-[#FFE600] hover:bg-yellow-300 text-slate-950 font-extrabold text-xs px-5 py-2.5 rounded-xl transition">
+      <button id="btn-empty-reset" type="button" class="mt-4 bg-[#FFE600] hover:bg-yellow-300 text-slate-950 font-extrabold text-xs px-5 py-2.5 rounded-xl transition">
         Ver Todas as Ofertas
       </button>
     </div>
@@ -186,52 +188,102 @@
         <span class="text-xl bg-emerald-500/15 text-emerald-400 p-2 rounded-xl">⚡</span>
         <div>
           <h3 class="text-xs sm:text-sm font-extrabold text-white">Logística Full Rápida</h3>
-          <p class="text-xs text-slate-400 mt-0.5">Produtos selecionados com envio ágil e rastreamento em tempo real pelo aplicativo.</p>
+          <p class="text-xs text-slate-300 mt-0.5">Produtos selecionados com envio ágil e rastreamento em tempo real pelo aplicativo.</p>
         </div>
       </div>
       <div class="bg-slate-900/70 border border-slate-800/90 rounded-2xl p-4 flex items-start gap-3">
         <span class="text-xl bg-blue-500/15 text-blue-400 p-2 rounded-xl">🛡️</span>
         <div>
           <h3 class="text-xs sm:text-sm font-extrabold text-white">Transação 100% Segura</h3>
-          <p class="text-xs text-slate-400 mt-0.5">O pagamento é feito diretamente dentro do site ou aplicativo oficial do Mercado Livre.</p>
+          <p class="text-xs text-slate-300 mt-0.5">O pagamento é feito diretamente dentro do site ou aplicativo oficial do Mercado Livre.</p>
         </div>
       </div>
       <div class="bg-slate-900/70 border border-slate-800/90 rounded-2xl p-4 flex items-start gap-3">
         <span class="text-xl bg-amber-500/15 text-amber-400 p-2 rounded-xl">🏷️</span>
         <div>
-          <h3 class="text-xs sm:text-sm font-extrabold text-white">Curadoria de Descontos</h3>
-          <p class="text-xs text-slate-400 mt-0.5">Monitoramos vendedores com nota alta e preços promocionais ativos hoje.</p>
+          <h3 class="text-xs sm:text-sm font-extrabold text-white">Preços Atualizados via API</h3>
+          <p class="text-xs text-slate-300 mt-0.5">Monitoramos vendedores com nota alta e descontos ativos no Pix e cartão.</p>
         </div>
       </div>
     </div>
 
     <!-- BANNER DE ATUALIZAÇÃO / CANAL VIP -->
-    <div class="mt-8 bg-gradient-to-r from-emerald-950/90 via-slate-900 to-emerald-950/90 border border-emerald-500/40 rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
+    <div class="mt-7 bg-gradient-to-r from-emerald-950/90 via-slate-900 to-emerald-950/90 border border-emerald-500/40 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
       <div class="flex items-start sm:items-center gap-4">
-        <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-2xl flex-shrink-0">
+        <div class="w-11 h-11 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-2xl flex-shrink-0">
           📲
         </div>
         <div>
           <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded-full">
-            Canal VIP de Achadinhos
+            Dica de Compra Rápida
           </span>
-          <h3 class="text-sm sm:text-lg font-extrabold text-white mt-1">
-            Quer receber os próximos cupons e promoções no celular?
+          <h3 class="text-sm sm:text-base font-extrabold text-white mt-1">
+            Ao abrir a página social do Mercado Livre, clique no botão azul "Ir para produto"
           </h3>
           <p class="text-xs text-slate-300 mt-0.5">
-            Acompanhe nossas recomendações diárias verificadas com envio rápido.
+            Assim você garante o desconto promocional direto no aplicativo oficial com entrega garantida.
           </p>
         </div>
       </div>
       <a
         id="vip-group-btn"
         href="#products-grid"
-        class="w-full sm:w-auto text-center bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs sm:text-sm px-5 py-3.5 rounded-xl transition shadow-lg shadow-emerald-500/20 whitespace-nowrap"
+        class="w-full sm:w-auto text-center bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs px-5 py-3 rounded-xl transition shadow-lg shadow-emerald-500/20 whitespace-nowrap"
       >
-        ACESSAR OFERTAS AGORA ↑
+        VER PRODUTOS ACIMA ↑
       </a>
     </div>
   </main>
+
+  <!-- MODAL DE ZOOM DA FOTO DO PRODUTO (LIGHTBOX) -->
+  <div id="modal-image-zoom" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-slate-900 border-2 border-slate-700 rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl animate-fadeIn">
+      <!-- Topo do Modal de Zoom -->
+      <div class="flex items-center justify-between px-4 py-3 bg-slate-950 border-b border-slate-800">
+        <div class="flex items-center gap-2">
+          <span id="zoom-badge-num" class="bg-[#FFE600] text-slate-950 font-black text-xs px-2.5 py-0.5 rounded-lg">
+            #01
+          </span>
+          <span id="zoom-category" class="text-xs font-bold text-slate-300">
+            Visualização Ampliada
+          </span>
+        </div>
+        <button id="btn-close-zoom" type="button" class="bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white text-xs font-extrabold px-3 py-1.5 rounded-xl transition">
+          Fechar ✕
+        </button>
+      </div>
+
+      <!-- Imagem Grande com Fundo Branco Limpo -->
+      <div class="bg-white p-6 flex items-center justify-center min-h-[280px] sm:min-h-[360px]">
+        <img
+          id="zoom-image"
+          src=""
+          alt="Foto ampliada do produto"
+          class="max-h-[320px] sm:max-h-[380px] w-auto max-w-full object-contain"
+        />
+      </div>
+
+      <!-- Detalhes Completos e Botão de Compra no Modal -->
+      <div class="p-5 bg-slate-900 border-t border-slate-800">
+        <h3 id="zoom-title" class="text-sm sm:text-base font-extrabold text-white leading-snug"></h3>
+        <div class="mt-3 flex items-baseline gap-2.5">
+          <span id="zoom-old-price" class="text-xs text-slate-400 line-through"></span>
+          <span id="zoom-price" class="text-xl sm:text-2xl font-black text-[#FFE600]"></span>
+          <span id="zoom-discount" class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-black px-2 py-0.5 rounded-md"></span>
+        </div>
+        <a
+          id="zoom-buy-link"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-4 w-full bg-[#FFE600] hover:bg-yellow-300 text-slate-950 font-black text-xs sm:text-sm py-3.5 px-5 rounded-xl flex items-center justify-center gap-2 transition shadow-lg"
+        >
+          <span>🛒 IR PARA O PRODUTO NO MERCADO LIVRE</span>
+          <span>↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
 
   <!-- MODAL COMO USAR O CÓDIGO NO APP -->
   <div id="modal-how-to" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
@@ -245,10 +297,10 @@
         </button>
       </div>
       <div class="py-4 space-y-3 text-xs sm:text-sm text-slate-300">
-        <p>Escolha o jeito mais rápido para você:</p>
+        <p>É super simples e seguro:</p>
         <ol class="list-decimal list-inside space-y-2.5 text-slate-200 font-medium bg-slate-950/80 p-3.5 rounded-xl border border-slate-800">
-          <li><strong>Pelo Botão Amarelo:</strong> Clique em <em>"Comprar Agora no Mercado Livre"</em> no card do produto desejado.</li>
-          <li><strong>Pelo Código do App:</strong> Clique em <strong class="text-[#FFE600]">"Copiar Código"</strong> no card, abra o aplicativo do Mercado Livre e cole o código na barra de pesquisa!</li>
+          <li><strong>Clique no Botão Amarelo:</strong> Clique em <em>"Comprar no Mercado Livre"</em> no card do produto desejado.</li>
+          <li><strong>Clique em "Ir para produto":</strong> Na tela de recomendação do Mercado Livre que abrir, clique no botão azul <strong>"Ir para produto"</strong> para finalizar no app oficial!</li>
         </ol>
       </div>
       <button id="btn-got-it-modal" type="button" class="w-full bg-[#FFE600] hover:bg-yellow-300 text-slate-950 font-extrabold text-xs sm:text-sm py-3 rounded-xl transition">
@@ -266,27 +318,23 @@
     </div>
   </div>
 
-  <!-- RODAPÉ COM AVISO LEGAL DE AFILIADO (OBRIGATÓRIO PARA CONFORMIDADE DE MARCA) -->
-  <footer class="border-t border-slate-800/80 py-6 px-4 text-center text-xs text-slate-500 space-y-2">
-    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+  <!-- RODAPÉ COM AVISO LEGAL DE AFILIADO -->
+  <footer class="border-t border-slate-800/80 py-6 px-4 text-center text-xs text-slate-400 space-y-2">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
       <p>🔒 Radar de Achadinhos VIP — Curadoria independente de ofertas.</p>
       <p>Pagamento, frete e garantia processados diretamente pelo Mercado Livre.</p>
     </div>
-    <p class="max-w-4xl mx-auto text-[11px] text-slate-600">
-      Aviso Legal: Participamos do Programa de Afiliados do Mercado Livre. Este site é uma vitrine independente de recomendações e não possui vínculo societário direto com o Mercado Livre. Ao clicar nos links, você é direcionado ao site/app oficial sem nenhum custo extra.
+    <p class="max-w-4xl mx-auto text-[11px] text-slate-500">
+      Aviso Legal: Participamos do Programa de Afiliados do Mercado Livre. Este site é uma vitrine independente de recomendações. Ao clicar nos links, você é direcionado ao site/app oficial sem nenhum custo extra.
     </p>
   </footer>
 
   <!-- ========================================================================
-       VITRINE 100% LIMPA (ZERO CARDS FIXOS NO CÓDIGO)
-       Pronta para receber os produtos dinamicamente via API (/api/produtos)
+       SCRIPT DA VITRINE — CARDS COMPACTOS + ZOOM NA FOTO + TEXTO VISÍVEL
        ======================================================================== -->
   <script>
-    // Lista inicia 100% VAZIA (nenhum card falso ou fixo no HTML)
     const MEUS_PRODUTOS = [];
-
-    // Endpoint da nossa API Serverless na Vercel (que vamos conectar no próximo passo)
-    const API_PRODUTOS_URL = '/api/produtos';
+    const API_PRODUTOS_URL = '/api/produtos?v=2';
 
     let activeProducts = [...MEUS_PRODUTOS];
     let currentFilter = 'ALL';
@@ -295,7 +343,6 @@
     let countdownInterval = null;
     let toastTimeout = null;
 
-    // Busca automática da nossa API na Vercel (com cache inteligente no navegador para economizar leituras)
     async function carregarProdutosDaAPI() {
       const statusDot = document.getElementById('api-status-dot');
 
@@ -308,59 +355,18 @@
             if (statusDot) {
               statusDot.className = 'inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse';
             }
-            const vipBtn = document.getElementById('vip-group-btn');
-            if (vipBtn && activeProducts[0].linkMercadoLivre) {
-              vipBtn.href = activeProducts[0].linkMercadoLivre;
-              vipBtn.target = '_blank';
-            }
             renderCategoryChips();
             renderProducts();
             checkDirectRedirect();
             return;
           }
         }
-      } catch (err) {
-        // Enquanto a rota /api/produtos ainda não foi criada, mantém a vitrine limpa sem erro
-      }
+      } catch (err) {}
 
       renderCategoryChips();
       renderProducts();
     }
 
-    // Se algum item vier apenas com `mlbId`, sincroniza direto com a API pública do Mercado Livre
-    async function syncProductsWithMercadoLivreAPI() {
-      let updated = false;
-      for (const item of activeProducts) {
-        if (!item.mlbId) continue;
-        const cleanMlb = item.mlbId.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
-        if (!cleanMlb.startsWith('MLB')) continue;
-        try {
-          const resp = await fetch(`https://api.mercadolibre.com/items/${cleanMlb}`);
-          if (!resp.ok) continue;
-          const data = await resp.json();
-          if (data.title) item.titulo = data.title;
-          if (data.pictures && data.pictures.length > 0) {
-            item.imagemUrl = data.pictures[0].secure_url || data.pictures[0].url;
-          } else if (data.thumbnail) {
-            item.imagemUrl = data.thumbnail.replace('-I.jpg', '-O.jpg');
-          }
-          if (typeof data.price === 'number') {
-            item.precoAtual = data.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-          }
-          if (typeof data.original_price === 'number' && data.original_price > data.price) {
-            item.precoAntigo = data.original_price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            const pct = Math.round(((data.original_price - data.price) / data.original_price) * 100);
-            item.descontoTag = `${pct}% OFF HOJE`;
-          }
-          updated = true;
-        } catch (err) {}
-      }
-      if (updated) {
-        renderProducts();
-      }
-    }
-
-    // Redirecionamento Inteligente (?ir=01 nos Stories joga direto pro Mercado Livre)
     function checkDirectRedirect() {
       try {
         const params = new URLSearchParams(window.location.search);
@@ -389,6 +395,20 @@
           if (input) input.value = searchQuery;
         }
       } catch (e) {}
+    }
+
+    function abrirZoomImagem(item) {
+      const modal = document.getElementById('modal-image-zoom');
+      document.getElementById('zoom-badge-num').textContent = `PRODUTO #${item.numero}`;
+      document.getElementById('zoom-category').textContent = item.categoria || 'Oferta Verificada';
+      document.getElementById('zoom-image').src = item.imagemUrl;
+      document.getElementById('zoom-image').alt = item.titulo || 'Foto do produto';
+      document.getElementById('zoom-title').textContent = item.titulo || `Oferta #${item.numero}`;
+      document.getElementById('zoom-old-price').textContent = item.precoAntigo || '';
+      document.getElementById('zoom-price').textContent = item.precoAtual || 'Ver Oferta';
+      document.getElementById('zoom-discount').textContent = item.descontoTag || 'OFERTA';
+      document.getElementById('zoom-buy-link').href = item.linkMercadoLivre;
+      modal.classList.remove('hidden');
     }
 
     function copyTextToClipboard(text, title, subtitle) {
@@ -428,17 +448,21 @@
       }, 3200);
     }
 
+    // Cria botões de filtro agrupados por Categoria (ideal para 18 a 100+ produtos)
     function renderCategoryChips() {
       const container = document.getElementById('dynamic-chips');
+      const categoriasUnicas = [...new Set(activeProducts.map(item => item.categoria || 'Ofertas'))];
+
       const chips = [
-        `<button type="button" data-filter="ALL" class="filter-chip ${currentFilter === 'ALL' ? 'bg-[#FFE600] text-slate-950 font-extrabold' : 'bg-slate-800/90 text-slate-200 font-bold border border-slate-700'} text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition">🔥 Todos os Produtos</button>`
+        `<button type="button" data-filter="ALL" class="filter-chip ${currentFilter === 'ALL' ? 'bg-[#FFE600] text-slate-950 font-extrabold' : 'bg-slate-800/90 text-slate-200 font-bold border border-slate-700'} text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition">🔥 Todos os Produtos (${activeProducts.length})</button>`
       ];
 
-      activeProducts.forEach(item => {
-        const active = currentFilter === item.numero;
+      categoriasUnicas.forEach(cat => {
+        const active = currentFilter === cat;
+        const qtd = activeProducts.filter(p => (p.categoria || 'Ofertas') === cat).length;
         chips.push(`
-          <button type="button" data-filter="${item.numero}" class="filter-chip ${active ? 'bg-[#FFE600] text-slate-950 font-extrabold' : 'bg-slate-800/90 hover:bg-slate-700 text-slate-200 font-bold border border-slate-700'} text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition">
-            Vídeo #${item.numero} — ${item.categoria || 'Oferta'}
+          <button type="button" data-filter="${cat}" class="filter-chip ${active ? 'bg-[#FFE600] text-slate-950 font-extrabold' : 'bg-slate-800/90 hover:bg-slate-700 text-slate-200 font-bold border border-slate-700'} text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition">
+            ${cat} (${qtd})
           </button>
         `);
       });
@@ -455,7 +479,8 @@
 
     function getFilteredProducts() {
       return activeProducts.filter(item => {
-        const matchesChip = currentFilter === 'ALL' || item.numero === currentFilter;
+        const itemCat = item.categoria || 'Ofertas';
+        const matchesChip = currentFilter === 'ALL' || itemCat === currentFilter || item.numero === currentFilter;
         if (!matchesChip) return false;
         if (!searchQuery.trim()) return true;
 
@@ -464,7 +489,7 @@
           (item.numero || '').toLowerCase().includes(q) ||
           (item.titulo || '').toLowerCase().includes(q) ||
           (item.descricao || '').toLowerCase().includes(q) ||
-          (item.categoria || '').toLowerCase().includes(q) ||
+          itemCat.toLowerCase().includes(q) ||
           (item.codigoBuscaML || '').toLowerCase().includes(q)
         );
       });
@@ -480,9 +505,9 @@
 
       if (activeProducts.length === 0) {
         grid.innerHTML = '';
-        countLabel.textContent = 'Vitrine limpa — aguardando conexão com a API de produtos';
-        emptyTitle.textContent = 'Nenhum produto cadastrado no momento';
-        emptySubtitle.textContent = 'A estrutura da vitrine está pronta e sem nenhum card fixo no código. Assim que a API for conectada, seus produtos aparecerão automaticamente aqui.';
+        countLabel.textContent = 'Sincronizando ofertas com a API...';
+        emptyTitle.textContent = 'Carregando produtos da vitrine...';
+        emptySubtitle.textContent = 'Aguarde um instante enquanto buscamos as ofertas atualizadas.';
         emptyState.classList.remove('hidden');
         return;
       }
@@ -491,138 +516,125 @@
         grid.innerHTML = '';
         countLabel.textContent = 'Nenhum produto encontrado para essa pesquisa';
         emptyTitle.textContent = 'Nenhuma oferta encontrada para essa busca';
-        emptySubtitle.textContent = 'Verifique o número digitado ou clique abaixo para mostrar todas as ofertas.';
+        emptySubtitle.textContent = 'Verifique o número ou palavra digitada ou clique abaixo para mostrar todos os produtos.';
         emptyState.classList.remove('hidden');
         return;
       }
 
       emptyState.classList.add('hidden');
-      countLabel.textContent = filtered.length === 1
-        ? `Oferta #${filtered[0].numero} verificada e liberada para compra imediata`
-        : `${filtered.length} ofertas verificadas disponíveis`;
+      countLabel.textContent = `${filtered.length} ${filtered.length === 1 ? 'produto disponível' : 'produtos disponíveis na vitrine'}`;
 
-      const isSingleFeatured = filtered.length === 1;
-      grid.className = isSingleFeatured
-        ? 'w-full'
-        : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6';
+      // Grade compacta estilo E-commerce: 2 colunas em telas médias, 3 em notebooks, 4 em telas grandes
+      grid.className = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4';
 
-      grid.innerHTML = filtered.map(item => {
-        const beneficiosHtml = (item.beneficios || [
-          'Entrega Full Rápida para todo o Brasil',
-          'Compra Garantida direto no app oficial'
-        ]).map(b => `
-          <li class="flex items-center gap-2 text-xs sm:text-sm text-slate-300">
-            <span class="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[11px] font-black flex-shrink-0">✓</span>
-            <span>${b}</span>
-          </li>
-        `).join('');
+      grid.innerHTML = filtered.map((item, idx) => {
+        const tituloExibicao = item.titulo && item.titulo.trim()
+          ? item.titulo.trim()
+          : `Oferta Verificada #${item.numero}`;
 
         return `
-          <article class="bg-[#111827] border-2 border-slate-800/90 hover:border-[#FFE600]/80 rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 ${isSingleFeatured ? 'grid grid-cols-1 lg:grid-cols-12' : 'flex flex-col justify-between'}">
+          <article class="bg-[#111827] border border-slate-800 hover:border-[#FFE600] rounded-2xl overflow-hidden shadow-lg transition-all duration-200 flex flex-col justify-between">
             
-            <!-- COLUNA DA IMAGEM DO PRODUTO -->
-            <div class="${isSingleFeatured ? 'lg:col-span-5' : ''} relative bg-white flex flex-col justify-between border-b lg:border-b-0 ${isSingleFeatured ? 'lg:border-r' : ''} border-slate-800/80">
-              <div class="p-3.5 flex items-center justify-between gap-2 z-10 bg-gradient-to-b from-slate-950/80 via-slate-950/30 to-transparent">
-                <span class="bg-[#FFE600] text-slate-950 font-black text-xs sm:text-sm px-3 py-1 rounded-xl shadow-md">
-                  PRODUTO #${item.numero}
+            <!-- TOPO E FOTO COMPACTA (CLICÁVEL PARA DAR ZOOM) -->
+            <div>
+              <div
+                data-zoom-index="${idx}"
+                class="btn-zoom-image relative bg-white p-3 flex items-center justify-center h-44 cursor-zoom-in group border-b border-slate-800"
+                title="Clique para ampliar a foto"
+              >
+                <!-- Badge Número no canto superior esquerdo -->
+                <span class="absolute top-2 left-2 bg-slate-950/90 text-[#FFE600] font-black text-[11px] px-2 py-0.5 rounded-lg shadow">
+                  #${item.numero}
                 </span>
-                <span class="bg-emerald-500 text-slate-950 font-black text-xs px-2.5 py-1 rounded-xl shadow-md flex items-center gap-1">
-                  ⚡ FULL RÁPIDO
-                </span>
-              </div>
 
-              <div class="px-6 py-4 flex items-center justify-center min-h-[220px] sm:min-h-[250px]">
+                <!-- Selo Desconto no canto superior direito -->
+                ${item.descontoTag ? `
+                  <span class="absolute top-2 right-2 bg-emerald-500 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded-lg shadow">
+                    ${item.descontoTag}
+                  </span>
+                ` : ''}
+
                 <img
                   src="${item.imagemUrl}"
-                  alt="${item.titulo}"
-                  class="max-h-56 sm:max-h-64 w-auto max-w-full object-contain drop-shadow-md transition-transform duration-300 hover:scale-105"
+                  alt="${tituloExibicao.replace(/"/g, '&quot;')}"
+                  loading="lazy"
+                  class="max-h-36 w-auto max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
                 />
+
+                <!-- Botão Flutuante de Lupa ao passar o mouse / tocar -->
+                <span class="absolute bottom-2 right-2 bg-slate-950/80 text-white text-[10px] font-bold px-2 py-1 rounded-lg flex items-center gap-1 opacity-90 group-hover:bg-[#FFE600] group-hover:text-slate-950 transition">
+                  🔍 Ampliar
+                </span>
               </div>
 
-              <div class="bg-slate-950/90 px-4 py-2.5 flex items-center justify-between text-xs border-t border-slate-800">
-                <span class="text-amber-400 font-bold">${item.avaliacoesTexto || '4.9 ★ Mais Vendido'}</span>
-                <span class="text-emerald-400 font-bold">Estoque Disponível</span>
+              <!-- CORPO DO CARD: CATEGORIA E TÍTULO COMPLETO VISÍVEL (NÃO CORTA O TEXTO!) -->
+              <div class="p-3.5 pb-2">
+                <div class="flex items-center justify-between gap-1 mb-1.5">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-amber-300 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-md">
+                    ${item.categoria || 'Oferta'}
+                  </span>
+                  <span class="text-[11px] text-emerald-400 font-bold">⚡ Full</span>
+                </div>
+
+                <!-- Título completo sempre visível com alto contraste -->
+                <h2 class="text-xs sm:text-sm font-bold text-slate-100 leading-snug break-words">
+                  ${tituloExibicao}
+                </h2>
               </div>
             </div>
 
-            <!-- COLUNA DE INFORMAÇÕES, PREÇO E BOTÕES DE COMPRA -->
-            <div class="${isSingleFeatured ? 'lg:col-span-7' : ''} p-5 sm:p-6 flex flex-col justify-between bg-gradient-to-b from-[#111827] to-[#0B101D] flex-1">
-              <div>
-                <div class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full mb-2.5">
-                  <span>🔥</span>
-                  <span>${item.categoria || 'Oferta Selecionada'}</span>
-                </div>
-
-                <h2 class="${isSingleFeatured ? 'text-lg sm:text-2xl' : 'text-base sm:text-lg'} font-black text-white leading-snug tracking-tight line-clamp-2">
-                  ${item.titulo}
-                </h2>
-
-                ${item.descricao ? `
-                  <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed line-clamp-2">
-                    ${item.descricao}
-                  </p>
+            <!-- RODAPÉ DO CARD: PREÇO + BOTÃO DE COMPRA -->
+            <div class="p-3.5 pt-2">
+              <div class="bg-slate-950/90 border border-slate-800/90 rounded-xl p-2.5 mb-2.5">
+                ${item.precoAntigo ? `
+                  <span class="text-[11px] text-slate-400 line-through block leading-none mb-1">
+                    ${item.precoAntigo}
+                  </span>
                 ` : ''}
-
-                <ul class="mt-3.5 space-y-1.5 border-t border-slate-800/80 pt-3">
-                  ${beneficiosHtml}
-                </ul>
+                <div class="text-lg sm:text-xl font-black text-[#FFE600] leading-tight">
+                  ${item.precoAtual || 'Ver Oferta'}
+                </div>
+                <span class="text-[10px] text-slate-300 block mt-0.5">
+                  No Pix ou parcelado no app
+                </span>
               </div>
 
-              <div class="mt-5 pt-4 border-t border-slate-800/90">
-                <div class="bg-slate-950/95 border border-slate-800 rounded-2xl p-3.5 mb-3.5">
-                  <div class="flex flex-wrap items-center justify-between gap-2">
-                    <div>
-                      ${item.precoAntigo ? `
-                        <div class="flex items-center gap-2">
-                          <span class="text-xs text-slate-400 line-through font-medium">${item.precoAntigo}</span>
-                          ${item.descontoTag ? `
-                            <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-black px-2 py-0.5 rounded-md">
-                              ${item.descontoTag}
-                            </span>
-                          ` : ''}
-                        </div>
-                      ` : ''}
-                      <div class="text-2xl sm:text-3xl font-black text-[#FFE600] mt-0.5 tracking-tight">
-                        ${item.precoAtual || 'Ver Preço Hoje'}
-                      </div>
-                      <span class="text-[11px] text-slate-400 block mt-0.5">
-                        ${item.parcelamento || 'Condição especial no app oficial'}
-                      </span>
-                    </div>
-                  </div>
-                </div>
+              <a
+                href="${item.linkMercadoLivre}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-pulse w-full bg-[#FFE600] hover:bg-yellow-300 active:scale-[0.99] text-slate-950 font-black text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 transition shadow-md text-center"
+              >
+                <span>🛒 COMPRAR NO MERCADO LIVRE</span>
+                <span>↗</span>
+              </a>
 
-                <!-- BOTÃO PRINCIPAL -->
-                <a
-                  href="${item.linkMercadoLivre}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn-pulse w-full bg-[#FFE600] hover:bg-yellow-300 active:scale-[0.99] text-slate-950 font-black text-xs sm:text-sm py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2 transition shadow-xl text-center"
+              ${item.codigoBuscaML ? `
+                <button
+                  type="button"
+                  data-copy-code="${item.codigoBuscaML}"
+                  data-item-num="${item.numero}"
+                  class="btn-copy-code mt-2 w-full bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 text-[11px] font-bold py-1.5 px-2.5 rounded-lg flex items-center justify-center gap-1.5 transition"
                 >
-                  <span>🛒 COMPRAR AGORA NO MERCADO LIVRE</span>
-                  <span class="text-base">↗</span>
-                </a>
-
-                <!-- BOTÃO SECUNDÁRIO (CÓDIGO DO APP) -->
-                ${item.codigoBuscaML ? `
-                  <div class="mt-2.5 flex items-center">
-                    <button
-                      type="button"
-                      data-copy-code="${item.codigoBuscaML}"
-                      data-item-num="${item.numero}"
-                      class="btn-copy-code w-full bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 transition"
-                    >
-                      <span>📋 Copiar Código p/ App ML:</span>
-                      <code class="text-[#FFE600] font-mono font-extrabold bg-slate-950 px-2 py-0.5 rounded">${item.codigoBuscaML}</code>
-                    </button>
-                  </div>
-                ` : ''}
-              </div>
+                  <span>📋 Código:</span>
+                  <code class="text-[#FFE600] font-mono font-extrabold">${item.codigoBuscaML}</code>
+                </button>
+              ` : ''}
             </div>
 
           </article>
         `;
       }).join('');
+
+      // Evento de clique na foto para abrir o Zoom (Lightbox)
+      document.querySelectorAll('.btn-zoom-image').forEach(el => {
+        el.addEventListener('click', () => {
+          const index = parseInt(el.getAttribute('data-zoom-index'), 10);
+          if (filtered[index]) {
+            abrirZoomImagem(filtered[index]);
+          }
+        });
+      });
 
       document.querySelectorAll('.btn-copy-code').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -657,7 +669,6 @@
       renderCategoryChips();
       renderProducts();
       carregarProdutosDaAPI();
-      syncProductsWithMercadoLivreAPI();
       startCountdown();
 
       const searchInput = document.getElementById('search-input');
@@ -684,6 +695,18 @@
         carregarProdutosDaAPI();
       });
 
+      // Controles do Modal de Zoom da Foto
+      const zoomModal = document.getElementById('modal-image-zoom');
+      document.getElementById('btn-close-zoom').addEventListener('click', () => {
+        zoomModal.classList.add('hidden');
+      });
+      zoomModal.addEventListener('click', (e) => {
+        if (e.target === zoomModal) {
+          zoomModal.classList.add('hidden');
+        }
+      });
+
+      // Controles do Modal Como Usar
       const modal = document.getElementById('modal-how-to');
       document.getElementById('btn-how-to-code').addEventListener('click', () => {
         modal.classList.remove('hidden');
@@ -693,6 +716,14 @@
       });
       document.getElementById('btn-got-it-modal').addEventListener('click', () => {
         modal.classList.add('hidden');
+      });
+
+      // Fechar modais com a tecla ESC
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          zoomModal.classList.add('hidden');
+          modal.classList.add('hidden');
+        }
       });
     });
   </script>
