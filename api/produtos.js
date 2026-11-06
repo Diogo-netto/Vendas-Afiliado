@@ -13,13 +13,24 @@
  */
 
 const LISTA_LINKS_AFILIADO = [
-  {
-    numero: '01',
-    categoria: 'Impressão 3D & Tech',
-    linkMercadoLivre: 'https://meli.la/1fHMNJY',
-    codigoBuscaML: '2WT0PJ-NL8A'
-  }
-  // Você pode colocar seus 100 links aqui OU buscá-los direto do seu Firebase!
+  { numero: '01', linkMercadoLivre: 'https://meli.la/2PySxJz' },
+  { numero: '02', linkMercadoLivre: 'https://meli.la/1oUjudQ' },
+  { numero: '03', linkMercadoLivre: 'https://meli.la/1iqhiaQ' },
+  { numero: '04', linkMercadoLivre: 'https://meli.la/2NELsie' },
+  { numero: '05', linkMercadoLivre: 'https://meli.la/28R1rTN' },
+  { numero: '06', linkMercadoLivre: 'https://meli.la/2ygKFoV' },
+  { numero: '07', linkMercadoLivre: 'https://meli.la/18PAVkX' },
+  { numero: '08', linkMercadoLivre: 'https://meli.la/2R8x15H' },
+  { numero: '09', linkMercadoLivre: 'https://meli.la/19k8FKN' },
+  { numero: '10', linkMercadoLivre: 'https://meli.la/23d3jrZ' },
+  { numero: '11', linkMercadoLivre: 'https://meli.la/2dhqHqC' },
+  { numero: '12', linkMercadoLivre: 'https://meli.la/2anpjd3' },
+  { numero: '13', linkMercadoLivre: 'https://meli.la/1GfEE37' },
+  { numero: '14', linkMercadoLivre: 'https://meli.la/27KWSzY' },
+  { numero: '15', linkMercadoLivre: 'https://meli.la/1p6g6E4' },
+  { numero: '16', linkMercadoLivre: 'https://meli.la/2hTfzEg' },
+  { numero: '17', linkMercadoLivre: 'https://meli.la/1xsU2sV' },
+  { numero: '18', linkMercadoLivre: 'https://meli.la/1fHMNJY', codigoBuscaML: '2WT0PJ-NL8A' }
 ];
 
 // Cache em memória no servidor da Vercel
@@ -54,17 +65,49 @@ function urlEhSegura(urlString) {
 }
 
 /**
+ * Detecta automaticamente a categoria pelo título do produto no Mercado Livre
+ * caso você envie apenas o link `meli.la` sem especificar categoria!
+ */
+function detectarCategoriaAutomatica(titulo = '', categoriaManual = '') {
+  if (categoriaManual && categoriaManual.trim()) return categoriaManual.trim();
+  const t = titulo.toLowerCase();
+
+  if (/(celular|smartphone|iphone|samsung|galaxy|motorola|moto\s|xiaomi|redmi|poco)/.test(t)) {
+    return 'Celulares & Smartphones';
+  }
+  if (/(lençol|lencol|travesseiro|toalha|edredom|cama|colchão|colchao|cortina|tapete)/.test(t)) {
+    return 'Cama, Mesa & Banho';
+  }
+  if (/(playstation|ps4|ps5|xbox|nintendo|gift card|gamer|controle|headset|jogo)/.test(t)) {
+    return 'Games & Consoles';
+  }
+  if (/(fone|bluetooth|caixa de som|jbl|smartwatch|relógio|relogio|carregador|tv|monitor|notebook|tablet)/.test(t)) {
+    return 'Eletrônicos & Áudio';
+  }
+  if (/(airfryer|fritadeira|panela|liquidificador|cafeteira|cozinha|copo|térmico|termico|garrafa|aspirador)/.test(t)) {
+    return 'Casa & Cozinha';
+  }
+  if (/(furadeira|parafusadeira|ferramenta|chave|kit ferramentas|lavadora|impressora|filamento|3d)/.test(t)) {
+    return 'Ferramentas & Tech';
+  }
+  if (/(perfume|creme|shampoo|escova|secador|chapinha|maquiagem|beleza|barbeador)/.test(t)) {
+    return 'Beleza & Cuidado';
+  }
+  if (/(tênis|tenis|camisa|camiseta|blusa|calça|calca|mochila|bolsa|óculos|oculos)/.test(t)) {
+    return 'Moda & Acessórios';
+  }
+  return 'Achadinhos em Destaque';
+}
+
+/**
  * Obtém automaticamente o Access Token oficial do Mercado Livre Developers
  * usando ML_APP_ID e ML_CLIENT_SECRET salvos no Cofre da Vercel (Environment Variables)
  */
 async function obterTokenOficialMercadoLivre() {
-  // 1. Se você salvou um token direto em ML_ACCESS_TOKEN na Vercel:
   if (process.env.ML_ACCESS_TOKEN) {
     return process.env.ML_ACCESS_TOKEN;
   }
 
-  // 2. Se você salvou ML_APP_ID e ML_CLIENT_SECRET do DevCenter na Vercel,
-  //    gera e renova o token sozinho a cada 6 horas:
   const appId = process.env.ML_APP_ID;
   const clientSecret = process.env.ML_CLIENT_SECRET;
   if (!appId || !clientSecret) return null;
@@ -105,8 +148,8 @@ async function obterTokenOficialMercadoLivre() {
 }
 
 /**
- * Opcional: Se você já usa Firebase, basta colocar a URL do seu Realtime Database
- * na variável `FIREBASE_DB_URL` lá na Vercel para puxar a lista de links do Firebase!
+ * Opcional: Se você configurar a variável `FIREBASE_DB_URL` na Vercel no próximo passo,
+ * puxa os links direto do seu Firebase Realtime Database!
  */
 async function obterListaDeLinks() {
   if (process.env.FIREBASE_DB_URL) {
@@ -125,6 +168,18 @@ async function obterListaDeLinks() {
     } catch (e) {}
   }
   return LISTA_LINKS_AFILIADO;
+}
+
+function limparEntidadesHtml(str = '') {
+  return str
+    .replace(/<[^>]+>/g, '')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
@@ -151,19 +206,19 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
       headers
     });
 
-    const finalUrl = resp.url || '';
+    const finalUrl = decodeURIComponent(resp.url || '');
     const html = await resp.text();
-
-    const mlbMatch =
-      finalUrl.match(/MLB-?(\d{7,12})/i) ||
-      html.match(/MLB-?(\d{7,12})/i);
 
     let titulo = '';
     let imagemUrl = '';
     let precoAtualNum = null;
     let precoAntigoNum = null;
 
-    // 1. Consulta a API Oficial do Mercado Livre (autenticada com seu Token Oficial se configurado)
+    // 1. Procura código MLB na URL redirecionada ou no HTML (ex: MLB384920192)
+    const mlbMatch =
+      finalUrl.match(/MLB-?(\d{8,12})/i) ||
+      html.match(/MLB-?(\d{8,12})/i);
+
     if (mlbMatch) {
       const mlbId = `MLB${mlbMatch[1]}`;
       try {
@@ -184,56 +239,54 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
       } catch (e) {}
     }
 
-    // 2. Fallback automático caso o link redirecione para a vitrine Social (/social/...)
+    // 2. Extração direta da página Social de Afiliado (/social/...) ou página de Produto
     if (!titulo) {
-      const ogTitle =
-        html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i) ||
-        html.match(/<h3[^>]*class=["'][^"']*poly-component__title[^"']*["'][^>]*>([^<]+)<\/h3>/i) ||
-        html.match(/<h1[^>]*class=["'][^"']*ui-pdp-title[^"']*["'][^>]*>([^<]+)<\/h1>/i) ||
-        html.match(/<title>([^<|]+)/i);
+      const polyTitle =
+        html.match(/class=["'][^"']*poly-component__title[^"']*["'][^>]*>([\s\S]*?)<\/(?:a|h[1-4]|span)>/i) ||
+        html.match(/<h1[^>]*class=["'][^"']*ui-pdp-title[^"']*["'][^>]*>([\s\S]*?)<\/h1>/i) ||
+        html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i);
 
-      if (ogTitle && ogTitle[1]) {
-        titulo = ogTitle[1]
-          .replace(/\s*\|\s*Mercado\s*Livre.*/i, '')
-          .replace(/&amp;/g, '&')
-          .replace(/&quot;/g, '"')
-          .trim();
+      if (polyTitle && polyTitle[1]) {
+        const candidate = limparEntidadesHtml(polyTitle[1]).replace(/\s*\|\s*Mercado\s*Livre.*/i, '');
+        if (candidate && candidate.toLowerCase() !== 'mercado livre') {
+          titulo = candidate;
+        }
       }
     }
 
     if (!imagemUrl) {
       const imgMatch =
-        html.match(/https:\/\/http2\.mlstatic\.com\/D_NQ_NP_[A-Za-z0-9_-]+\.(?:webp|jpg|png)/i) ||
+        html.match(/https:\/\/http2\.mlstatic\.com\/D_(?:NQ_)?Q?_?NP_[A-Za-z0-9_-]+\.(?:webp|jpg|png)/i) ||
         html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i);
 
       if (imgMatch) {
-        imagemUrl = imgMatch[1] || imgMatch[0];
+        imagemUrl = (imgMatch[1] || imgMatch[0]).replace('D_Q_NP_', 'D_NQ_NP_');
       }
     }
 
     if (!precoAtualNum) {
-      const priceJsonMatch = html.match(/"price"\s*:\s*(\d+(?:\.\d+)?)/);
-      if (priceJsonMatch) {
-        precoAtualNum = parseFloat(priceJsonMatch[1]);
-      } else {
-        const fractionMatches = [
-          ...html.matchAll(/andes-money-amount__fraction[^>]*>([\d.]+)<\/span>(?:[\s\S]{0,120}?andes-money-amount__cents[^>]*>(\d{2})<\/span>)?/gi)
-        ];
-        if (fractionMatches.length > 0) {
-          const parsedPrices = fractionMatches
-            .map(m => {
-              const intPart = (m[1] || '0').replace(/\./g, '');
-              const centsPart = m[2] || '00';
-              return parseFloat(`${intPart}.${centsPart}`);
-            })
-            .filter(n => !isNaN(n) && n > 0);
+      const fractionMatches = [
+        ...html.matchAll(/andes-money-amount__fraction[^>]*>([\d.]+)<\/span>(?:[\s\S]{0,120}?andes-money-amount__cents[^>]*>(\d{2})<\/span>)?/gi)
+      ];
+      if (fractionMatches.length > 0) {
+        const parsedPrices = fractionMatches
+          .map(m => {
+            const intPart = (m[1] || '0').replace(/\./g, '');
+            const centsPart = m[2] || '00';
+            return parseFloat(`${intPart}.${centsPart}`);
+          })
+          .filter(n => !isNaN(n) && n > 0);
 
-          if (parsedPrices.length >= 2 && parsedPrices[0] > parsedPrices[1]) {
-            precoAntigoNum = parsedPrices[0];
-            precoAtualNum = parsedPrices[1];
-          } else if (parsedPrices.length >= 1) {
-            precoAtualNum = parsedPrices[0];
-          }
+        if (parsedPrices.length >= 2 && parsedPrices[0] > parsedPrices[1]) {
+          precoAntigoNum = parsedPrices[0];
+          precoAtualNum = parsedPrices[1];
+        } else if (parsedPrices.length >= 1) {
+          precoAtualNum = parsedPrices[0];
+        }
+      } else {
+        const priceJsonMatch = html.match(/"price"\s*:\s*(\d+(?:\.\d+)?)/);
+        if (priceJsonMatch) {
+          precoAtualNum = parseFloat(priceJsonMatch[1]);
         }
       }
     }
@@ -251,13 +304,16 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
       descontoTag = `${pct}% OFF HOJE`;
     }
 
+    const tituloFinal = titulo || `Oferta Selecionada #${String(itemConfig.numero).padStart(2, '0')}`;
+    const categoriaFinal = detectarCategoriaAutomatica(tituloFinal, itemConfig.categoria);
+
     return {
       numero: String(itemConfig.numero).padStart(2, '0'),
-      categoria: itemConfig.categoria || 'Achadinhos do Dia',
-      titulo: titulo || `Oferta Selecionada #${itemConfig.numero}`,
+      categoria: categoriaFinal,
+      titulo: tituloFinal,
       descricao:
         itemConfig.descricao ||
-        'Produto verificado com compra segura e envio rápido pelo Mercado Livre.',
+        'Oferta selecionada com compra garantida e envio rápido pelo aplicativo oficial do Mercado Livre.',
       imagemUrl:
         imagemUrl ||
         'https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.73/mercadolibre/logo_large_25years_v2.png',
@@ -267,7 +323,7 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
       descontoTag,
       linkMercadoLivre: itemConfig.linkMercadoLivre,
       codigoBuscaML: itemConfig.codigoBuscaML || '',
-      avaliacoesTexto: '4.9 ★ Recomendação Verificada',
+      avaliacoesTexto: '4.9 ★ Mais Vendido',
       beneficios: [
         'Envio Full rápido para todo o Brasil',
         'Compra Garantida direto no app oficial'
@@ -278,7 +334,7 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
   }
 }
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'GET') {
     res.setHeader('Allow', 'GET');
     return res.status(405).json({ error: 'Método não permitido. Use apenas GET.' });
@@ -289,7 +345,7 @@ export default async function handler(req, res) {
   res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
 
   const now = Date.now();
-  if (memoryCache.produtos.length > 0 && now - memoryCache.timestamp < CACHE_TTL_MS) {
+  if (memoryCache.produtos.length > 0 && now - memoryCache.timestamp < CACHE_TTL_MS && !req.query.refresh) {
     return res.status(200).json({
       total: memoryCache.produtos.length,
       cached: true,
@@ -323,4 +379,4 @@ export default async function handler(req, res) {
     cached: false,
     produtos: resultados
   });
-}
+};
