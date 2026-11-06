@@ -2,9 +2,15 @@
  * ============================================================================
  * API BACK-END SEGURA NA VERCEL — Caminho no projeto: api/produtos.js
  * ============================================================================
+ * - Contém os 36 links de afiliado (18 anteriores + 18 novos).
+ * - Extrai múltiplas fotos do anúncio (galeria de ângulos) para o Visualizador 3D/360°.
+ * - Suporta carregamento em lotes rápidos (?lote=1, 2, 3...) para nunca estourar
+ *   o limite de 10 segundos do plano gratuito da Vercel e garantir que TODOS
+ *   os 36+ produtos apareçam na vitrine!
  */
 
 const LISTA_LINKS_AFILIADO = [
+  // Lote 1 (Produtos 01 a 12)
   { numero: '01', linkMercadoLivre: 'https://meli.la/2PySxJz' },
   { numero: '02', linkMercadoLivre: 'https://meli.la/1oUjudQ' },
   { numero: '03', linkMercadoLivre: 'https://meli.la/1iqhiaQ' },
@@ -17,23 +23,43 @@ const LISTA_LINKS_AFILIADO = [
   { numero: '10', linkMercadoLivre: 'https://meli.la/23d3jrZ' },
   { numero: '11', linkMercadoLivre: 'https://meli.la/2dhqHqC' },
   { numero: '12', linkMercadoLivre: 'https://meli.la/2anpjd3' },
+
+  // Lote 2 (Produtos 13 a 24)
   { numero: '13', linkMercadoLivre: 'https://meli.la/1GfEE37' },
   { numero: '14', linkMercadoLivre: 'https://meli.la/27KWSzY' },
   { numero: '15', linkMercadoLivre: 'https://meli.la/1p6g6E4' },
   { numero: '16', linkMercadoLivre: 'https://meli.la/2hTfzEg' },
   { numero: '17', linkMercadoLivre: 'https://meli.la/1xsU2sV' },
-  { numero: '18', linkMercadoLivre: 'https://meli.la/1fHMNJY', codigoBuscaML: '2WT0PJ-NL8A' }
+  { numero: '18', linkMercadoLivre: 'https://meli.la/1fHMNJY', codigoBuscaML: '2WT0PJ-NL8A' },
+  { numero: '19', linkMercadoLivre: 'https://meli.la/2t1b8fz' },
+  { numero: '20', linkMercadoLivre: 'https://meli.la/2Lf2TL1' },
+  { numero: '21', linkMercadoLivre: 'https://meli.la/2LuPfwu' },
+  { numero: '22', linkMercadoLivre: 'https://meli.la/19z8oa8' },
+  { numero: '23', linkMercadoLivre: 'https://meli.la/1VhJjtV' },
+  { numero: '24', linkMercadoLivre: 'https://meli.la/1azx2fa' },
+
+  // Lote 3 (Produtos 25 a 36)
+  { numero: '25', linkMercadoLivre: 'https://meli.la/28FYDKM' },
+  { numero: '26', linkMercadoLivre: 'https://meli.la/1Tb8UbS' },
+  { numero: '27', linkMercadoLivre: 'https://meli.la/2gjob76' },
+  { numero: '28', linkMercadoLivre: 'https://meli.la/16wkLWy' },
+  { numero: '29', linkMercadoLivre: 'https://meli.la/1SiCt92' },
+  { numero: '30', linkMercadoLivre: 'https://meli.la/2HwaEUR' },
+  { numero: '31', linkMercadoLivre: 'https://meli.la/2bHThvM' },
+  { numero: '32', linkMercadoLivre: 'https://meli.la/2AhCALu' },
+  { numero: '33', linkMercadoLivre: 'https://meli.la/1bpKWQS' },
+  { numero: '34', linkMercadoLivre: 'https://meli.la/2pdqm3W' },
+  { numero: '35', linkMercadoLivre: 'https://meli.la/15vRaYV' },
+  { numero: '36', linkMercadoLivre: 'https://meli.la/1Zib8Wr' }
 ];
 
-let memoryCache = {
-  timestamp: 0,
-  produtos: []
-};
+// Cache por item individual para que nenhum produto se perca e carregue instantâneo
+const itemCache = new Map();
 let cachedOAuthToken = {
   token: null,
   expiresAt: 0
 };
-const CACHE_TTL_MS = 30 * 60 * 1000;
+const CACHE_TTL_MS = 45 * 60 * 1000; // 45 minutos
 
 const DOMINIOS_PERMITIDOS = [
   'meli.la',
@@ -44,13 +70,26 @@ const DOMINIOS_PERMITIDOS = [
 
 function urlEhSegura(urlString) {
   try {
-    const parsed = new URL(urlString);
+    const parsed = new URL((urlString || '').trim());
     if (parsed.protocol !== 'https:') return false;
     return DOMINIOS_PERMITIDOS.some(
       d => parsed.hostname === d || parsed.hostname.endsWith(`.${d}`)
     );
   } catch (e) {
     return false;
+  }
+}
+
+async function fetchComTimeout(url, options = {}, timeoutMs = 4200) {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(url, { ...options, signal: controller.signal });
+    clearTimeout(id);
+    return response;
+  } catch (err) {
+    clearTimeout(id);
+    throw err;
   }
 }
 
@@ -70,7 +109,7 @@ function detectarCategoriaAutomatica(titulo = '', categoriaManual = '') {
   if (/(fone|bluetooth|caixa de som|jbl|smartwatch|relógio|relogio|carregador|tv|monitor|notebook|tablet)/.test(t)) {
     return 'Eletrônicos & Áudio';
   }
-  if (/(airfryer|fritadeira|panela|liquidificador|cafeteira|cozinha|copo|térmico|termico|garrafa|aspirador)/.test(t)) {
+  if (/(airfryer|fritadeira|panela|liquidificador|cafeteira|cozinha|copo|térmico|termico|garrafa|aspirador|mop)/.test(t)) {
     return 'Casa & Cozinha';
   }
   if (/(furadeira|parafusadeira|ferramenta|chave|kit ferramentas|lavadora|impressora|filamento|3d)/.test(t)) {
@@ -79,10 +118,10 @@ function detectarCategoriaAutomatica(titulo = '', categoriaManual = '') {
   if (/(perfume|creme|shampoo|escova|secador|chapinha|maquiagem|beleza|barbeador)/.test(t)) {
     return 'Beleza & Cuidado';
   }
-  if (/(tênis|tenis|camisa|camiseta|blusa|calça|calca|mochila|bolsa|óculos|oculos)/.test(t)) {
+  if (/(tênis|tenis|camisa|camiseta|blusa|calça|calca|mochila|bolsa|óculos|oculos|sapato)/.test(t)) {
     return 'Moda & Acessórios';
   }
-  return 'Achadinhos em Destaque';
+  return 'Black Friday VIP';
 }
 
 async function obterTokenOficialMercadoLivre() {
@@ -105,14 +144,18 @@ async function obterTokenOficialMercadoLivre() {
     params.append('client_id', appId);
     params.append('client_secret', clientSecret);
 
-    const resp = await fetch('https://api.mercadolibre.com/oauth/token', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded'
+    const resp = await fetchComTimeout(
+      'https://api.mercadolibre.com/oauth/token',
+      {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: params.toString()
       },
-      body: params.toString()
-    });
+      3000
+    );
 
     if (resp.ok) {
       const data = await resp.json();
@@ -133,7 +176,7 @@ async function obterListaDeLinks() {
   if (process.env.FIREBASE_DB_URL) {
     try {
       const baseUrl = process.env.FIREBASE_DB_URL.replace(/\/$/, '');
-      const resp = await fetch(`${baseUrl}/produtos.json`);
+      const resp = await fetchComTimeout(`${baseUrl}/produtos.json`, {}, 3000);
       if (resp.ok) {
         const data = await resp.json();
         if (Array.isArray(data) && data.length > 0) {
@@ -165,15 +208,29 @@ function limparEntidadesHtml(str = '') {
 function tituloEhValido(t = '') {
   if (!t || t.length < 5) return false;
   const lower = t.toLowerCase();
-  if (lower === 'mercado livre' || lower === 'mercadolivre' || lower.startsWith('recomendações de')) {
+  if (
+    lower === 'mercado livre' ||
+    lower === 'mercadolivre' ||
+    lower.startsWith('recomendações de') ||
+    lower.includes('mercado livre brasil')
+  ) {
     return false;
   }
   return true;
 }
 
 async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
-  if (!itemConfig || !urlEhSegura(itemConfig.linkMercadoLivre)) {
+  const numFormatado = String(itemConfig.numero || '01').padStart(2, '0');
+  const linkLimpo = (itemConfig.linkMercadoLivre || '').trim();
+
+  if (!urlEhSegura(linkLimpo)) {
     return null;
+  }
+
+  // Verifica se já está no cache em memória e completo
+  const cached = itemCache.get(linkLimpo);
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
+    return cached.data;
   }
 
   const headers = {
@@ -189,21 +246,26 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
   }
 
   try {
-    const resp = await fetch(itemConfig.linkMercadoLivre, {
-      method: 'GET',
-      redirect: 'follow',
-      headers
-    });
+    const resp = await fetchComTimeout(
+      linkLimpo,
+      {
+        method: 'GET',
+        redirect: 'follow',
+        headers
+      },
+      4200
+    );
 
     const finalUrl = decodeURIComponent(resp.url || '');
     const html = await resp.text();
 
     let titulo = '';
     let imagemUrl = '';
+    let fotosGaleria = [];
     let precoAtualNum = null;
     let precoAntigoNum = null;
 
-    // 1. Tenta via código MLB na API de itens
+    // 1. Tenta via código MLB na API de itens (traz também todas as fotos de vários ângulos!)
     const mlbMatch =
       finalUrl.match(/MLB-?(\d{8,12})/i) ||
       html.match(/MLB-?(\d{8,12})/i);
@@ -211,16 +273,23 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
     if (mlbMatch) {
       const mlbId = `MLB${mlbMatch[1]}`;
       try {
-        const apiResp = await fetch(`https://api.mercadolibre.com/items/${mlbId}`, {
-          headers: apiHeaders
-        });
+        const apiResp = await fetchComTimeout(
+          `https://api.mercadolibre.com/items/${mlbId}`,
+          { headers: apiHeaders },
+          2800
+        );
         if (apiResp.ok) {
           const data = await apiResp.json();
           if (tituloEhValido(data.title)) titulo = data.title;
-          if (data.pictures && data.pictures.length > 0) {
-            imagemUrl = data.pictures[0].secure_url || data.pictures[0].url || '';
+          if (Array.isArray(data.pictures) && data.pictures.length > 0) {
+            fotosGaleria = data.pictures
+              .slice(0, 8)
+              .map(p => p.secure_url || p.url)
+              .filter(Boolean);
+            imagemUrl = fotosGaleria[0] || '';
           } else if (data.thumbnail) {
             imagemUrl = data.thumbnail.replace('-I.jpg', '-O.jpg');
+            fotosGaleria = [imagemUrl];
           }
           if (typeof data.price === 'number') precoAtualNum = data.price;
           if (typeof data.original_price === 'number') precoAntigoNum = data.original_price;
@@ -228,19 +297,15 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
       } catch (e) {}
     }
 
-    // 2. Extração turbinada do Título na página Social (/social/...) ou página do Produto
+    // 2. Extração do Título na página Social (/social/...) ou página do Produto
     if (!tituloEhValido(titulo)) {
       const candidatosTitulo = [
-        // Classes de título dos cards do Mercado Livre (poly-component__title / ui-pdp-title)
         (html.match(/class=["'][^"']*poly-component__title[^"']*["'][^>]*>([\s\S]*?)<\/(?:a|h[1-6]|span)>/i) || [])[1],
         (html.match(/<h[1-4][^>]*class=["'][^"']*ui-pdp-title[^"']*["'][^>]*>([\s\S]*?)<\/h[1-4]>/i) || [])[1],
-        // Atributo alt da imagem principal do produto no Mercado Livre (sempre traz o nome completo!)
         (html.match(/<img[^>]+src=["']https:\/\/http2\.mlstatic\.com\/D_[^"']+["'][^>]+alt=["']([^"']{8,220})["']/i) || [])[1],
         (html.match(/<img[^>]+alt=["']([^"']{8,220})["'][^>]+src=["']https:\/\/http2\.mlstatic\.com\/D_[^"']+["']/i) || [])[1],
-        // Meta tags og:title (nas duas ordens possíveis de atributo)
         (html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i) || [])[1],
         (html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i) || [])[1],
-        // JSON embutido na página Social do Mercado Livre
         (html.match(/"title"\s*:\s*"([^"\\]{10,200})"/) || [])[1]
       ];
 
@@ -254,17 +319,40 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
       }
     }
 
-    // 3. Imagem em Alta Definição (converte miniatura para resolução alta D_NQ_NP e -O)
-    if (!imagemUrl) {
-      const imgMatch =
-        html.match(/https:\/\/http2\.mlstatic\.com\/D_(?:NQ_)?Q?_?NP_[A-Za-z0-9_-]+\.(?:webp|jpg|png)/i) ||
-        html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i) ||
-        html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
-
-      if (imgMatch) {
-        imagemUrl = (imgMatch[1] || imgMatch[0])
+    // 3. Extrai todas as fotos disponíveis no HTML para permitir girar ângulos no Modal 3D/360°
+    if (fotosGaleria.length === 0) {
+      const todasImgs = [
+        ...html.matchAll(/https:\/\/http2\.mlstatic\.com\/D_(?:NQ_)?Q?_?NP_[A-Za-z0-9_-]+\.(?:webp|jpg|png)/gi)
+      ].map(m =>
+        m[0]
           .replace('D_Q_NP_', 'D_NQ_NP_')
-          .replace(/-I\.(webp|jpg|png)$/i, '-O.$1');
+          .replace(/-I\.(webp|jpg|png)$/i, '-O.$1')
+      );
+
+      // Remove fotos duplicadas mantendo a ordem
+      const unicas = [];
+      const vistos = new Set();
+      for (const url of todasImgs) {
+        // Agrupa pelo ID base da imagem para não repetir miniaturas iguais
+        const baseKey = url.replace(/-[A-Z]\.(webp|jpg|png)$/i, '');
+        if (!vistos.has(baseKey)) {
+          vistos.add(baseKey);
+          unicas.push(url);
+        }
+        if (unicas.length >= 6) break;
+      }
+
+      if (unicas.length > 0) {
+        fotosGaleria = unicas;
+        imagemUrl = unicas[0];
+      } else {
+        const ogImg =
+          html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i) ||
+          html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+        if (ogImg && ogImg[1]) {
+          imagemUrl = ogImg[1];
+          fotosGaleria = [imagemUrl];
+        }
       }
     }
 
@@ -299,45 +387,69 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
     const formatBRL = valor =>
       valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-    const precoAtual = precoAtualNum ? formatBRL(precoAtualNum) : 'Ver Oferta no App';
+    const precoAtual = precoAtualNum ? formatBRL(precoAtualNum) : 'Conferir Oferta';
     let precoAntigo = '';
-    let descontoTag = 'OFERTA VERIFICADA';
+    let descontoTag = 'BLACK FRIDAY';
 
     if (precoAntigoNum && precoAtualNum && precoAntigoNum > precoAtualNum) {
       precoAntigo = formatBRL(precoAntigoNum);
       const pct = Math.round(((precoAntigoNum - precoAtualNum) / precoAntigoNum) * 100);
-      descontoTag = `${pct}% OFF HOJE`;
+      descontoTag = `-${pct}% BLACK FRIDAY`;
     }
 
-    const tituloFinal = tituloEhValido(titulo)
+    const TemTituloReal = tituloEhValido(titulo);
+    const tituloFinal = TemTituloReal
       ? titulo
-      : `Oferta Selecionada #${String(itemConfig.numero).padStart(2, '0')}`;
+      : `Oferta Black Friday #${numFormatado} — Clique para Ver no Mercado Livre`;
     const categoriaFinal = detectarCategoriaAutomatica(tituloFinal, itemConfig.categoria);
+    const imgFinal =
+      imagemUrl ||
+      'https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.73/mercadolibre/logo_large_25years_v2.png';
 
-    return {
-      numero: String(itemConfig.numero).padStart(2, '0'),
+    const resultado = {
+      numero: numFormatado,
       categoria: categoriaFinal,
       titulo: tituloFinal,
       descricao:
         itemConfig.descricao ||
-        'Oferta selecionada com compra garantida e envio rápido pelo aplicativo oficial do Mercado Livre.',
-      imagemUrl:
-        imagemUrl ||
-        'https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.73/mercadolibre/logo_large_25years_v2.png',
+        'Oferta Black Friday selecionada com compra garantida e envio Full pelo Mercado Livre.',
+      imagemUrl: imgFinal,
+      fotosGaleria: fotosGaleria.length > 0 ? fotosGaleria : [imgFinal],
       precoAntigo,
       precoAtual,
-      parcelamento: 'Condição especial no Pix ou parcelado no App',
+      parcelamento: 'Condição especial Black Friday no Pix ou Cartão',
       descontoTag,
-      linkMercadoLivre: itemConfig.linkMercadoLivre,
+      linkMercadoLivre: linkLimpo,
       codigoBuscaML: itemConfig.codigoBuscaML || '',
-      avaliacoesTexto: '4.9 ★ Mais Vendido',
-      beneficios: [
-        'Envio Full rápido para todo o Brasil',
-        'Compra Garantida direto no app oficial'
-      ]
+      avaliacoesTexto: '4.9 ★ Oferta Black Friday'
     };
+
+    // Só guarda no cache de longo prazo se conseguiu capturar o título e a foto real
+    if (TemTituloReal && imagemUrl) {
+      itemCache.set(linkLimpo, { timestamp: Date.now(), data: resultado });
+    }
+
+    return resultado;
   } catch (err) {
-    return null;
+    // Nunca descarta o produto! Entrega o card com o link funcionando mesmo se o ML demorar
+    return {
+      numero: numFormatado,
+      categoria: itemConfig.categoria || 'Black Friday VIP',
+      titulo: `Oferta Especial Black Friday #${numFormatado}`,
+      descricao: 'Clique abaixo para abrir o produto com desconto exclusivo no Mercado Livre.',
+      imagemUrl:
+        'https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.73/mercadolibre/logo_large_25years_v2.png',
+      fotosGaleria: [
+        'https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.73/mercadolibre/logo_large_25years_v2.png'
+      ],
+      precoAntigo: '',
+      precoAtual: 'Ver Preço Black Friday',
+      parcelamento: 'Desconto exclusivo no aplicativo oficial',
+      descontoTag: 'BLACK FRIDAY',
+      linkMercadoLivre: linkLimpo,
+      codigoBuscaML: itemConfig.codigoBuscaML || '',
+      avaliacoesTexto: '4.9 ★ Oferta Verificada'
+    };
   }
 }
 
@@ -349,41 +461,41 @@ module.exports = async function handler(req, res) {
 
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
-  res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
+  res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=86400');
 
-  const now = Date.now();
-  if (memoryCache.produtos.length > 0 && now - memoryCache.timestamp < CACHE_TTL_MS && !req.query.refresh) {
-    return res.status(200).json({
-      total: memoryCache.produtos.length,
-      cached: true,
-      produtos: memoryCache.produtos
-    });
-  }
-
-  const [mlToken, linksParaProcessar] = await Promise.all([
+  const [mlToken, todosOsLinks] = await Promise.all([
     obterTokenOficialMercadoLivre(),
     obterListaDeLinks()
   ]);
 
-  const resultados = [];
-  const tamanhoLote = 10;
+  // Suporte a paginação em lotes (?lote=1&tamanho=12) para carregar 36 a 100+ produtos super rápido!
+  const tamanhoLote = Math.min(Math.max(parseInt(req.query.tamanho || '12', 10), 1), 20);
+  const loteAtual = parseInt(req.query.lote || '0', 10);
 
-  for (let i = 0; i < linksParaProcessar.length; i += tamanhoLote) {
-    const lote = linksParaProcessar.slice(i, i + tamanhoLote);
-    const dadosLote = await Promise.all(
-      lote.map(item => extrairDadosDoLinkMeli(item, mlToken))
-    );
-    resultados.push(...dadosLote.filter(Boolean));
+  let linksParaProcessar = todosOsLinks;
+  let totalLotes = Math.ceil(todosOsLinks.length / tamanhoLote);
+
+  if (loteAtual > 0) {
+    const inicio = (loteAtual - 1) * tamanhoLote;
+    linksParaProcessar = todosOsLinks.slice(inicio, inicio + tamanhoLote);
   }
 
-  memoryCache = {
-    timestamp: now,
-    produtos: resultados
-  };
+  const resultados = [];
+  const subLoteParalelo = 6;
+
+  for (let i = 0; i < linksParaProcessar.length; i += subLoteParalelo) {
+    const fatia = linksParaProcessar.slice(i, i + subLoteParalelo);
+    const dadosFatia = await Promise.all(
+      fatia.map(item => extrairDadosDoLinkMeli(item, mlToken))
+    );
+    resultados.push(...dadosFatia.filter(Boolean));
+  }
 
   return res.status(200).json({
-    total: resultados.length,
-    cached: false,
+    totalGeral: todosOsLinks.length,
+    lote: loteAtual || 1,
+    totalLotes,
+    totalRetornado: resultados.length,
     produtos: resultados
   });
 };

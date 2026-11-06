@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Radar de Achadinhos VIP — Ofertas & Promoções Selecionadas</title>
+  <title>Radar Black Friday VIP — Ofertas & Achadinhos Verificados</title>
   <!-- FAVICON EMBUTIDO (ÍCONE NA ABA DO NAVEGADOR E FAVORITOS DO CELULAR) -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23FFE600'/%3E%3Cpath d='M36 6L14 36h16l-4 22 24-30H34l2-22z' fill='%23070B14'/%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23070B14' stroke='%23FFE600' stroke-width='4'/%3E%3Cpath d='M36 6L14 36h16l-4 22 24-30H34l2-22z' fill='%23FFE600'/%3E%3C/svg%3E" />
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,8 +23,8 @@
               yellow: '#FFE600',
               blue: '#3483FA',
               green: '#00A650',
-              dark: '#070B14',
-              card: '#111827',
+              dark: '#05070E',
+              card: '#0F1523',
             }
           }
         }
@@ -34,7 +34,7 @@
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #070B14;
+      background-color: #05070E;
       color: #F8FAFC;
       overflow-x: hidden;
     }
@@ -56,6 +56,23 @@
       background: #334155;
       border-radius: 9999px;
     }
+    /* Estúdio 3D / 360° */
+    .stage-3d-wrapper {
+      perspective: 1100px;
+      overflow: hidden;
+      touch-action: none;
+      user-select: none;
+    }
+    .stage-3d-card {
+      transform-style: preserve-3d;
+      transition: transform 0.08s ease-out;
+      will-change: transform;
+    }
+    .stage-3d-glare {
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 230, 0, 0.18), transparent 65%);
+      mix-blend-mode: overlay;
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-yellow-400 selection:text-slate-950">
@@ -65,7 +82,7 @@
     <div class="w-16 h-16 rounded-2xl bg-[#FFE600] text-slate-950 flex items-center justify-center text-3xl font-black animate-bounce shadow-lg shadow-yellow-400/20 mb-4">
       ⚡
     </div>
-    <h2 class="text-xl sm:text-2xl font-black text-white">Redirecionando para a Oferta Selecionada...</h2>
+    <h2 class="text-xl sm:text-2xl font-black text-white">Redirecionando para a Oferta Black Friday...</h2>
     <p id="redirect-product-name" class="text-sm text-slate-300 mt-2 max-w-md">
       Abrindo o produto diretamente no ambiente seguro do Mercado Livre.
     </p>
@@ -74,39 +91,46 @@
     </a>
   </div>
 
-  <!-- BARRA DE URGÊNCIA TOPO -->
-  <div class="bg-gradient-to-r from-amber-400 via-[#FFE600] to-amber-400 text-slate-950 px-3 py-2 text-xs sm:text-sm font-extrabold shadow-md sticky top-0 z-40">
+  <!-- BARRA TOPO BLACK FRIDAY -->
+  <div class="bg-gradient-to-r from-red-600 via-[#FFE600] to-amber-500 text-slate-950 px-3 py-2 text-xs sm:text-sm font-black shadow-lg sticky top-0 z-40">
     <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2">
       <div class="flex items-center gap-2">
-        <span class="inline-block w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
-        <span class="tracking-tight">🔥 SELEÇÃO DE OFERTAS & ACHADINHOS • ENVIO FULL RÁPIDO</span>
+        <span class="bg-slate-950 text-[#FFE600] px-2 py-0.5 rounded text-[11px] font-black uppercase tracking-wider">
+          🖤 BLACK FRIDAY VIP
+        </span>
+        <span class="tracking-tight text-slate-950 font-extrabold">
+          🔥 ATÉ 60% OFF + ENVIO FULL RÁPIDO VERIFICADO
+        </span>
       </div>
       <div class="flex items-center gap-1.5 bg-slate-950 text-[#FFE600] px-3 py-0.5 rounded-full text-xs font-black tracking-wide">
-        <span>⏱️ OFERTAS ATIVAS:</span>
+        <span>⏱️ LOTE ATUAL EXPIRA EM:</span>
         <span id="countdown-timer" class="font-mono">02:47:19</span>
       </div>
     </div>
   </div>
 
-  <!-- CABEÇALHO DA VITRINE -->
-  <header class="border-b border-slate-800/80 bg-gradient-to-b from-slate-900/95 to-[#070B14] pt-5 pb-4 px-4">
-    <div class="max-w-6xl mx-auto">
+  <!-- CABEÇALHO BLACK FRIDAY -->
+  <header class="border-b border-amber-500/20 bg-gradient-to-b from-slate-950 via-[#090D1A] to-[#05070E] pt-5 pb-4 px-4 relative overflow-hidden">
+    <div class="max-w-6xl mx-auto relative z-10">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div class="flex items-center gap-3.5">
-          <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-[#FFE600] text-slate-950 flex items-center justify-center text-2xl font-black shadow-lg shadow-yellow-400/20 flex-shrink-0">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#FFE600] to-amber-500 text-slate-950 flex items-center justify-center text-2xl font-black shadow-lg shadow-yellow-400/25 flex-shrink-0 border-2 border-white/20">
             ⚡
           </div>
           <div>
             <div class="flex items-center gap-2 flex-wrap">
               <h1 id="store-title-display" class="text-lg sm:text-2xl font-black tracking-tight text-white">
-                Radar de Achadinhos VIP
+                Radar <span class="text-[#FFE600]">Black Friday</span> VIP
               </h1>
+              <span class="bg-red-500/20 text-red-300 border border-red-500/40 text-[11px] font-extrabold px-2.5 py-0.5 rounded-full">
+                🔥 Especial Black Friday
+              </span>
               <span class="bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
                 ✓ Curadoria Verificada
               </span>
             </div>
             <p class="text-xs sm:text-sm text-slate-300 mt-0.5">
-              Digite o <strong class="text-[#FFE600]">Nº do produto (ex: 01)</strong>, pesquise pelo nome ou clique na foto para ampliar
+              Digite o <strong class="text-[#FFE600]">Nº do produto (01 a 36)</strong> ou clique na foto do card para <strong class="text-amber-300">Girar em 3D / 360° e dar Zoom</strong>
             </p>
           </div>
         </div>
@@ -125,7 +149,7 @@
           <input
             id="search-input"
             type="text"
-            placeholder="Digite o Nº (ex: 01, 05, 12) ou o nome do produto que você procura..."
+            placeholder="Busque pelo Nº do vídeo (ex: 01, 15, 36) ou pelo nome do produto na Black Friday..."
             class="w-full bg-slate-900/95 border-2 border-slate-700/80 focus:border-[#FFE600] rounded-2xl pl-11 pr-24 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none transition"
           />
           <button
@@ -153,11 +177,11 @@
       <div class="flex items-center gap-2">
         <span id="api-status-dot" class="inline-block w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
         <span class="text-xs sm:text-sm font-bold text-slate-200" id="results-count-label">
-          Carregando ofertas verificadas...
+          Carregando ofertas de Black Friday...
         </span>
       </div>
       <div class="flex items-center gap-3 text-xs text-slate-300">
-        <span>🔍 Clique na foto para dar Zoom</span>
+        <span class="text-[#FFE600] font-semibold">🔄 Clique na foto p/ Visão 3D, 360° e Super-Zoom</span>
         <span>•</span>
         <span class="text-emerald-400 font-semibold">⚡ Entrega Full Mercado Livre</span>
       </div>
@@ -166,119 +190,178 @@
     <!-- Container dos Produtos -->
     <div id="products-grid" class="w-full"></div>
 
+    <!-- Indicador de Carregamento de Mais Lotes -->
+    <div id="batch-loading-bar" class="hidden mt-4 bg-slate-900/80 border border-slate-800 rounded-2xl p-3 text-center text-xs text-amber-300 font-bold flex items-center justify-center gap-2">
+      <span class="inline-block w-2 h-2 rounded-full bg-[#FFE600] animate-ping"></span>
+      <span id="batch-loading-text">Sincronizando mais ofertas de Black Friday em segundo plano...</span>
+    </div>
+
     <!-- Estado Limpo / Carregando -->
     <div id="empty-state" class="text-center py-12 bg-slate-900/50 rounded-3xl border border-slate-800 my-4 px-6">
       <div class="w-12 h-12 rounded-2xl bg-slate-800/90 border border-slate-700 flex items-center justify-center text-2xl mx-auto mb-3">
         ⚡
       </div>
       <h3 id="empty-title" class="text-base sm:text-lg font-extrabold text-white">
-        Sincronizando vitrine de ofertas...
+        Carregando Ofertas Black Friday...
       </h3>
       <p id="empty-subtitle" class="text-xs sm:text-sm text-slate-300 mt-1.5 max-w-md mx-auto leading-relaxed">
-        Buscando produtos atualizados diretamente da API.
+        Sincronizando fotos, títulos e descontos diretamente da API.
       </p>
       <button id="btn-empty-reset" type="button" class="mt-4 bg-[#FFE600] hover:bg-yellow-300 text-slate-950 font-extrabold text-xs px-5 py-2.5 rounded-xl transition">
         Ver Todas as Ofertas
       </button>
     </div>
 
-    <!-- SELOS DE GARANTIA -->
+    <!-- SELOS DE GARANTIA BLACK FRIDAY -->
     <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3.5">
       <div class="bg-slate-900/70 border border-slate-800/90 rounded-2xl p-4 flex items-start gap-3">
         <span class="text-xl bg-emerald-500/15 text-emerald-400 p-2 rounded-xl">⚡</span>
         <div>
-          <h3 class="text-xs sm:text-sm font-extrabold text-white">Logística Full Rápida</h3>
-          <p class="text-xs text-slate-300 mt-0.5">Produtos selecionados com envio ágil e rastreamento em tempo real pelo aplicativo.</p>
+          <h3 class="text-xs sm:text-sm font-extrabold text-white">Logística Full Black Friday</h3>
+          <p class="text-xs text-slate-300 mt-0.5">Produtos selecionados com envio rápido e rastreamento em tempo real pelo aplicativo.</p>
         </div>
       </div>
       <div class="bg-slate-900/70 border border-slate-800/90 rounded-2xl p-4 flex items-start gap-3">
         <span class="text-xl bg-blue-500/15 text-blue-400 p-2 rounded-xl">🛡️</span>
         <div>
-          <h3 class="text-xs sm:text-sm font-extrabold text-white">Transação 100% Segura</h3>
-          <p class="text-xs text-slate-300 mt-0.5">O pagamento é feito diretamente dentro do site ou aplicativo oficial do Mercado Livre.</p>
+          <h3 class="text-xs sm:text-sm font-extrabold text-white">Compra Garantida Oficial</h3>
+          <p class="text-xs text-slate-300 mt-0.5">O pagamento é processado diretamente dentro do site ou aplicativo oficial do Mercado Livre.</p>
         </div>
       </div>
       <div class="bg-slate-900/70 border border-slate-800/90 rounded-2xl p-4 flex items-start gap-3">
-        <span class="text-xl bg-amber-500/15 text-amber-400 p-2 rounded-xl">🏷️</span>
+        <span class="text-xl bg-amber-500/15 text-amber-400 p-2 rounded-xl">🔄</span>
         <div>
-          <h3 class="text-xs sm:text-sm font-extrabold text-white">Preços Atualizados via API</h3>
-          <p class="text-xs text-slate-300 mt-0.5">Monitoramos vendedores com nota alta e descontos ativos no Pix e cartão.</p>
+          <h3 class="text-xs sm:text-sm font-extrabold text-white">Inspeção 3D / 360° & Super-Zoom</h3>
+          <p class="text-xs text-slate-300 mt-0.5">Clique na foto de qualquer produto para aproximar em até 3x, girar e ver os detalhes de perto.</p>
         </div>
       </div>
     </div>
 
     <!-- BANNER DE ATUALIZAÇÃO / CANAL VIP -->
-    <div class="mt-7 bg-gradient-to-r from-emerald-950/90 via-slate-900 to-emerald-950/90 border border-emerald-500/40 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
+    <div class="mt-7 bg-gradient-to-r from-red-950/70 via-slate-900 to-amber-950/70 border border-amber-500/40 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
       <div class="flex items-start sm:items-center gap-4">
-        <div class="w-11 h-11 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-2xl flex-shrink-0">
-          📲
+        <div class="w-11 h-11 rounded-2xl bg-[#FFE600]/20 border border-[#FFE600]/40 flex items-center justify-center text-2xl flex-shrink-0">
+          🔥
         </div>
         <div>
-          <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded-full">
-            Dica de Compra Rápida
+          <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#FFE600] bg-[#FFE600]/15 px-2 py-0.5 rounded-full">
+            Como Garantir o Desconto Black Friday
           </span>
           <h3 class="text-sm sm:text-base font-extrabold text-white mt-1">
-            Ao abrir a página social do Mercado Livre, clique no botão azul "Ir para produto"
+            Ao abrir a recomendação no Mercado Livre, clique no botão azul "Ir para produto"
           </h3>
           <p class="text-xs text-slate-300 mt-0.5">
-            Assim você garante o desconto promocional direto no aplicativo oficial com entrega garantida.
+            O desconto de Black Friday no Pix ou cartão é aplicado diretamente na sua conta oficial do Mercado Livre.
           </p>
         </div>
       </div>
       <a
         id="vip-group-btn"
         href="#products-grid"
-        class="w-full sm:w-auto text-center bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs px-5 py-3 rounded-xl transition shadow-lg shadow-emerald-500/20 whitespace-nowrap"
+        class="w-full sm:w-auto text-center bg-[#FFE600] hover:bg-yellow-300 text-slate-950 font-black text-xs px-5 py-3 rounded-xl transition shadow-lg whitespace-nowrap"
       >
-        VER PRODUTOS ACIMA ↑
+        EXPLORAR OFERTAS ↑
       </a>
     </div>
   </main>
 
-  <!-- MODAL DE ZOOM DA FOTO DO PRODUTO (LIGHTBOX) -->
-  <div id="modal-image-zoom" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="bg-slate-900 border-2 border-slate-700 rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl animate-fadeIn">
-      <!-- Topo do Modal de Zoom -->
-      <div class="flex items-center justify-between px-4 py-3 bg-slate-950 border-b border-slate-800">
+  <!-- ========================================================================
+       ESTÚDIO INTERATIVO 3D / GIRO 360° / SUPER-ZOOM (LIGHTBOX MODAL)
+       ======================================================================== -->
+  <div id="modal-image-zoom" class="hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-slate-900 border-2 border-amber-400/50 rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl my-auto">
+      
+      <!-- Topo do Estúdio 3D -->
+      <div class="flex flex-wrap items-center justify-between gap-2 px-4 py-3 bg-slate-950 border-b border-slate-800">
         <div class="flex items-center gap-2">
           <span id="zoom-badge-num" class="bg-[#FFE600] text-slate-950 font-black text-xs px-2.5 py-0.5 rounded-lg">
             #01
           </span>
-          <span id="zoom-category" class="text-xs font-bold text-slate-300">
-            Visualização Ampliada
+          <span id="zoom-category" class="text-xs font-bold text-amber-300">
+            Estúdio 3D & Zoom
           </span>
         </div>
-        <button id="btn-close-zoom" type="button" class="bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white text-xs font-extrabold px-3 py-1.5 rounded-xl transition">
-          Fechar ✕
-        </button>
+        <div class="flex items-center gap-1.5">
+          <button id="btn-toggle-360" type="button" class="bg-slate-800 hover:bg-slate-700 text-[#FFE600] border border-slate-700 text-[11px] font-extrabold px-2.5 py-1.5 rounded-xl transition flex items-center gap-1">
+            <span>🔄</span> <span id="label-toggle-360">Girar 360°</span>
+          </button>
+          <button id="btn-zoom-in" type="button" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 text-[11px] font-extrabold px-2.5 py-1.5 rounded-xl transition">
+            ➕ Zoom
+          </button>
+          <button id="btn-zoom-out" type="button" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 text-[11px] font-extrabold px-2.5 py-1.5 rounded-xl transition">
+            ➖
+          </button>
+          <button id="btn-zoom-reset" type="button" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-[11px] font-bold px-2.5 py-1.5 rounded-xl transition">
+            Resetar
+          </button>
+          <button id="btn-close-zoom" type="button" class="bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/30 text-xs font-extrabold px-3 py-1.5 rounded-xl transition">
+            Fechar ✕
+          </button>
+        </div>
       </div>
 
-      <!-- Imagem Grande com Fundo Branco Limpo -->
-      <div class="bg-white p-6 flex items-center justify-center min-h-[280px] sm:min-h-[360px]">
-        <img
-          id="zoom-image"
-          src=""
-          alt="Foto ampliada do produto"
-          class="max-h-[320px] sm:max-h-[380px] w-auto max-w-full object-contain"
-        />
+      <!-- Palco Interativo 3D / 360° / Zoom -->
+      <div
+        id="stage-3d-container"
+        class="stage-3d-wrapper relative bg-white flex items-center justify-center h-[270px] sm:h-[340px] cursor-grab active:cursor-grabbing"
+      >
+        <div id="stage-glare" class="stage-3d-glare absolute inset-0 z-10"></div>
+
+        <div id="stage-3d-card" class="stage-3d-card flex items-center justify-center p-4">
+          <img
+            id="zoom-image"
+            src=""
+            alt="Foto ampliada do produto"
+            draggable="false"
+            class="max-h-[230px] sm:max-h-[290px] w-auto max-w-full object-contain drop-shadow-xl select-none"
+          />
+        </div>
+
+        <!-- Instrução interativa no rodapé da foto -->
+        <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between pointer-events-none text-[11px]">
+          <span class="bg-slate-950/85 text-slate-200 px-2.5 py-1 rounded-lg font-semibold">
+            🖐️ Arraste para inclinar em 3D ou use o controle 360° abaixo
+          </span>
+          <span id="zoom-level-indicator" class="bg-slate-950/85 text-[#FFE600] px-2.5 py-1 rounded-lg font-mono font-bold">
+            1.0x | 0°
+          </span>
+        </div>
+      </div>
+
+      <!-- Controle Deslizante de Giro 360° + Galeria de Ângulos -->
+      <div class="bg-slate-950 px-4 py-3 border-t border-slate-800 space-y-2.5">
+        <div class="flex items-center gap-3">
+          <span class="text-[11px] font-bold text-slate-300 whitespace-nowrap">🔄 Giro 360° / Ângulo:</span>
+          <input
+            id="slider-rotation-360"
+            type="range"
+            min="-180"
+            max="180"
+            value="0"
+            class="w-full accent-[#FFE600] cursor-pointer h-1.5 bg-slate-800 rounded-lg"
+          />
+        </div>
+
+        <!-- Miniaturas dos Ângulos do Anúncio (quando houver múltiplas fotos) -->
+        <div id="zoom-thumbnails" class="flex items-center gap-2 overflow-x-auto custom-scrollbar pt-1"></div>
       </div>
 
       <!-- Detalhes Completos e Botão de Compra no Modal -->
-      <div class="p-5 bg-slate-900 border-t border-slate-800">
+      <div class="p-4 sm:p-5 bg-slate-900 border-t border-slate-800">
         <h3 id="zoom-title" class="text-sm sm:text-base font-extrabold text-white leading-snug"></h3>
-        <div class="mt-3 flex items-baseline gap-2.5">
+        <div class="mt-2.5 flex flex-wrap items-baseline gap-2.5">
           <span id="zoom-old-price" class="text-xs text-slate-400 line-through"></span>
           <span id="zoom-price" class="text-xl sm:text-2xl font-black text-[#FFE600]"></span>
-          <span id="zoom-discount" class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-black px-2 py-0.5 rounded-md"></span>
+          <span id="zoom-discount" class="bg-red-500/20 text-red-300 border border-red-500/40 text-[10px] font-black px-2 py-0.5 rounded-md"></span>
         </div>
         <a
           id="zoom-buy-link"
           href="#"
           target="_blank"
           rel="noopener noreferrer"
-          class="mt-4 w-full bg-[#FFE600] hover:bg-yellow-300 text-slate-950 font-black text-xs sm:text-sm py-3.5 px-5 rounded-xl flex items-center justify-center gap-2 transition shadow-lg"
+          class="mt-3.5 w-full bg-[#FFE600] hover:bg-yellow-300 text-slate-950 font-black text-xs sm:text-sm py-3.5 px-5 rounded-xl flex items-center justify-center gap-2 transition shadow-lg"
         >
-          <span>🛒 IR PARA O PRODUTO NO MERCADO LIVRE</span>
+          <span>🛒 GARANTIR OFERTA NO MERCADO LIVRE</span>
           <span>↗</span>
         </a>
       </div>
@@ -290,17 +373,17 @@
     <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-5 shadow-2xl">
       <div class="flex items-center justify-between pb-3 border-b border-slate-800">
         <h3 class="text-base font-extrabold text-white flex items-center gap-2">
-          <span>📱</span> Como comprar direto no App do Mercado Livre?
+          <span>📱</span> Como comprar na Black Friday pelo Mercado Livre?
         </h3>
         <button id="btn-close-modal" type="button" class="text-slate-400 hover:text-white text-sm font-bold px-2 py-1 rounded-lg">
           ✕
         </button>
       </div>
       <div class="py-4 space-y-3 text-xs sm:text-sm text-slate-300">
-        <p>É super simples e seguro:</p>
+        <p>Veja como é simples:</p>
         <ol class="list-decimal list-inside space-y-2.5 text-slate-200 font-medium bg-slate-950/80 p-3.5 rounded-xl border border-slate-800">
-          <li><strong>Clique no Botão Amarelo:</strong> Clique em <em>"Comprar no Mercado Livre"</em> no card do produto desejado.</li>
-          <li><strong>Clique em "Ir para produto":</strong> Na tela de recomendação do Mercado Livre que abrir, clique no botão azul <strong>"Ir para produto"</strong> para finalizar no app oficial!</li>
+          <li><strong>Inspecione em 3D/Zoom:</strong> Clique na foto de qualquer produto para ampliar, girar em 360° e ver os ângulos.</li>
+          <li><strong>Abra no Mercado Livre:</strong> Clique no botão amarelo <em>"Comprar no Mercado Livre"</em> e depois no botão azul <strong>"Ir para produto"</strong> para comprar com segurança no app oficial!</li>
         </ol>
       </div>
       <button id="btn-got-it-modal" type="button" class="w-full bg-[#FFE600] hover:bg-yellow-300 text-slate-950 font-extrabold text-xs sm:text-sm py-3 rounded-xl transition">
@@ -321,7 +404,7 @@
   <!-- RODAPÉ COM AVISO LEGAL DE AFILIADO -->
   <footer class="border-t border-slate-800/80 py-6 px-4 text-center text-xs text-slate-400 space-y-2">
     <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-      <p>🔒 Radar de Achadinhos VIP — Curadoria independente de ofertas.</p>
+      <p>🔒 Radar Black Friday VIP — Curadoria independente de ofertas.</p>
       <p>Pagamento, frete e garantia processados diretamente pelo Mercado Livre.</p>
     </div>
     <p class="max-w-4xl mx-auto text-[11px] text-slate-500">
@@ -330,11 +413,11 @@
   </footer>
 
   <!-- ========================================================================
-       SCRIPT DA VITRINE — CARDS COMPACTOS + ZOOM NA FOTO + TEXTO VISÍVEL
+       SCRIPT DA VITRINE — CARREGAMENTO EM LOTES (36 a 100+ PRODUTOS) + ESTÚDIO 3D/360°
        ======================================================================== -->
   <script>
     const MEUS_PRODUTOS = [];
-    const API_PRODUTOS_URL = '/api/produtos?v=2';
+    const API_PRODUTOS_URL = '/api/produtos';
 
     let activeProducts = [...MEUS_PRODUTOS];
     let currentFilter = 'ALL';
@@ -343,25 +426,81 @@
     let countdownInterval = null;
     let toastTimeout = null;
 
+    // Estado do Visualizador 3D / 360° / Super-Zoom
+    let zoomState = {
+      scale: 1,
+      rotX: 0,
+      rotY: 0,
+      panX: 0,
+      panY: 0,
+      isDragging: false,
+      startX: 0,
+      startY: 0,
+      autoSpinInterval: null,
+      fotos: []
+    };
+
+    // Carrega os produtos em lotes de 12 em 12 para mostrar os primeiros rápido
+    // e carregar todos os 36 (ou 100+) sem estourar o tempo da Vercel!
     async function carregarProdutosDaAPI() {
       const statusDot = document.getElementById('api-status-dot');
+      const loadingBar = document.getElementById('batch-loading-bar');
+      const loadingText = document.getElementById('batch-loading-text');
+      const tamanhoPorLote = 12;
 
       try {
-        const resp = await fetch(API_PRODUTOS_URL, { headers: { 'Accept': 'application/json' } });
-        if (resp.ok) {
-          const data = await resp.json();
-          if (Array.isArray(data.produtos) && data.produtos.length > 0) {
-            activeProducts = data.produtos;
-            if (statusDot) {
-              statusDot.className = 'inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse';
-            }
-            renderCategoryChips();
-            renderProducts();
-            checkDirectRedirect();
-            return;
+        // 1. Busca o Lote 1 imediatamente
+        const urlLote1 = API_PRODUTOS_URL + `?lote=1&tamanho=${tamanhoPorLote}&v=bf1`;
+        const resp1 = await fetch(urlLote1, {
+          headers: { 'Accept': 'application/json' }
+        });
+        if (!resp1.ok) throw new Error('Falha no lote 1');
+        const data1 = await resp1.json();
+
+        if (Array.isArray(data1.produtos) && data1.produtos.length > 0) {
+          activeProducts = [...data1.produtos];
+          if (statusDot) {
+            statusDot.className = 'inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse';
           }
+          renderCategoryChips();
+          renderProducts();
+          checkDirectRedirect();
+
+          const totalLotes = data1.totalLotes || 1;
+          const totalGeral = data1.totalGeral || activeProducts.length;
+
+          // 2. Se houver mais lotes (ex: lotes 2 e 3 para completar os 36 produtos), busca em sequência!
+          if (totalLotes > 1) {
+            loadingBar.classList.remove('hidden');
+            for (let lote = 2; lote <= totalLotes; lote++) {
+              loadingText.textContent = `Carregando mais ofertas de Black Friday (${activeProducts.length} de ${totalGeral} produtos)...`;
+              const urlProxLote = API_PRODUTOS_URL + `?lote=${lote}&tamanho=${tamanhoPorLote}&v=bf1`;
+              const respLote = await fetch(
+                urlProxLote,
+                { headers: { 'Accept': 'application/json' } }
+              );
+              if (respLote.ok) {
+                const dataLote = await respLote.json();
+                if (Array.isArray(dataLote.produtos) && dataLote.produtos.length > 0) {
+                  // Evita duplicados pelo número
+                  const existentes = new Set(activeProducts.map(p => p.numero));
+                  dataLote.produtos.forEach(item => {
+                    if (!existentes.has(item.numero)) {
+                      activeProducts.push(item);
+                    }
+                  });
+                  renderCategoryChips();
+                  renderProducts();
+                }
+              }
+            }
+            loadingBar.classList.add('hidden');
+          }
+          return;
         }
-      } catch (err) {}
+      } catch (err) {
+        if (loadingBar) loadingBar.classList.add('hidden');
+      }
 
       renderCategoryChips();
       renderProducts();
@@ -397,17 +536,114 @@
       } catch (e) {}
     }
 
+    // ========================================================================
+    // FUNÇÕES DO ESTÚDIO 3D / GIRO 360° / SUPER-ZOOM
+    // ========================================================================
+    function atualizarTransformacao3D() {
+      const card3d = document.getElementById('stage-3d-card');
+      const indicator = document.getElementById('zoom-level-indicator');
+      const slider = document.getElementById('slider-rotation-360');
+
+      if (card3d) {
+        card3d.style.transform = `translate3d(${zoomState.panX}px, ${zoomState.panY}px, 0) rotateX(${zoomState.rotX}deg) rotateY(${zoomState.rotY}deg) scale(${zoomState.scale})`;
+      }
+      if (indicator) {
+        const anguloExibicao = ((Math.round(zoomState.rotY) % 360) + 360) % 360;
+        indicator.textContent = `${zoomState.scale.toFixed(1)}x | ${anguloExibicao}°`;
+      }
+      if (slider && !zoomState.autoSpinInterval) {
+        const clamped = Math.max(-180, Math.min(180, Math.round(zoomState.rotY)));
+        slider.value = String(clamped);
+      }
+    }
+
+    function pararGiro360() {
+      if (zoomState.autoSpinInterval) {
+        clearInterval(zoomState.autoSpinInterval);
+        zoomState.autoSpinInterval = null;
+      }
+      const label = document.getElementById('label-toggle-360');
+      if (label) label.textContent = 'Girar 360°';
+    }
+
+    function alternarGiro360() {
+      const label = document.getElementById('label-toggle-360');
+      if (zoomState.autoSpinInterval) {
+        pararGiro360();
+        return;
+      }
+      label.textContent = 'Pausar 360°';
+      zoomState.autoSpinInterval = setInterval(() => {
+        zoomState.rotY += 3;
+        if (zoomState.rotY > 180) zoomState.rotY -= 360;
+
+        // Se o anúncio tiver múltiplas fotos na galeria, alterna suavemente os ângulos reais!
+        if (zoomState.fotos.length > 1) {
+          const normalized = ((Math.round(zoomState.rotY) % 360) + 360) % 360;
+          const idxFoto = Math.floor((normalized / 360) * zoomState.fotos.length) % zoomState.fotos.length;
+          const imgEl = document.getElementById('zoom-image');
+          if (imgEl && imgEl.src !== zoomState.fotos[idxFoto]) {
+            imgEl.src = zoomState.fotos[idxFoto];
+          }
+        }
+        atualizarTransformacao3D();
+      }, 30);
+    }
+
+    function resetarVisao3D() {
+      pararGiro360();
+      zoomState.scale = 1;
+      zoomState.rotX = 0;
+      zoomState.rotY = 0;
+      zoomState.panX = 0;
+      zoomState.panY = 0;
+      atualizarTransformacao3D();
+    }
+
     function abrirZoomImagem(item) {
+      resetarVisao3D();
       const modal = document.getElementById('modal-image-zoom');
+      const fotos = Array.isArray(item.fotosGaleria) && item.fotosGaleria.length > 0
+        ? item.fotosGaleria
+        : [item.imagemUrl];
+
+      zoomState.fotos = fotos;
+
       document.getElementById('zoom-badge-num').textContent = `PRODUTO #${item.numero}`;
-      document.getElementById('zoom-category').textContent = item.categoria || 'Oferta Verificada';
-      document.getElementById('zoom-image').src = item.imagemUrl;
+      document.getElementById('zoom-category').textContent = item.categoria || 'Black Friday VIP';
+      document.getElementById('zoom-image').src = fotos[0];
       document.getElementById('zoom-image').alt = item.titulo || 'Foto do produto';
       document.getElementById('zoom-title').textContent = item.titulo || `Oferta #${item.numero}`;
       document.getElementById('zoom-old-price').textContent = item.precoAntigo || '';
       document.getElementById('zoom-price').textContent = item.precoAtual || 'Ver Oferta';
-      document.getElementById('zoom-discount').textContent = item.descontoTag || 'OFERTA';
+      document.getElementById('zoom-discount').textContent = item.descontoTag || 'BLACK FRIDAY';
       document.getElementById('zoom-buy-link').href = item.linkMercadoLivre;
+
+      // Renderiza miniaturas de ângulos se houver fotos na galeria
+      const thumbsContainer = document.getElementById('zoom-thumbnails');
+      thumbsContainer.innerHTML = fotos.map((fUrl, i) => `
+        <button
+          type="button"
+          data-thumb-idx="${i}"
+          class="thumb-angle-btn w-12 h-12 rounded-xl bg-white p-1 border-2 ${i === 0 ? 'border-[#FFE600]' : 'border-slate-700'} flex-shrink-0 flex items-center justify-center transition hover:border-[#FFE600]"
+          title="Ver Ângulo ${i + 1}"
+        >
+          <img src="${fUrl}" alt="Ângulo ${i + 1}" class="max-h-full max-w-full object-contain" />
+        </button>
+      `).join('');
+
+      thumbsContainer.querySelectorAll('.thumb-angle-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.getAttribute('data-thumb-idx'), 10);
+          if (fotos[idx]) {
+            document.getElementById('zoom-image').src = fotos[idx];
+            thumbsContainer.querySelectorAll('.thumb-angle-btn').forEach((b, bIdx) => {
+              b.className = `thumb-angle-btn w-12 h-12 rounded-xl bg-white p-1 border-2 ${bIdx === idx ? 'border-[#FFE600]' : 'border-slate-700'} flex-shrink-0 flex items-center justify-center transition hover:border-[#FFE600]`;
+            });
+          }
+        });
+      });
+
       modal.classList.remove('hidden');
     }
 
@@ -448,10 +684,9 @@
       }, 3200);
     }
 
-    // Cria botões de filtro agrupados por Categoria (ideal para 18 a 100+ produtos)
     function renderCategoryChips() {
       const container = document.getElementById('dynamic-chips');
-      const categoriasUnicas = [...new Set(activeProducts.map(item => item.categoria || 'Ofertas'))];
+      const categoriasUnicas = [...new Set(activeProducts.map(item => item.categoria || 'Black Friday VIP'))];
 
       const chips = [
         `<button type="button" data-filter="ALL" class="filter-chip ${currentFilter === 'ALL' ? 'bg-[#FFE600] text-slate-950 font-extrabold' : 'bg-slate-800/90 text-slate-200 font-bold border border-slate-700'} text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition">🔥 Todos os Produtos (${activeProducts.length})</button>`
@@ -459,7 +694,7 @@
 
       categoriasUnicas.forEach(cat => {
         const active = currentFilter === cat;
-        const qtd = activeProducts.filter(p => (p.categoria || 'Ofertas') === cat).length;
+        const qtd = activeProducts.filter(p => (p.categoria || 'Black Friday VIP') === cat).length;
         chips.push(`
           <button type="button" data-filter="${cat}" class="filter-chip ${active ? 'bg-[#FFE600] text-slate-950 font-extrabold' : 'bg-slate-800/90 hover:bg-slate-700 text-slate-200 font-bold border border-slate-700'} text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition">
             ${cat} (${qtd})
@@ -479,7 +714,7 @@
 
     function getFilteredProducts() {
       return activeProducts.filter(item => {
-        const itemCat = item.categoria || 'Ofertas';
+        const itemCat = item.categoria || 'Black Friday VIP';
         const matchesChip = currentFilter === 'ALL' || itemCat === currentFilter || item.numero === currentFilter;
         if (!matchesChip) return false;
         if (!searchQuery.trim()) return true;
@@ -505,9 +740,9 @@
 
       if (activeProducts.length === 0) {
         grid.innerHTML = '';
-        countLabel.textContent = 'Sincronizando ofertas com a API...';
-        emptyTitle.textContent = 'Carregando produtos da vitrine...';
-        emptySubtitle.textContent = 'Aguarde um instante enquanto buscamos as ofertas atualizadas.';
+        countLabel.textContent = 'Sincronizando ofertas de Black Friday com a API...';
+        emptyTitle.textContent = 'Carregando vitrine de Black Friday...';
+        emptySubtitle.textContent = 'Aguarde um instante enquanto buscamos os 36 produtos atualizados.';
         emptyState.classList.remove('hidden');
         return;
       }
@@ -516,43 +751,42 @@
         grid.innerHTML = '';
         countLabel.textContent = 'Nenhum produto encontrado para essa pesquisa';
         emptyTitle.textContent = 'Nenhuma oferta encontrada para essa busca';
-        emptySubtitle.textContent = 'Verifique o número ou palavra digitada ou clique abaixo para mostrar todos os produtos.';
+        emptySubtitle.textContent = 'Verifique o número ou palavra digitada ou clique abaixo para mostrar todas as ofertas.';
         emptyState.classList.remove('hidden');
         return;
       }
 
       emptyState.classList.add('hidden');
-      countLabel.textContent = `${filtered.length} ${filtered.length === 1 ? 'produto disponível' : 'produtos disponíveis na vitrine'}`;
+      countLabel.textContent = `🔥 ${filtered.length} ${filtered.length === 1 ? 'oferta de Black Friday disponível' : 'ofertas de Black Friday disponíveis'}`;
 
-      // Grade compacta estilo E-commerce: 2 colunas em telas médias, 3 em notebooks, 4 em telas grandes
+      // Grade compacta de 4 colunas no PC, 3 no notebook, 2 em tablets
       grid.className = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4';
 
       grid.innerHTML = filtered.map((item, idx) => {
         const tituloExibicao = item.titulo && item.titulo.trim()
           ? item.titulo.trim()
-          : `Oferta Verificada #${item.numero}`;
+          : `Oferta Black Friday #${item.numero}`;
+        const qtdFotos = Array.isArray(item.fotosGaleria) ? item.fotosGaleria.length : 1;
 
         return `
-          <article class="bg-[#111827] border border-slate-800 hover:border-[#FFE600] rounded-2xl overflow-hidden shadow-lg transition-all duration-200 flex flex-col justify-between">
+          <article class="bg-[#0F1523] border border-slate-800/90 hover:border-[#FFE600] rounded-2xl overflow-hidden shadow-lg transition-all duration-200 flex flex-col justify-between">
             
-            <!-- TOPO E FOTO COMPACTA (CLICÁVEL PARA DAR ZOOM) -->
+            <!-- TOPO E FOTO COMPACTA (CLICÁVEL PARA ABRIR ESTÚDIO 3D / 360° / ZOOM) -->
             <div>
               <div
                 data-zoom-index="${idx}"
-                class="btn-zoom-image relative bg-white p-3 flex items-center justify-center h-44 cursor-zoom-in group border-b border-slate-800"
-                title="Clique para ampliar a foto"
+                class="btn-zoom-image relative bg-white p-3 flex items-center justify-center h-44 cursor-pointer group border-b border-slate-800"
+                title="Clique para abrir Visão 3D, Giro 360° e Super-Zoom"
               >
-                <!-- Badge Número no canto superior esquerdo -->
-                <span class="absolute top-2 left-2 bg-slate-950/90 text-[#FFE600] font-black text-[11px] px-2 py-0.5 rounded-lg shadow">
+                <!-- Badge Número -->
+                <span class="absolute top-2 left-2 bg-slate-950 text-[#FFE600] font-black text-[11px] px-2 py-0.5 rounded-lg shadow">
                   #${item.numero}
                 </span>
 
-                <!-- Selo Desconto no canto superior direito -->
-                ${item.descontoTag ? `
-                  <span class="absolute top-2 right-2 bg-emerald-500 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded-lg shadow">
-                    ${item.descontoTag}
-                  </span>
-                ` : ''}
+                <!-- Selo Black Friday / Desconto -->
+                <span class="absolute top-2 right-2 bg-gradient-to-r from-red-600 to-amber-500 text-white font-black text-[10px] px-2 py-0.5 rounded-lg shadow">
+                  ${item.descontoTag || 'BLACK FRIDAY'}
+                </span>
 
                 <img
                   src="${item.imagemUrl}"
@@ -561,23 +795,22 @@
                   class="max-h-36 w-auto max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
                 />
 
-                <!-- Botão Flutuante de Lupa ao passar o mouse / tocar -->
-                <span class="absolute bottom-2 right-2 bg-slate-950/80 text-white text-[10px] font-bold px-2 py-1 rounded-lg flex items-center gap-1 opacity-90 group-hover:bg-[#FFE600] group-hover:text-slate-950 transition">
-                  🔍 Ampliar
+                <!-- Botão Flutuante 3D / 360° / Zoom -->
+                <span class="absolute bottom-2 right-2 bg-slate-950/90 text-[#FFE600] border border-[#FFE600]/40 text-[10px] font-extrabold px-2 py-1 rounded-lg flex items-center gap-1 group-hover:bg-[#FFE600] group-hover:text-slate-950 transition shadow">
+                  🔄 3D / 360° / Zoom ${qtdFotos > 1 ? `(${qtdFotos} fotos)` : ''}
                 </span>
               </div>
 
-              <!-- CORPO DO CARD: CATEGORIA E TÍTULO COMPLETO VISÍVEL (NÃO CORTA O TEXTO!) -->
+              <!-- CORPO DO CARD: CATEGORIA E TÍTULO COMPLETO VISÍVEL -->
               <div class="p-3.5 pb-2">
                 <div class="flex items-center justify-between gap-1 mb-1.5">
                   <span class="text-[10px] font-bold uppercase tracking-wider text-amber-300 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-md">
-                    ${item.categoria || 'Oferta'}
+                    ${item.categoria || 'Black Friday'}
                   </span>
                   <span class="text-[11px] text-emerald-400 font-bold">⚡ Full</span>
                 </div>
 
-                <!-- Título completo sempre visível com alto contraste -->
-                <h2 class="text-xs sm:text-sm font-bold text-slate-100 leading-snug break-words">
+                <h2 class="text-xs sm:text-sm font-bold text-white leading-snug break-words">
                   ${tituloExibicao}
                 </h2>
               </div>
@@ -585,7 +818,7 @@
 
             <!-- RODAPÉ DO CARD: PREÇO + BOTÃO DE COMPRA -->
             <div class="p-3.5 pt-2">
-              <div class="bg-slate-950/90 border border-slate-800/90 rounded-xl p-2.5 mb-2.5">
+              <div class="bg-slate-950/95 border border-slate-800/90 rounded-xl p-2.5 mb-2.5">
                 ${item.precoAntigo ? `
                   <span class="text-[11px] text-slate-400 line-through block leading-none mb-1">
                     ${item.precoAntigo}
@@ -595,7 +828,7 @@
                   ${item.precoAtual || 'Ver Oferta'}
                 </div>
                 <span class="text-[10px] text-slate-300 block mt-0.5">
-                  No Pix ou parcelado no app
+                  Preço Black Friday no App Oficial
                 </span>
               </div>
 
@@ -626,7 +859,6 @@
         `;
       }).join('');
 
-      // Evento de clique na foto para abrir o Zoom (Lightbox)
       document.querySelectorAll('.btn-zoom-image').forEach(el => {
         el.addEventListener('click', () => {
           const index = parseInt(el.getAttribute('data-zoom-index'), 10);
@@ -695,13 +927,78 @@
         carregarProdutosDaAPI();
       });
 
-      // Controles do Modal de Zoom da Foto
+      // Controles do Estúdio 3D / Giro 360° / Super-Zoom
       const zoomModal = document.getElementById('modal-image-zoom');
+      const stageContainer = document.getElementById('stage-3d-container');
+      const slider360 = document.getElementById('slider-rotation-360');
+
+      document.getElementById('btn-toggle-360').addEventListener('click', alternarGiro360);
+      document.getElementById('btn-zoom-in').addEventListener('click', () => {
+        zoomState.scale = Math.min(3.2, +(zoomState.scale + 0.4).toFixed(1));
+        atualizarTransformacao3D();
+      });
+      document.getElementById('btn-zoom-out').addEventListener('click', () => {
+        zoomState.scale = Math.max(0.8, +(zoomState.scale - 0.4).toFixed(1));
+        atualizarTransformacao3D();
+      });
+      document.getElementById('btn-zoom-reset').addEventListener('click', resetarVisao3D);
+
+      slider360.addEventListener('input', (e) => {
+        pararGiro360();
+        zoomState.rotY = parseFloat(e.target.value) || 0;
+        if (zoomState.fotos.length > 1) {
+          const normalized = ((Math.round(zoomState.rotY) % 360) + 360) % 360;
+          const idxFoto = Math.floor((normalized / 360) * zoomState.fotos.length) % zoomState.fotos.length;
+          document.getElementById('zoom-image').src = zoomState.fotos[idxFoto];
+        }
+        atualizarTransformacao3D();
+      });
+
+      // Arrastar com Mouse ou Dedo no Palco 3D para inclinar/girar em 3D
+      stageContainer.addEventListener('pointerdown', (e) => {
+        pararGiro360();
+        zoomState.isDragging = true;
+        zoomState.startX = e.clientX;
+        zoomState.startY = e.clientY;
+        stageContainer.setPointerCapture(e.pointerId);
+      });
+
+      stageContainer.addEventListener('pointermove', (e) => {
+        if (!zoomState.isDragging) return;
+        const dx = e.clientX - zoomState.startX;
+        const dy = e.clientY - zoomState.startY;
+        zoomState.startX = e.clientX;
+        zoomState.startY = e.clientY;
+
+        if (zoomState.scale > 1.3) {
+          zoomState.panX = Math.max(-140, Math.min(140, zoomState.panX + dx));
+          zoomState.panY = Math.max(-140, Math.min(140, zoomState.panY + dy));
+        } else {
+          zoomState.rotY += dx * 0.65;
+          zoomState.rotX = Math.max(-35, Math.min(35, zoomState.rotX - dy * 0.45));
+        }
+        atualizarTransformacao3D();
+      });
+
+      stageContainer.addEventListener('pointerup', () => {
+        zoomState.isDragging = false;
+      });
+
+      // Zoom com a rodinha do mouse (Scroll) no PC
+      stageContainer.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = e.deltaY < 0 ? 0.25 : -0.25;
+        zoomState.scale = Math.max(0.8, Math.min(3.2, +(zoomState.scale + delta).toFixed(2)));
+        atualizarTransformacao3D();
+      }, { passive: false });
+
       document.getElementById('btn-close-zoom').addEventListener('click', () => {
+        pararGiro360();
         zoomModal.classList.add('hidden');
       });
       zoomModal.addEventListener('click', (e) => {
         if (e.target === zoomModal) {
+          pararGiro360();
           zoomModal.classList.add('hidden');
         }
       });
@@ -718,9 +1015,9 @@
         modal.classList.add('hidden');
       });
 
-      // Fechar modais com a tecla ESC
       window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
+          pararGiro360();
           zoomModal.classList.add('hidden');
           modal.classList.add('hidden');
         }
