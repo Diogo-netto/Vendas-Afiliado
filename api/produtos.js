@@ -3,9 +3,8 @@
  * API BACK-END SEGURA NA VERCEL — Caminho no projeto: api/produtos.js
  * ============================================================================
  * - 36 produtos configurados em lotes rápidos.
- * - Conversor automático de imagem para ULTRA-HD (D_NQ_NP_2X e sufixo -F / -O)
- *   para a Lupa estilo Mercado Livre nunca embaçar!
- * - Não mistura fotos de outros produtos recomendados na página social.
+ * - Entrega tanto a URL padrão garantida quanto a URL Matriz Original (-O.webp)
+ *   para o navegador carregar a versão mais nítida possível sem nunca quebrar!
  */
 
 const LISTA_LINKS_AFILIADO = [
@@ -79,12 +78,11 @@ function urlEhSegura(urlString) {
 }
 
 /**
- * Converte qualquer miniatura do Mercado Livre (-P, -V, -W, -I, D_Q_NP)
- * para a versão Original em Alta Definição (-O.webp / D_NQ_NP_2X) de ~1200px!
+ * Normaliza a URL da imagem do Mercado Livre sem duplicar 2X_
  */
-function converterImagemParaUltraHD(url = '') {
+function normalizarImagemML(url = '') {
   if (!url || !url.includes('mlstatic.com')) return url;
-  return url.replace('/D_Q_NP_', '/D_NQ_NP_');
+  return url.replace(/\/D_(?:NQ_)?Q?_?NP_(?:2X_)*/i, '/D_NQ_NP_');
 }
 
 async function fetchComTimeout(url, options = {}, timeoutMs = 4200) {
@@ -107,7 +105,7 @@ function detectarCategoriaAutomatica(titulo = '', categoriaManual = '') {
   if (/(celular|smartphone|iphone|samsung|galaxy|motorola|moto\s|xiaomi|redmi|poco)/.test(t)) {
     return 'Celulares & Smartphones';
   }
-  if (/(whey|creatina|hipercalórico|hipercalorico|suplemento|max titanium|integralmedica|pré treino|pre treino)/.test(t)) {
+  if (/(whey|creatina|hipercalórico|hipercalorico|suplemento|max titanium|integralmedica|esteira|ergométrica|ergometrica|academia|fitness|haltere|bicicleta)/.test(t)) {
     return 'Suplementos & Fitness';
   }
   if (/(lençol|lencol|travesseiro|toalha|edredom|cama|colchão|colchao|cortina|tapete)/.test(t)) {
@@ -119,10 +117,10 @@ function detectarCategoriaAutomatica(titulo = '', categoriaManual = '') {
   if (/(fone|bluetooth|caixa de som|jbl|smartwatch|relógio|relogio|carregador|tv|monitor|notebook|tablet)/.test(t)) {
     return 'Eletrônicos & Áudio';
   }
-  if (/(airfryer|fritadeira|panela|liquidificador|cafeteira|cozinha|copo|térmico|termico|garrafa|aspirador|mop)/.test(t)) {
+  if (/(airfryer|fritadeira|panela|liquidificador|cafeteira|cozinha|copo|térmico|termico|garrafa|aspirador|mop|assento|banheiro)/.test(t)) {
     return 'Casa & Cozinha';
   }
-  if (/(furadeira|parafusadeira|ferramenta|chave|kit ferramentas|lavadora|impressora|filamento|3d)/.test(t)) {
+  if (/(furadeira|parafusadeira|ferramenta|chave|kit ferramentas|lavadora|impressora|filamento|3d|extensão|extensao|disjuntor|tomada|cabo)/.test(t)) {
     return 'Ferramentas & Tech';
   }
   if (/(perfume|creme|shampoo|escova|secador|chapinha|maquiagem|beleza|barbeador)/.test(t)) {
@@ -274,7 +272,7 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
     let precoAtualNum = null;
     let precoAntigoNum = null;
 
-    // 1. Se tiver código MLB do anúncio, busca todas as fotos reais daquele exato produto
+    // 1. Se tiver código MLB do anúncio, busca todas as fotos reais em alta resolução (-O)
     const mlbMatch =
       finalUrl.match(/MLB-?(\d{8,12})/i) ||
       html.match(/MLB-?(\d{8,12})/i);
@@ -293,11 +291,11 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
           if (Array.isArray(data.pictures) && data.pictures.length > 0) {
             fotosGaleria = data.pictures
               .slice(0, 6)
-              .map(p => converterImagemParaUltraHD(p.secure_url || p.url))
+              .map(p => p.secure_url || p.url)
               .filter(Boolean);
             imagemUrl = fotosGaleria[0] || '';
           } else if (data.thumbnail) {
-            imagemUrl = converterImagemParaUltraHD(data.thumbnail);
+            imagemUrl = normalizarImagemML(data.thumbnail);
             fotosGaleria = [imagemUrl];
           }
           if (typeof data.price === 'number') precoAtualNum = data.price;
@@ -328,16 +326,16 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
       }
     }
 
-    // 3. Imagem Principal em ULTRA-HD (Sem puxar fotos de outros produtos recomendados abaixo!)
+    // 3. Imagem Principal Limpa (sem misturar outros produtos da página social)
     if (fotosGaleria.length === 0) {
       const imgMatch =
-        html.match(/https:\/\/http2\.mlstatic\.com\/D_(?:NQ_)?Q?_?NP_[A-Za-z0-9_-]+\.(?:webp|jpg|png)/i) ||
+        html.match(/https:\/\/http2\.mlstatic\.com\/D_(?:NQ_)?Q?_?NP_(?:2X_)?[A-Za-z0-9_-]+\.(?:webp|jpg|png)/i) ||
         html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i) ||
         html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
 
       if (imgMatch) {
         const rawUrl = imgMatch[1] || imgMatch[0];
-        imagemUrl = converterImagemParaUltraHD(rawUrl);
+        imagemUrl = normalizarImagemML(rawUrl);
         fotosGaleria = [imagemUrl];
       }
     }
@@ -375,12 +373,12 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
 
     const precoAtual = precoAtualNum ? formatBRL(precoAtualNum) : 'Conferir Oferta';
     let precoAntigo = '';
-    let descontoTag = 'BLACK FRIDAY';
+    let descontoTag = '🔥 BLACK FRIDAY';
 
     if (precoAntigoNum && precoAtualNum && precoAntigoNum > precoAtualNum) {
       precoAntigo = formatBRL(precoAntigoNum);
       const pct = Math.round(((precoAntigoNum - precoAtualNum) / precoAntigoNum) * 100);
-      descontoTag = `${pct}% OFF`;
+      descontoTag = `-${pct}% BLACK FRIDAY`;
     }
 
     const TemTituloReal = tituloEhValido(titulo);
@@ -398,16 +396,16 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
       titulo: tituloFinal,
       descricao:
         itemConfig.descricao ||
-        'Oferta selecionada com compra garantida e envio Full pelo Mercado Livre.',
+        'Oferta Black Friday selecionada com compra garantida e envio Full pelo Mercado Livre.',
       imagemUrl: imgFinal,
       fotosGaleria: fotosGaleria.length > 0 ? fotosGaleria : [imgFinal],
       precoAntigo,
       precoAtual,
-      parcelamento: 'em até 12x ou com desconto extra no Pix',
+      parcelamento: 'em até 12x ou com super desconto no Pix',
       descontoTag,
       linkMercadoLivre: linkLimpo,
       codigoBuscaML: itemConfig.codigoBuscaML || '',
-      avaliacoesTexto: '4.9 ★ Mais Vendido'
+      avaliacoesTexto: '4.9 ★ Oferta Black Friday'
     };
 
     if (TemTituloReal && imagemUrl) {
@@ -427,9 +425,9 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
         'https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.73/mercadolibre/logo_large_25years_v2.png'
       ],
       precoAntigo: '',
-      precoAtual: 'Ver Preço Hoje',
+      precoAtual: 'Ver Preço Black Friday',
       parcelamento: 'Desconto exclusivo no aplicativo oficial',
-      descontoTag: 'BLACK FRIDAY',
+      descontoTag: '🔥 BLACK FRIDAY',
       linkMercadoLivre: linkLimpo,
       codigoBuscaML: itemConfig.codigoBuscaML || '',
       avaliacoesTexto: '4.9 ★ Oferta Verificada'
