@@ -3,11 +3,9 @@
  * API BACK-END SEGURA NA VERCEL — Caminho no projeto: api/produtos.js
  * ============================================================================
  * 1. Modo Grade Rápida (?lote=1, 2, 3): Carrega os 36 cards da vitrine.
- * 2. Modo Ficha Completa Sob Demanda (?detalhe=1&link=https://meli.la/...):
- *    Quando o cliente clica num produto, entra na página completa do anúncio
- *    e puxa TODAS as fotos da galeria em Ultra-HD (data-zoom), a lista
- *    "O que você precisa saber sobre este produto", "+100 mil vendidos",
- *    nota das estrelas (4.9 ★) e parcelamento real!
+ * 2. Modo Galeria Completa + Ficha Técnica (?detalhe=1&link=...&titulo=...):
+ *    Puxa TODAS as fotos do produto (coluna lateral estilo Mercado Livre),
+ *    "O que você precisa saber sobre este produto", vendidos e avaliações!
  */
 
 const LISTA_LINKS_AFILIADO = [
@@ -67,7 +65,8 @@ const DOMINIOS_PERMITIDOS = [
   'www.mercadolivre.com.br',
   'mercadolivre.com.br',
   'produto.mercadolivre.com.br',
-  'click1.mercadolivre.com.br'
+  'click1.mercadolivre.com.br',
+  'lista.mercadolivre.com.br'
 ];
 
 function urlEhSegura(urlString) {
@@ -231,11 +230,24 @@ function tituloEhValido(t = '') {
 }
 
 /**
- * Extrai dados ricos da página completa do produto no Mercado Livre
- * (Todas as fotos da galeria data-zoom, "O que você precisa saber sobre este produto",
- *  "Novo | +100 mil vendidos", nota 4.9 ★, Loja Oficial e opções de parcelamento)
+ * Adiciona uma foto na lista garantindo que não haja IDs de imagem repetidos
  */
-function extrairDadosDaPaginaCompletaML(htmlProduto) {
+function adicionarFotoUnica(lista, vistos, urlBruta) {
+  if (!urlBruta || !urlBruta.includes('mlstatic.com')) return;
+  const limpa = normalizarImagemML(urlBruta);
+  const idMatch = limpa.match(/(\d{6,7}-ML[A-Z]\d{8,14}_\d{4,6})/i);
+  const chave = idMatch ? idMatch[1].toUpperCase() : limpa;
+  if (!vistos.has(chave)) {
+    vistos.add(chave);
+    lista.push(limpa);
+  }
+}
+
+/**
+ * Extrai TODAS as fotos da galeria + "O que você precisa saber sobre este produto"
+ * a partir do HTML da página do anúncio no Mercado Livre
+ */
+function extrairDadosDaPaginaCompletaML(htmlBruto) {
   const resultado = {
     fotosGaleria: [],
     caracteristicas: [],
@@ -243,43 +255,61 @@ function extrairDadosDaPaginaCompletaML(htmlProduto) {
     avaliacaoNota: '',
     avaliacaoQtd: '',
     lojaOficial: '',
-    parcelamentoTexto: '',
-    entregaTexto: ''
+    parcelamentoTexto: ''
   };
 
-  if (!htmlProduto) return resultado;
+  if (!htmlBruto) return resultado;
 
-  // 1. Fotos em Ultra-HD da galeria lateral do produto (atributo data-zoom ou ui-pdp-gallery)
+  const html = htmlBruto.replace(/\\u002F/gi, '/').replace(/\\\//g, '/');
+  const vistos = new Set();
+
+  // 1A. Atributo data-zoom nas imagens da galeria lateral (ui-pdp-gallery)
   const zoomMatches = [
-    ...htmlProduto.matchAll(/data-zoom=["'](https:\/\/http2\.mlstatic\.com\/[^"']+)["']/gi)
-  ].map(m => m[1]);
+    ...html.matchAll(/data-zoom=["'](https:\/\/http2\.mlstatic\.com\/[^"']+)["']/gi)
+  ];
+  for (const m of zoomMatches) {
+    adicionarFotoUnica(resultado.fotosGaleria, vistos, m[1]);
+    if (resultado.fotosGaleria.length >= 10) break;
+  }
 
-  if (zoomMatches.length > 0) {
-    resultado.fotosGaleria = [...new Set(zoomMatches)].slice(0, 8);
-  } else {
-    // Busca fotos dentro do bloco ui-pdp-gallery
-    const galleryBlock = htmlProduto.match(/class=["'][^"']*ui-pdp-gallery[^"']*["'][\s\S]{0,12000}/i);
+  // 1B. Array JSON "pictures":[...] embutido no estado da página do Mercado Livre
+  if (resultado.fotosGaleria.length < 2) {
+    const picturesBlocks = [
+      ...html.matchAll(/"pictures"\s*:\s*\[([\s\S]{10,8000}?)\]/gi)
+    ];
+    for (const block of picturesBlocks) {
+      const picIds = [
+        ...block[1].matchAll(/(\d{6,7}-ML[A-Z]\d{8,14}_\d{4,6})/gi)
+      ];
+      for (const pm of picIds) {
+        adicionarFotoUnica(
+          resultado.fotosGaleria,
+          vistos,
+          `https://http2.mlstatic.com/D_NQ_NP_${pm[1]}-O.webp`
+        );
+        if (resultado.fotosGaleria.length >= 10) break;
+      }
+      if (resultado.fotosGaleria.length >= 2) break;
+    }
+  }
+
+  // 1C. Bloco HTML ui-pdp-gallery (coluna de miniaturas da página do produto)
+  if (resultado.fotosGaleria.length < 2) {
+    const galleryBlock = html.match(/class=["'][^"']*ui-pdp-gallery[^"']*["'][\s\S]{0,18000}/i);
     if (galleryBlock) {
       const imgs = [
         ...galleryBlock[0].matchAll(/https:\/\/http2\.mlstatic\.com\/D_(?:NQ_)?Q?_?NP_(?:2X_)?[A-Za-z0-9_-]+\.(?:webp|jpg|png)/gi)
-      ].map(m => normalizarImagemML(m[0]).replace(/-[A-Z]\.(webp|jpg|png)$/i, '-O.$1'));
-      const unicas = [];
-      const vistos = new Set();
-      for (const u of imgs) {
-        const base = u.replace(/-[A-Z0-9]+\.(webp|jpg|png)$/i, '');
-        if (!vistos.has(base)) {
-          vistos.add(base);
-          unicas.push(u);
-        }
-        if (unicas.length >= 8) break;
+      ];
+      for (const m of imgs) {
+        adicionarFotoUnica(resultado.fotosGaleria, vistos, m[0]);
+        if (resultado.fotosGaleria.length >= 10) break;
       }
-      resultado.fotosGaleria = unicas;
     }
   }
 
   // 2. "O que você precisa saber sobre este produto" (bullet points da ficha técnica)
   const specsMatches = [
-    ...htmlProduto.matchAll(/<li[^>]*class=["'][^"']*(?:ui-vpp-highlighted-specs__features-list-item|ui-pdp-features__item)[^"']*["'][^>]*>([\s\S]*?)<\/li>/gi)
+    ...html.matchAll(/<li[^>]*class=["'][^"']*(?:ui-vpp-highlighted-specs__features-list-item|ui-pdp-features__item)[^"']*["'][^>]*>([\s\S]*?)<\/li>/gi)
   ];
   for (const m of specsMatches) {
     const texto = limparEntidadesHtml(m[1]);
@@ -288,10 +318,9 @@ function extrairDadosDaPaginaCompletaML(htmlProduto) {
     }
   }
 
-  // Fallback para características em tabela/atributos se não houver lista de bullets
   if (resultado.caracteristicas.length === 0) {
     const attrMatches = [
-      ...htmlProduto.matchAll(/class=["'][^"']*ui-vpp-striped-specs__row[^"']*["'][\s\S]{0,400}?<th[^>]*>([\s\S]*?)<\/th>[\s\S]{0,400}?<td[^>]*>([\s\S]*?)<\/td>/gi)
+      ...html.matchAll(/class=["'][^"']*ui-vpp-striped-specs__row[^"']*["'][\s\S]{0,400}?<th[^>]*>([\s\S]*?)<\/th>[\s\S]{0,400}?<td[^>]*>([\s\S]*?)<\/td>/gi)
     ];
     for (const m of attrMatches) {
       const chave = limparEntidadesHtml(m[1]);
@@ -302,34 +331,34 @@ function extrairDadosDaPaginaCompletaML(htmlProduto) {
     }
   }
 
-  // 3. "Novo | +100 mil vendidos" (ui-pdp-subtitle)
-  const subtitleMatch = htmlProduto.match(/<span[^>]*class=["'][^"']*ui-pdp-subtitle[^"']*["'][^>]*>([\s\S]*?)<\/span>/i);
+  // 3. "Novo | +100 mil vendidos"
+  const subtitleMatch = html.match(/<span[^>]*class=["'][^"']*ui-pdp-subtitle[^"']*["'][^>]*>([\s\S]*?)<\/span>/i);
   if (subtitleMatch && subtitleMatch[1]) {
     resultado.vendidosTexto = limparEntidadesHtml(subtitleMatch[1]);
   }
 
-  // 4. Nota das Estrelas (ex: 4.9) e Quantidade de Avaliações (ex: (40249))
-  const ratingMatch = htmlProduto.match(/<span[^>]*class=["'][^"']*ui-pdp-review__rating[^"']*["'][^>]*>([\d.,]+)<\/span>/i);
+  // 4. Nota das Estrelas e Quantidade de Avaliações
+  const ratingMatch = html.match(/<span[^>]*class=["'][^"']*ui-pdp-review__rating[^"']*["'][^>]*>([\d.,]+)<\/span>/i);
   if (ratingMatch && ratingMatch[1]) {
     resultado.avaliacaoNota = limparEntidadesHtml(ratingMatch[1]);
   }
-  const ratingAmountMatch = htmlProduto.match(/<span[^>]*class=["'][^"']*ui-pdp-review__amount[^"']*["'][^>]*>([\s\S]*?)<\/span>/i);
+  const ratingAmountMatch = html.match(/<span[^>]*class=["'][^"']*ui-pdp-review__amount[^"']*["'][^>]*>([\s\S]*?)<\/span>/i);
   if (ratingAmountMatch && ratingAmountMatch[1]) {
     resultado.avaliacaoQtd = limparEntidadesHtml(ratingAmountMatch[1]);
   }
 
-  // 5. Loja Oficial / Vendedor (ex: "Loja oficial Voolt3D")
+  // 5. Loja Oficial / Vendedor
   const sellerMatch =
-    htmlProduto.match(/Acesse a Loja Oficial de ([^<"]+)/i) ||
-    htmlProduto.match(/class=["'][^"']*ui-pdp-seller__header__title[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
+    html.match(/Acesse a Loja Oficial de ([^<"]+)/i) ||
+    html.match(/class=["'][^"']*ui-pdp-seller__header__title[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
   if (sellerMatch && sellerMatch[1]) {
     resultado.lojaOficial = limparEntidadesHtml(sellerMatch[1]);
   }
 
-  // 6. Parcelamento real (ex: "ou R$ 104,90 em outros meios" / "4x R$ 29,75 sem juros")
+  // 6. Parcelamento real
   const installmentsMatch =
-    htmlProduto.match(/class=["'][^"']*ui-pdp-price__subtitles[^"']*["'][^>]*>([\s\S]*?)<\/div>/i) ||
-    htmlProduto.match(/class=["'][^"']*poly-price__installments[^"']*["'][^>]*>([\s\S]*?)<\/span>/i);
+    html.match(/class=["'][^"']*ui-pdp-price__subtitles[^"']*["'][^>]*>([\s\S]*?)<\/div>/i) ||
+    html.match(/class=["'][^"']*poly-price__installments[^"']*["'][^>]*>([\s\S]*?)<\/span>/i);
   if (installmentsMatch && installmentsMatch[1]) {
     resultado.parcelamentoTexto = limparEntidadesHtml(installmentsMatch[1]);
   }
@@ -338,14 +367,14 @@ function extrairDadosDaPaginaCompletaML(htmlProduto) {
 }
 
 /**
- * Rota chamada quando o usuário CLICA num produto para ver mais fotos e a ficha completa
+ * Rota chamada quando o usuário CLICA num produto para ver TODAS as fotos e a ficha completa
  */
-async function buscarDetalhesCompletosSobDemanda(linkMeli, mlToken) {
+async function buscarDetalhesCompletosSobDemanda(linkMeli, tituloHint, mlToken) {
   const linkLimpo = (linkMeli || '').trim();
   if (!urlEhSegura(linkLimpo)) return null;
 
   const cached = detalheCache.get(linkLimpo);
-  if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS && cached.data.fotosGaleria.length > 1) {
     return cached.data;
   }
 
@@ -357,40 +386,40 @@ async function buscarDetalhesCompletosSobDemanda(linkMeli, mlToken) {
   };
 
   try {
-    // 1. Abre o link meli.la (que cai na página /social/ ou direto no produto)
+    // 1. Abre o link meli.la
     const respSocial = await fetchComTimeout(linkLimpo, { method: 'GET', redirect: 'follow', headers }, 4500);
-    const urlSocial = respSocial.url || '';
-    const htmlSocial = await respSocial.text();
+    const urlSocial = decodeURIComponent(respSocial.url || '');
+    const htmlSocialBruto = await respSocial.text();
+    const htmlSocial = htmlSocialBruto.replace(/\\u002F/gi, '/').replace(/\\\//g, '/').replace(/&amp;/gi, '&');
 
     let htmlProdutoCompleto = htmlSocial;
+    let mlbEncontrado = '';
 
-    // 2. Se caiu na página /social/, descobre o link do botão "Ir para produto" do 1º card
-    if (urlSocial.includes('/social/')) {
-      let urlProdutoDireto = '';
+    // 2. Procura o link direto do produto ou código MLB dentro da página /social/
+    const linkProdutoMatches = [
+      // Link do título do card principal (poly-component__title)
+      (htmlSocial.match(/<a[^>]+class=["'][^"']*poly-component__title[^"']*["'][^>]+href=["']([^"']+)["']/i) || [])[1],
+      (htmlSocial.match(/<a[^>]+href=["']([^"']+)["'][^>]*class=["'][^"']*poly-component__title/i) || [])[1],
+      // Qualquer URL de produto ou catálogo com MLB (/p/MLB... ou MLB-...)
+      (htmlSocial.match(/https:\/\/(?:www\.|produto\.)?mercadolivre\.com\.br\/[^"'\s<>]*MLB-?\d{7,12}[^"'\s<>]*/i) || [])[0],
+      // Link de clique do botão "Ir para produto" (click1.mercadolivre.com.br)
+      (htmlSocial.match(/https:\/\/click1\.mercadolivre\.com\.br\/[^"'\s<>]+/i) || [])[0]
+    ].filter(Boolean);
 
-      // Procura o href do 1º produto recomendado (poly-component__title ou botão Ir para produto)
-      const linkCardMatch =
-        htmlSocial.match(/<a[^>]+class=["'][^"']*poly-component__title[^"']*["'][^>]+href=["']([^"']+)["']/i) ||
-        htmlSocial.match(/<a[^>]+href=["']([^"']+)["'][^>]*class=["'][^"']*poly-component__title/i) ||
-        htmlSocial.match(/href=["'](https:\/\/(?:www\.|produto\.|click1\.)?mercadolivre\.com\.br\/[^"'\s<>]+)["']/i);
-
-      if (linkCardMatch && linkCardMatch[1]) {
-        const candidateUrl = linkCardMatch[1].replace(/&amp;/g, '&');
-        if (urlEhSegura(candidateUrl) && !candidateUrl.includes('/social/')) {
-          urlProdutoDireto = candidateUrl;
-        }
-      }
-
-      // Se encontrou o link direto da página do produto, abre ela para pegar as 6+ fotos e a ficha técnica!
-      if (urlProdutoDireto) {
+    for (const candidateUrl of linkProdutoMatches) {
+      if (urlEhSegura(candidateUrl) && !candidateUrl.includes('/social/')) {
         try {
           const respProd = await fetchComTimeout(
-            urlProdutoDireto,
+            candidateUrl,
             { method: 'GET', redirect: 'follow', headers },
             4500
           );
           if (respProd.ok) {
-            htmlProdutoCompleto = await respProd.text();
+            const textoProd = await respProd.text();
+            if (textoProd && textoProd.length > 1000) {
+              htmlProdutoCompleto = textoProd;
+              break;
+            }
           }
         } catch (e) {}
       }
@@ -398,25 +427,56 @@ async function buscarDetalhesCompletosSobDemanda(linkMeli, mlToken) {
 
     const detalhes = extrairDadosDaPaginaCompletaML(htmlProdutoCompleto);
 
-    // Também tenta complementar com a API pública se houver código MLB
-    const mlbMatch = htmlProdutoCompleto.match(/MLB-?(\d{8,12})/i);
+    // 3. Procura código MLB na página para buscar todas as fotos via API de itens/produtos
+    const mlbMatch =
+      htmlProdutoCompleto.match(/MLB-?(\d{8,12})/i) ||
+      urlSocial.match(/MLB-?(\d{8,12})/i) ||
+      htmlSocial.match(/MLB-?(\d{8,12})/i);
+
     if (mlbMatch) {
-      const mlbId = `MLB${mlbMatch[1]}`;
-      const apiHeaders = { ...headers };
-      if (mlToken) apiHeaders['Authorization'] = `Bearer ${mlToken}`;
+      mlbEncontrado = `MLB${mlbMatch[1]}`;
+    }
+
+    const apiHeaders = { ...headers };
+    if (mlToken) apiHeaders['Authorization'] = `Bearer ${mlToken}`;
+
+    // 4. Se ainda tiver menos de 2 fotos e tivermos o título do produto, busca o MLB na API pública de busca!
+    if (!mlbEncontrado && detalhes.fotosGaleria.length < 2 && tituloHint) {
       try {
-        const apiResp = await fetchComTimeout(
-          `https://api.mercadolibre.com/items/${mlbId}`,
+        const q = encodeURIComponent(tituloHint.slice(0, 70));
+        const searchResp = await fetchComTimeout(
+          `https://api.mercadolibre.com/sites/MLB/search?q=${q}&limit=1`,
           { headers: apiHeaders },
           2500
         );
+        if (searchResp.ok) {
+          const searchData = await searchResp.json();
+          if (Array.isArray(searchData.results) && searchData.results.length > 0) {
+            mlbEncontrado = searchData.results[0].id || '';
+          }
+        }
+      } catch (e) {}
+    }
+
+    // 5. Com o código MLB em mãos, puxa todas as fotos oficiais (pictures) e ficha técnica (attributes)
+    if (mlbEncontrado) {
+      try {
+        const apiResp = await fetchComTimeout(
+          `https://api.mercadolibre.com/items/${mlbEncontrado}`,
+          { headers: apiHeaders },
+          2800
+        );
         if (apiResp.ok) {
           const itemData = await apiResp.json();
-          if (Array.isArray(itemData.pictures) && itemData.pictures.length > detalhes.fotosGaleria.length) {
-            detalhes.fotosGaleria = itemData.pictures
-              .slice(0, 8)
-              .map(p => p.secure_url || p.url)
-              .filter(Boolean);
+          if (Array.isArray(itemData.pictures) && itemData.pictures.length > 0) {
+            const vistos = new Set();
+            const listaApi = [];
+            for (const p of itemData.pictures.slice(0, 10)) {
+              adicionarFotoUnica(listaApi, vistos, p.secure_url || p.url);
+            }
+            if (listaApi.length > detalhes.fotosGaleria.length) {
+              detalhes.fotosGaleria = listaApi;
+            }
           }
           if (detalhes.caracteristicas.length === 0 && Array.isArray(itemData.attributes)) {
             detalhes.caracteristicas = itemData.attributes
@@ -428,7 +488,9 @@ async function buscarDetalhesCompletosSobDemanda(linkMeli, mlToken) {
       } catch (e) {}
     }
 
-    detalheCache.set(linkLimpo, { timestamp: Date.now(), data: detalhes });
+    if (detalhes.fotosGaleria.length > 0) {
+      detalheCache.set(linkLimpo, { timestamp: Date.now(), data: detalhes });
+    }
     return detalhes;
   } catch (err) {
     return null;
@@ -487,7 +549,6 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
     let precoAntigoNum = null;
     let temBlackFridayNoAnuncio = /black\s*friday/i.test(html);
 
-    // Se a página já tiver dados de ficha técnica, já extrai
     const extraInicial = extrairDadosDaPaginaCompletaML(html);
     if (extraInicial.fotosGaleria.length > 0) fotosGaleria = extraInicial.fotosGaleria;
     if (extraInicial.caracteristicas.length > 0) caracteristicas = extraInicial.caracteristicas;
@@ -497,7 +558,6 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
     if (extraInicial.lojaOficial) lojaOficial = extraInicial.lojaOficial;
     if (extraInicial.parcelamentoTexto) parcelamentoTexto = extraInicial.parcelamentoTexto;
 
-    // 1. Se tiver código MLB do anúncio, busca os dados oficiais
     const mlbMatch =
       finalUrl.match(/MLB-?(\d{8,12})/i) ||
       html.match(/MLB-?(\d{8,12})/i);
@@ -515,8 +575,8 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
           if (tituloEhValido(data.title)) titulo = data.title;
           if (Array.isArray(data.pictures) && data.pictures.length > 0) {
             fotosGaleria = data.pictures
-              .slice(0, 8)
-              .map(p => p.secure_url || p.url)
+              .slice(0, 10)
+              .map(p => normalizarImagemML(p.secure_url || p.url))
               .filter(Boolean);
             imagemUrl = fotosGaleria[0] || '';
           } else if (data.thumbnail) {
@@ -538,7 +598,6 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
       } catch (e) {}
     }
 
-    // 2. Extração do Título real na página do link
     if (!tituloEhValido(titulo)) {
       const candidatosTitulo = [
         (html.match(/class=["'][^"']*poly-component__title[^"']*["'][^>]*>([\s\S]*?)<\/(?:a|h[1-6]|span)>/i) || [])[1],
@@ -560,7 +619,6 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
       }
     }
 
-    // 3. Imagem Principal Real do Link
     if (!imagemUrl) {
       if (fotosGaleria.length > 0) {
         imagemUrl = fotosGaleria[0];
@@ -578,7 +636,6 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
       }
     }
 
-    // 4. Preço Atual e Preço Antigo Reais do Link
     if (!precoAtualNum) {
       const fractionMatches = [
         ...html.matchAll(/andes-money-amount__fraction[^>]*>([\d.]+)<\/span>(?:[\s\S]{0,120}?andes-money-amount__cents[^>]*>(\d{2})<\/span>)?/gi)
@@ -695,17 +752,18 @@ module.exports = async function handler(req, res) {
 
   const mlToken = await obterTokenOficialMercadoLivre();
 
-  // MODO 1: Quando o cliente CLICA num produto (?detalhe=1&link=https://meli.la/...)
-  // Busca todas as fotos da galeria + "O que você precisa saber sobre este produto" + Vendidos!
   if (req.query.detalhe && req.query.link) {
-    const detalhes = await buscarDetalhesCompletosSobDemanda(req.query.link, mlToken);
+    const detalhes = await buscarDetalhesCompletosSobDemanda(
+      req.query.link,
+      req.query.titulo || '',
+      mlToken
+    );
     return res.status(200).json({
       ok: Boolean(detalhes),
       detalhes: detalhes || { fotosGaleria: [], caracteristicas: [] }
     });
   }
 
-  // MODO 2: Lista de cards para a vitrine principal em lotes rápidos
   const todosOsLinks = await obterListaDeLinks();
   const tamanhoLote = Math.min(Math.max(parseInt(req.query.tamanho || '12', 10), 1), 20);
   const loteAtual = parseInt(req.query.lote || '0', 10);

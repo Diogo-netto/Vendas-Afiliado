@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>Comprar Online — Vitrine de Ofertas & Achadinhos Verificados</title>
+  <title>Comprar Online — Vitrine Oficial de Ofertas & Achadinhos</title>
   <!-- FAVICON EMBUTIDO -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230F172A' stroke='%23FFE600' stroke-width='4'/%3E%3Cpath d='M36 6L14 36h16l-4 22 24-30H34l2-22z' fill='%23FFE600'/%3E%3C/svg%3E" />
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
@@ -30,11 +30,13 @@
     }
   </script>
   <style>
-    body {
+    html, body {
       font-family: 'Inter', sans-serif;
       background-color: #F3F4F6;
       color: #111827;
       overflow-x: hidden;
+      width: 100%;
+      -webkit-tap-highlight-color: transparent;
     }
     @keyframes pulse-cta {
       0%, 100% { box-shadow: 0 0 0 0 rgba(52, 131, 250, 0.35); }
@@ -44,8 +46,8 @@
       animation: pulse-cta 2.2s infinite;
     }
     .custom-scrollbar::-webkit-scrollbar {
-      height: 5px;
-      width: 6px;
+      height: 4px;
+      width: 5px;
     }
     .custom-scrollbar::-webkit-scrollbar-track {
       background: #E5E7EB;
@@ -60,7 +62,7 @@
       filter: url(#nitidez-optica-hd) contrast(1.04) saturate(1.04);
       backface-visibility: hidden;
     }
-    /* Palco 3D Panorâmico (Nunca afina nem esmaga a foto!) */
+    /* Palco 3D Panorâmico */
     .stage-3d-perspective {
       perspective: 1400px;
     }
@@ -69,7 +71,7 @@
       transition: transform 0.1s ease-out, filter 0.1s ease-out;
       will-change: transform;
     }
-    /* Quadrado da Lente Estilo Mercado Livre */
+    /* Quadrado da Lente Estilo Mercado Livre (PC) */
     .ml-zoom-lens {
       position: absolute;
       border: 2px solid #3483FA;
@@ -96,7 +98,7 @@
     </defs>
   </svg>
 
-  <!-- AUTO-REDIRECT OVERLAY (?ir=01 NOS STORIES JOGA O CLIENTE DIRETO PRO MERCADO LIVRE) -->
+  <!-- AUTO-REDIRECT OVERLAY -->
   <div id="redirect-overlay" class="hidden fixed inset-0 z-50 bg-white/95 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center">
     <div class="w-16 h-16 rounded-2xl bg-[#FFE600] text-slate-950 flex items-center justify-center text-3xl font-black animate-bounce shadow-lg mb-4">
       ⚡
@@ -110,75 +112,73 @@
     </a>
   </div>
 
-  <!-- BARRA TOPO DO SITE -->
-  <div class="bg-slate-950 text-white px-3 py-2 text-[11px] sm:text-xs font-extrabold shadow-md sticky top-0 z-40 border-b border-amber-400/30">
-    <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-1.5">
-      <div class="flex items-center gap-1.5 sm:gap-2">
-        <span class="bg-[#FFE600] text-slate-950 px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-black uppercase tracking-wider">
-          ⚡ TEMPORADA BLACK FRIDAY & OFERTAS
+  <!-- BARRA TOPO RESPONSIVA -->
+  <div class="bg-slate-950 text-white px-2.5 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs font-extrabold shadow-md sticky top-0 z-40 border-b border-amber-400/30">
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-2">
+      <div class="flex items-center gap-1.5 min-w-0">
+        <span class="bg-[#FFE600] text-slate-950 px-1.5 sm:px-2 py-0.5 rounded text-[9px] sm:text-[11px] font-black uppercase whitespace-nowrap">
+          ⚡ OFERTAS VIP
         </span>
         <span class="tracking-tight text-slate-100 font-bold truncate">
-          PRODUTOS REAIS VERIFICADOS DIRETO DO MERCADO LIVRE
+          PRODUTOS REAIS VERIFICADOS NO MERCADO LIVRE
         </span>
       </div>
-      <div class="flex items-center gap-1.5 bg-white/10 text-[#FFE600] px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-black tracking-wide ml-auto sm:ml-0">
-        <span>⏱️ ATUALIZA EM:</span>
+      <div class="flex items-center gap-1 bg-white/10 text-[#FFE600] px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-black whitespace-nowrap flex-shrink-0">
+        <span class="hidden sm:inline">⏱️ ATUALIZA EM:</span>
         <span id="countdown-timer" class="font-mono">02:47:19</span>
       </div>
     </div>
   </div>
 
-  <!-- CABEÇALHO CLARO DA VITRINE -->
-  <header class="bg-[#FFE600] border-b border-amber-300 pt-3.5 pb-4 px-3 sm:px-4 shadow-sm">
+  <!-- CABEÇALHO CLARO 100% RESPONSIVO -->
+  <header class="bg-[#FFE600] border-b border-amber-300 pt-3 pb-3.5 px-3 sm:px-4 shadow-sm">
     <div class="max-w-6xl mx-auto">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-        <div class="flex items-center gap-2.5 sm:gap-3">
-          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-slate-950 text-[#FFE600] flex items-center justify-center text-xl sm:text-2xl font-black shadow-md flex-shrink-0">
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-slate-950 text-[#FFE600] flex items-center justify-center text-lg sm:text-2xl font-black shadow-md flex-shrink-0">
             ⚡
           </div>
-          <div>
-            <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-              <h1 id="store-title-display" class="text-base sm:text-2xl font-black tracking-tight text-slate-950">
-                Comprar Online — Vitrine Oficial de Ofertas
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <h1 id="store-title-display" class="text-sm sm:text-2xl font-black tracking-tight text-slate-950 truncate">
+                Comprar Online — Vitrine Oficial
               </h1>
-              <span class="bg-slate-950 text-[#FFE600] text-[10px] sm:text-[11px] font-extrabold px-2 py-0.5 rounded-full">
-                ✓ Preços Reais do Anúncio
+              <span class="bg-slate-950 text-[#FFE600] text-[9px] sm:text-[11px] font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">
+                ✓ Preços Reais
               </span>
             </div>
-            <p class="text-[11px] sm:text-xs text-slate-800 font-medium mt-0.5">
-              Clique em qualquer produto para <strong class="underline">ver todas as fotos, ficha técnica e Lupa HD</strong>
+            <p class="text-[11px] sm:text-xs text-slate-800 font-medium truncate">
+              Toque no produto p/ ver <strong class="underline">todas as fotos e ficha técnica</strong>
             </p>
           </div>
         </div>
 
-        <div class="flex items-center gap-2 self-start sm:self-center">
-          <button id="btn-how-to-code" type="button" class="text-[11px] sm:text-xs font-bold bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 px-3 py-1.5 sm:py-2 rounded-xl transition flex items-center gap-1.5 whitespace-nowrap shadow-sm">
-            <span>🔍</span> Como buscar pelo Código no App?
-          </button>
-        </div>
+        <button id="btn-how-to-code" type="button" class="text-[10px] sm:text-xs font-bold bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl transition flex items-center gap-1 whitespace-nowrap shadow-sm flex-shrink-0">
+          <span>🔍</span> Como buscar pelo Código no App?
+        </button>
       </div>
 
       <!-- BUSCA RÁPIDA POR NÚMERO OU NOME -->
-      <div class="mt-3">
+      <div class="mt-2.5 sm:mt-3">
         <div class="relative flex items-center">
-          <span class="absolute left-3.5 text-slate-400 text-sm sm:text-base pointer-events-none">🔎</span>
+          <span class="absolute left-3 text-slate-400 text-sm pointer-events-none">🔎</span>
           <input
             id="search-input"
             type="text"
-            placeholder="Buscar produto pelo nome ou Nº do vídeo (ex: 01, 12, 36)..."
-            class="w-full bg-white border border-slate-300 focus:border-[#3483FA] rounded-xl pl-10 pr-20 py-2.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none shadow-sm transition"
+            placeholder="Buscar produto ou Nº do vídeo (ex: 01, 12, 36)..."
+            class="w-full bg-white border border-slate-300 focus:border-[#3483FA] rounded-xl pl-9 pr-16 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none shadow-sm transition"
           />
           <button
             id="btn-clear-search"
             type="button"
-            class="hidden absolute right-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-bold px-2.5 py-1 rounded-lg transition"
+            class="hidden absolute right-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-1 rounded-lg transition"
           >
             Limpar ✕
           </button>
         </div>
 
-        <div id="dynamic-chips" class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto custom-scrollbar pt-2.5 pb-1">
-          <button type="button" data-filter="ALL" class="filter-chip bg-slate-950 text-[#FFE600] font-extrabold text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition shadow-sm">
+        <div id="dynamic-chips" class="flex items-center gap-1.5 overflow-x-auto custom-scrollbar pt-2.5 pb-1">
+          <button type="button" data-filter="ALL" class="filter-chip bg-slate-950 text-[#FFE600] font-extrabold text-[11px] sm:text-xs px-3 py-1.5 rounded-full whitespace-nowrap transition shadow-sm">
             🔥 Todos os Produtos
           </button>
         </div>
@@ -187,21 +187,19 @@
   </header>
 
   <!-- ÁREA PRINCIPAL DA VITRINE CLARA -->
-  <main class="flex-1 max-w-6xl w-full mx-auto px-2.5 sm:px-4 py-4 sm:py-6">
+  <main class="flex-1 max-w-6xl w-full mx-auto px-2 sm:px-4 py-3 sm:py-6">
 
-    <!-- BARRA DE STATUS SINCRONIZADA COM O LINK REAL -->
-    <div class="mb-4 bg-white border border-slate-200 rounded-2xl p-3 sm:p-4 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-      <div class="flex items-center gap-2.5">
-        <span id="api-status-dot" class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse flex-shrink-0"></span>
-        <span class="text-xs sm:text-sm font-extrabold text-slate-900" id="results-count-label">
+    <!-- BARRA DE STATUS -->
+    <div class="mb-3 sm:mb-4 bg-white border border-slate-200 rounded-xl sm:rounded-2xl px-3 py-2 sm:p-3.5 shadow-sm flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2 min-w-0">
+        <span id="api-status-dot" class="inline-block w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-500 animate-pulse flex-shrink-0"></span>
+        <span class="text-[11px] sm:text-sm font-extrabold text-slate-900 truncate" id="results-count-label">
           Carregando produtos dos links...
         </span>
       </div>
-      <div class="flex items-center gap-2 text-[11px] sm:text-xs text-slate-600 font-medium">
-        <span>🔍 Clique na foto do produto para ver mais fotos e ficha completa</span>
-        <span>•</span>
-        <span class="text-[#00A650] font-bold">✓ Dados 100% Fiéis ao Anúncio</span>
-      </div>
+      <span class="text-[10px] sm:text-xs text-[#00A650] font-bold whitespace-nowrap flex-shrink-0">
+        ⚡ Envio Full Oficial
+      </span>
     </div>
 
     <!-- GRADE DE PRODUTOS 100% RESPONSIVA (2 COLUNAS NO CELULAR, 3 NO TABLET, 4 NO PC) -->
@@ -214,11 +212,11 @@
     </div>
 
     <!-- Estado Limpo / Carregando -->
-    <div id="empty-state" class="text-center py-12 bg-white rounded-3xl border border-slate-200 my-4 px-6 shadow-sm">
+    <div id="empty-state" class="text-center py-10 sm:py-12 bg-white rounded-2xl sm:rounded-3xl border border-slate-200 my-4 px-4 sm:px-6 shadow-sm">
       <div class="w-12 h-12 rounded-2xl bg-[#FFE600] text-slate-950 flex items-center justify-center text-2xl mx-auto mb-3 shadow-sm">
         ⚡
       </div>
-      <h3 id="empty-title" class="text-base sm:text-lg font-extrabold text-slate-900">
+      <h3 id="empty-title" class="text-sm sm:text-lg font-extrabold text-slate-900">
         Sincronizando Produtos dos Links...
       </h3>
       <p id="empty-subtitle" class="text-xs sm:text-sm text-slate-500 mt-1.5 max-w-md mx-auto leading-relaxed">
@@ -230,34 +228,34 @@
     </div>
 
     <!-- SELOS DE GARANTIA CLAROS -->
-    <div class="mt-7 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-      <div class="bg-white border border-slate-200 rounded-2xl p-3.5 sm:p-4 flex items-start gap-3 shadow-sm">
-        <span class="text-xl bg-emerald-50 text-[#00A650] p-2 rounded-xl">⚡</span>
+    <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-4">
+      <div class="bg-white border border-slate-200 rounded-xl sm:rounded-2xl p-3 sm:p-4 flex items-start gap-3 shadow-sm">
+        <span class="text-lg sm:text-xl bg-emerald-50 text-[#00A650] p-2 rounded-xl">⚡</span>
         <div>
           <h3 class="text-xs sm:text-sm font-extrabold text-slate-900">Dados Reais do Anúncio</h3>
-          <p class="text-xs text-slate-600 mt-0.5">Todos os títulos, fotos, especificações e preços vêm diretamente do link real do produto no Mercado Livre.</p>
+          <p class="text-[11px] sm:text-xs text-slate-600 mt-0.5">Todas as fotos, especificações e preços vêm direto do anúncio oficial no Mercado Livre.</p>
         </div>
       </div>
-      <div class="bg-white border border-slate-200 rounded-2xl p-3.5 sm:p-4 flex items-start gap-3 shadow-sm">
-        <span class="text-xl bg-blue-50 text-[#3483FA] p-2 rounded-xl">🛡️</span>
+      <div class="bg-white border border-slate-200 rounded-xl sm:rounded-2xl p-3 sm:p-4 flex items-start gap-3 shadow-sm">
+        <span class="text-lg sm:text-xl bg-blue-50 text-[#3483FA] p-2 rounded-xl">🛡️</span>
         <div>
           <h3 class="text-xs sm:text-sm font-extrabold text-slate-900">Compra Garantida Oficial</h3>
-          <p class="text-xs text-slate-600 mt-0.5">Você finaliza sua compra diretamente no site ou aplicativo oficial do Mercado Livre.</p>
+          <p class="text-[11px] sm:text-xs text-slate-600 mt-0.5">Você finaliza sua compra diretamente no site ou aplicativo oficial do Mercado Livre.</p>
         </div>
       </div>
-      <div class="bg-white border border-slate-200 rounded-2xl p-3.5 sm:p-4 flex items-start gap-3 shadow-sm">
-        <span class="text-xl bg-amber-50 text-amber-600 p-2 rounded-xl">🔍</span>
+      <div class="bg-white border border-slate-200 rounded-xl sm:rounded-2xl p-3 sm:p-4 flex items-start gap-3 shadow-sm">
+        <span class="text-lg sm:text-xl bg-amber-50 text-amber-600 p-2 rounded-xl">🔍</span>
         <div>
           <h3 class="text-xs sm:text-sm font-extrabold text-slate-900">Galeria Multi-Fotos + Ficha Técnica</h3>
-          <p class="text-xs text-slate-600 mt-0.5">Clique no produto para ver todos os ângulos, Lupa HD e o resumo completo "O que você precisa saber".</p>
+          <p class="text-[11px] sm:text-xs text-slate-600 mt-0.5">Toque em qualquer produto para navegar por todas as fotos e ler a ficha técnica.</p>
         </div>
       </div>
     </div>
 
-    <!-- BANNER RODAPÉ DE COMPRA SEGURA -->
-    <div class="mt-6 bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
-      <div class="flex items-start sm:items-center gap-3.5">
-        <div class="w-11 h-11 rounded-2xl bg-[#FFE600] text-slate-950 flex items-center justify-center text-2xl flex-shrink-0 font-black">
+    <!-- BANNER RODAPÉ -->
+    <div class="mt-5 bg-white border border-slate-200 rounded-xl sm:rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
+      <div class="flex items-start sm:items-center gap-3">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FFE600] text-slate-950 flex items-center justify-center text-xl flex-shrink-0 font-black">
           🛒
         </div>
         <div>
@@ -265,17 +263,14 @@
             Compra Rápida e Segura
           </span>
           <h3 class="text-xs sm:text-base font-extrabold text-slate-900 mt-1">
-            Ao abrir o Mercado Livre, clique no botão azul "Ir para produto" para finalizar no aplicativo
+            Ao abrir o Mercado Livre, clique no botão azul "Ir para produto" para finalizar no app
           </h3>
-          <p class="text-xs text-slate-600 mt-0.5">
-            Todos os produtos contam com Compra Garantida direto na plataforma oficial.
-          </p>
         </div>
       </div>
       <a
         id="vip-group-btn"
         href="#products-grid"
-        class="w-full sm:w-auto text-center bg-[#3483FA] hover:bg-blue-600 text-white font-black text-xs px-5 py-3 rounded-xl transition shadow whitespace-nowrap"
+        class="w-full sm:w-auto text-center bg-[#3483FA] hover:bg-blue-600 text-white font-black text-xs px-5 py-2.5 sm:py-3 rounded-xl transition shadow whitespace-nowrap"
       >
         EXPLORAR PRODUTOS ↑
       </a>
@@ -283,25 +278,25 @@
   </main>
 
   <!-- ========================================================================
-       MODAL COMPLETO DO PRODUTO (ESTILO PÁGINA INTERNA DO MERCADO LIVRE)
-       - Mais fotos reais do produto na coluna lateral (1 por 1 ao clicar)
-       - Lupa HD (que some ao tirar a seta!) + Barras de Giro 3D e Zoom
-       - "O que você precisa saber sobre este produto" + Vendidos + Estrelas + Garantias
+       MODAL 100% RESPONSIVO (TELA CHEIA NATIVA NO CELULAR / JANELA AMPLA NO PC)
+       - Puxa TODAS as fotos do produto (coluna lateral no PC / carrossel com setas no celular)
+       - Rolagem 100% livre no celular (sem travar o dedo!)
+       - Barra de compra fixa no rodapé do celular!
        ======================================================================== -->
-  <div id="modal-image-zoom" class="hidden fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-    <div class="bg-white border border-slate-200 rounded-2xl max-w-5xl w-full overflow-hidden shadow-2xl my-auto max-h-[95vh] flex flex-col">
+  <div id="modal-image-zoom" class="hidden fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-white sm:border border-slate-200 rounded-t-2xl sm:rounded-2xl max-w-5xl w-full h-[94dvh] sm:h-auto sm:max-h-[92vh] overflow-hidden shadow-2xl flex flex-col">
       
-      <!-- Topo do Modal -->
-      <div class="flex items-center justify-between px-4 sm:px-6 py-3 bg-slate-900 text-white border-b border-slate-800 flex-shrink-0">
-        <div class="flex items-center gap-2">
-          <span id="zoom-badge-num" class="bg-[#FFE600] text-slate-950 font-black text-xs px-2.5 py-0.5 rounded-md">
+      <!-- Topo Fixo do Modal -->
+      <div class="flex items-center justify-between px-3.5 sm:px-6 py-2.5 sm:py-3 bg-slate-900 text-white border-b border-slate-800 flex-shrink-0">
+        <div class="flex items-center gap-2 min-w-0">
+          <span id="zoom-badge-num" class="bg-[#FFE600] text-slate-950 font-black text-[11px] sm:text-xs px-2 py-0.5 rounded-md whitespace-nowrap">
             PRODUTO #01
           </span>
-          <span id="zoom-category" class="text-xs font-bold text-slate-200 truncate max-w-[160px] sm:max-w-xs">
+          <span id="zoom-category" class="text-xs font-bold text-slate-200 truncate">
             Detalhes do Produto
           </span>
-          <span id="zoom-loading-badge" class="hidden text-[11px] bg-blue-500/20 text-blue-300 border border-blue-400/30 px-2.5 py-0.5 rounded-full font-semibold animate-pulse">
-            🔄 Buscando mais fotos e ficha técnica...
+          <span id="zoom-loading-badge" class="hidden text-[10px] sm:text-[11px] bg-blue-500/20 text-blue-300 border border-blue-400/30 px-2 py-0.5 rounded-full font-semibold animate-pulse whitespace-nowrap">
+            🔄 Carregando fotos...
           </span>
         </div>
 
@@ -315,29 +310,47 @@
           <span id="zoom-level-indicator">2.5x</span>
         </div>
 
-        <button id="btn-close-zoom" type="button" class="bg-white/15 hover:bg-white/25 text-white text-xs font-extrabold px-3.5 py-1.5 rounded-xl transition">
+        <button id="btn-close-zoom" type="button" class="bg-white/15 hover:bg-white/25 text-white text-xs font-extrabold px-3 py-1.5 rounded-xl transition flex-shrink-0">
           Fechar ✕
         </button>
       </div>
 
-      <!-- Corpo Principal Rolável (Layout igual à página do produto do Mercado Livre!) -->
-      <div class="p-3.5 sm:p-6 bg-white overflow-y-auto flex-1">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+      <!-- ÁREA CENTRAL COM ROLAGEM 100% LIVRE NO CELULAR E NO PC -->
+      <div class="p-3 sm:p-6 bg-white overflow-y-auto overscroll-contain flex-1">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-start">
           
-          <!-- LADO ESQUERDO (7 COLUNAS): MINIATURAS LATERAIS + FOTO PRINCIPAL + LUPA FLUTUANTE + 2 BARRAS -->
-          <div class="lg:col-span-7 flex flex-col gap-3">
-            <div class="flex flex-col sm:flex-row gap-3 items-center sm:items-start">
+          <!-- COLUNA ESQUERDA (7 COLUNAS NO PC): MINIATURAS + FOTO PRINCIPAL COM SETAS + 2 BARRAS -->
+          <div class="lg:col-span-7 flex flex-col gap-2.5 sm:gap-3 w-full">
+            <div class="flex flex-col sm:flex-row gap-2.5 sm:gap-3 items-center sm:items-start w-full">
               
-              <!-- Coluna de Miniaturas 1 por 1 (igual à lateral esquerda do Mercado Livre) -->
-              <div id="zoom-thumbnails" class="flex sm:flex-col items-center gap-2 overflow-x-auto sm:overflow-y-auto sm:max-h-[350px] order-2 sm:order-1 py-1 px-1 flex-shrink-0"></div>
+              <!-- Coluna de Miniaturas de TODAS as Fotos (Vertical à esquerda no PC igual ao print / Horizontal no celular) -->
+              <div
+                id="zoom-thumbnails"
+                class="flex sm:flex-col items-center gap-2 overflow-x-auto sm:overflow-y-auto w-full sm:w-auto sm:max-h-[360px] order-2 sm:order-1 py-1 px-0.5 custom-scrollbar flex-shrink-0"
+              ></div>
 
-              <!-- Quadro da Foto Principal Limpa + Quadrado da Lupa -->
+              <!-- Quadro da Foto Principal + Setas Anterior/Próxima + Contador de Fotos -->
               <div class="flex-1 w-full order-1 sm:order-2 relative">
                 <div
                   id="stage-3d-container"
-                  class="stage-3d-perspective relative bg-white border border-slate-200 rounded-xl w-full h-[250px] sm:h-[350px] flex items-center justify-center overflow-hidden cursor-crosshair select-none touch-none"
+                  class="stage-3d-perspective relative bg-white border border-slate-200 rounded-xl w-full h-[220px] sm:h-[360px] flex items-center justify-center overflow-hidden lg:cursor-crosshair select-none"
                 >
-                  <div id="stage-3d-card" class="stage-3d-inner w-full h-full flex items-center justify-center p-3 relative">
+                  <!-- Contador de Fotos (ex: 1 / 6) -->
+                  <span id="photo-counter-badge" class="absolute top-2.5 left-2.5 z-20 bg-slate-900/75 text-white text-[10px] sm:text-xs font-bold px-2.5 py-0.5 rounded-full">
+                    1 / 1
+                  </span>
+
+                  <!-- Botão Foto Anterior (‹) -->
+                  <button
+                    id="btn-prev-photo"
+                    type="button"
+                    class="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 hover:bg-white text-slate-900 border border-slate-300 shadow flex items-center justify-center text-lg font-black transition"
+                    title="Foto anterior"
+                  >
+                    ‹
+                  </button>
+
+                  <div id="stage-3d-card" class="stage-3d-inner w-full h-full flex items-center justify-center p-2 sm:p-4 relative">
                     <img
                       id="zoom-image"
                       src=""
@@ -347,16 +360,26 @@
                     />
                   </div>
 
-                  <!-- Quadrado da Lente (SOME imediatamente quando a seta sai da foto!) -->
-                  <div id="ml-zoom-lens" class="ml-zoom-lens hidden w-24 h-24 sm:w-28 sm:h-28"></div>
+                  <!-- Botão Próxima Foto (›) -->
+                  <button
+                    id="btn-next-photo"
+                    type="button"
+                    class="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 hover:bg-white text-slate-900 border border-slate-300 shadow flex items-center justify-center text-lg font-black transition"
+                    title="Próxima foto"
+                  >
+                    ›
+                  </button>
+
+                  <!-- Quadrado da Lente (Só no PC quando o mouse está na foto, e SOME quando sai!) -->
+                  <div id="ml-zoom-lens" class="ml-zoom-lens hidden w-28 h-28"></div>
                 </div>
               </div>
             </div>
 
-            <!-- AS 2 BARRAS DE CONTROLE ABAIXO DA FOTO (GIRO 3D SEM AFINAR + APROXIMAR ZOOM) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200/80">
-              <div class="flex items-center gap-2.5">
-                <span class="text-[11px] sm:text-xs font-extrabold text-slate-700 whitespace-nowrap">🔄 Giro 3D / Ângulo:</span>
+            <!-- AS 2 BARRAS DE CONTROLE (GIRO 3D SEM AFINAR + APROXIMAR ZOOM) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 bg-slate-50 p-2.5 sm:p-3 rounded-xl border border-slate-200/80">
+              <div class="flex items-center gap-2">
+                <span class="text-[11px] font-extrabold text-slate-700 whitespace-nowrap">🔄 Giro 3D:</span>
                 <input
                   id="slider-3d-tilt"
                   type="range"
@@ -367,13 +390,13 @@
                 />
               </div>
 
-              <div class="flex items-center gap-2.5">
-                <span class="text-[11px] sm:text-xs font-extrabold text-slate-700 whitespace-nowrap">🔍 Aproximar Zoom:</span>
+              <div class="flex items-center gap-2">
+                <span class="text-[11px] font-extrabold text-slate-700 whitespace-nowrap">🔍 Zoom HD:</span>
                 <input
                   id="slider-rotation-360"
                   type="range"
                   min="100"
-                  max="280"
+                  max="260"
                   value="100"
                   class="w-full accent-[#3483FA] cursor-pointer h-2 bg-slate-200 rounded-lg"
                 />
@@ -381,22 +404,21 @@
             </div>
           </div>
 
-          <!-- LADO DIREITO (5 COLUNAS): FICHA COMPLETA ESTILO MERCADO LIVRE (OU QUADRO DE LUPA QUANDO PASSA O MOUSE NO PC) -->
+          <!-- COLUNA DIREITA (5 COLUNAS NO PC): FICHA TÉCNICA COMPLETA -->
           <div class="lg:col-span-5 flex flex-col relative w-full">
             
-            <!-- Quadro Flutuante da Lupa HD (Só aparece em cima desta coluna no PC enquanto o mouse está sobre a foto!) -->
+            <!-- Quadro Flutuante de Super-Zoom no PC (Aparece somente enquanto a seta está na foto!) -->
             <div
               id="ml-zoom-result"
-              class="hd-sharp-image hidden w-full h-[350px] rounded-xl border-2 border-[#3483FA] bg-white bg-no-repeat shadow-2xl z-30"
+              class="hd-sharp-image hidden w-full h-[360px] rounded-xl border-2 border-[#3483FA] bg-white bg-no-repeat shadow-2xl z-30"
             >
               <span id="ml-zoom-placeholder" class="hidden"></span>
             </div>
 
-            <!-- Painel de Informações Reais do Produto (Igual ao print do Mercado Livre!) -->
-            <div id="product-details-panel" class="flex flex-col space-y-3.5 border border-slate-200 rounded-2xl p-4 sm:p-5 bg-white shadow-sm">
+            <!-- Painel de Informações Reais do Produto -->
+            <div id="product-details-panel" class="flex flex-col space-y-3 border border-slate-200 rounded-2xl p-3.5 sm:p-5 bg-white shadow-sm">
               
-              <!-- Loja Oficial + Novo | +100 mil vendidos -->
-              <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+              <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] sm:text-xs">
                 <span id="zoom-subtitle-sold" class="text-slate-500 font-medium">
                   Novo • Oferta Verificada
                 </span>
@@ -405,21 +427,18 @@
                 </span>
               </div>
 
-              <!-- Título Completo do Produto -->
               <h3 id="zoom-title" class="text-sm sm:text-lg font-bold text-slate-900 leading-snug"></h3>
 
-              <!-- Avaliação com Estrelas (ex: 4.9 ★★★★★ (40249)) -->
               <div id="zoom-rating-row" class="flex items-center gap-1.5 text-xs">
                 <span id="zoom-rating-score" class="font-bold text-slate-700">4.9</span>
                 <span class="text-[#3483FA] tracking-tight">★★★★★</span>
                 <span id="zoom-rating-count" class="text-slate-400">(Avaliações verificadas)</span>
               </div>
 
-              <!-- Bloco de Preço Real + Desconto + Parcelamento -->
-              <div class="pt-1 border-t border-slate-100">
+              <div class="pt-2 border-t border-slate-100">
                 <span id="zoom-old-price" class="text-xs sm:text-sm text-slate-400 line-through block"></span>
-                <div class="flex items-baseline gap-2.5 flex-wrap mt-0.5">
-                  <span id="zoom-price" class="text-2xl sm:text-3xl font-normal text-slate-900"></span>
+                <div class="flex items-baseline gap-2 flex-wrap mt-0.5">
+                  <span id="zoom-price" class="text-2xl sm:text-3xl font-extrabold text-slate-900"></span>
                   <span id="zoom-discount" class="hidden bg-emerald-100 text-[#00A650] text-xs font-extrabold px-2 py-0.5 rounded-md"></span>
                 </div>
                 <p id="zoom-installments" class="text-xs text-slate-600 mt-1">
@@ -427,19 +446,19 @@
                 </p>
               </div>
 
-              <!-- Bloco "O que você precisa saber sobre este produto" (Aparece com os dados reais do anúncio!) -->
+              <!-- "O que você precisa saber sobre este produto" -->
               <div id="zoom-specs-container" class="pt-3 border-t border-slate-100">
                 <h4 class="text-xs sm:text-sm font-bold text-slate-900 mb-2">
                   O que você precisa saber sobre este produto
                 </h4>
                 <ul id="zoom-specs-list" class="space-y-1.5 text-xs text-slate-700 list-disc list-inside leading-relaxed">
-                  <li>Produto novo com nota e garantia direto no Mercado Livre.</li>
+                  <li>Produto novo com garantia direto no Mercado Livre.</li>
                   <li>Envio rápido com rastreamento pelo aplicativo oficial.</li>
                 </ul>
               </div>
 
-              <!-- Bloco de Estoque Full + Garantias Oficiais -->
-              <div class="pt-3 border-t border-slate-100 space-y-2 text-xs">
+              <!-- Garantias -->
+              <div class="pt-3 border-t border-slate-100 space-y-1.5 text-[11px] sm:text-xs">
                 <div class="flex items-center gap-2 text-slate-800 font-semibold">
                   <span class="text-[#00A650] font-black">⚡ FULL</span>
                   <span>Estoque disponível • Armazenado e enviado pelo Full</span>
@@ -453,26 +472,31 @@
                   <span><strong class="text-[#3483FA]">Compra Garantida.</strong> Receba o produto que está esperando ou devolvemos o dinheiro.</span>
                 </div>
               </div>
-
-              <!-- Botão Principal Azul Estilo Mercado Livre -->
-              <div class="pt-2">
-                <a
-                  id="zoom-buy-link"
-                  href="#"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="w-full bg-[#3483FA] hover:bg-blue-600 text-white font-bold text-xs sm:text-sm py-3.5 px-5 rounded-xl flex items-center justify-center gap-2 transition shadow-md"
-                >
-                  <span>Comprar agora no Mercado Livre</span>
-                  <span>↗</span>
-                </a>
-              </div>
-
             </div>
+
           </div>
 
         </div>
       </div>
+
+      <!-- RODAPÉ SEMPRE FIXO NO CELULAR E NO PC (PREÇO + BOTÃO COMPRAR AGORA) -->
+      <div class="px-3.5 sm:px-6 py-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between gap-3 flex-shrink-0">
+        <div class="min-w-0">
+          <span class="text-[10px] text-slate-500 block font-medium">Preço Oficial no App</span>
+          <span id="zoom-footer-price" class="text-base sm:text-xl font-black text-slate-900">Ver Oferta</span>
+        </div>
+        <a
+          id="zoom-buy-link"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex-1 sm:flex-initial bg-[#3483FA] hover:bg-blue-600 active:scale-[0.99] text-white font-extrabold text-xs sm:text-sm py-3 px-5 sm:px-8 rounded-xl flex items-center justify-center gap-2 transition shadow-md whitespace-nowrap"
+        >
+          <span>🛒 Comprar agora no Mercado Livre</span>
+          <span>↗</span>
+        </a>
+      </div>
+
     </div>
   </div>
 
@@ -490,7 +514,7 @@
       <div class="py-4 space-y-3 text-xs sm:text-sm text-slate-600">
         <p>Veja como é simples:</p>
         <ol class="list-decimal list-inside space-y-2.5 text-slate-800 font-medium bg-slate-50 p-3.5 rounded-xl border border-slate-200">
-          <li><strong>Veja todas as fotos e especificações:</strong> Clique na foto do card para abrir a galeria completa e ler "O que você precisa saber sobre este produto".</li>
+          <li><strong>Veja todas as fotos e especificações:</strong> Toque na foto do card para abrir a galeria completa e ler "O que você precisa saber sobre este produto".</li>
           <li><strong>Compre no App Oficial:</strong> Clique em <em>"Comprar agora"</em> e depois no botão azul <strong>"Ir para produto"</strong>!</li>
         </ol>
       </div>
@@ -509,7 +533,7 @@
     </div>
   </div>
 
-  <!-- RODAPÉ CLARO COM AVISO LEGAL DE AFILIADO -->
+  <!-- RODAPÉ CLARO -->
   <footer class="bg-white border-t border-slate-200 py-6 px-4 text-center text-xs text-slate-500 space-y-2 mt-8">
     <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
       <p class="font-semibold text-slate-700">🔒 Comprar Online — Curadoria independente de ofertas.</p>
@@ -521,7 +545,7 @@
   </footer>
 
   <!-- ========================================================================
-       SCRIPT COMPLETO — CARREGA MAIS FOTOS E FICHA TÉCNICA QUANDO CLICA NO CARD
+       SCRIPT COMPLETO — GALERIA DE TODAS AS FOTOS + 100% RESPONSIVO NO CELULAR
        ======================================================================== -->
   <script>
     const MEUS_PRODUTOS = [];
@@ -538,6 +562,8 @@
     const detalhesRichCache = new Map();
 
     let viewerState = {
+      fotosAtuais: [],
+      fotoIndexAtual: 0,
       currentImageUrl: '',
       zoomPower: 2.3,
       inlineZoomScale: 1.0,
@@ -602,7 +628,7 @@
       const tamanhoPorLote = 12;
 
       try {
-        const urlLote1 = API_PRODUTOS_URL + `?lote=1&tamanho=${tamanhoPorLote}&v=rich1`;
+        const urlLote1 = API_PRODUTOS_URL + `?lote=1&tamanho=${tamanhoPorLote}&v=mob2`;
         const resp1 = await fetch(urlLote1, {
           headers: { 'Accept': 'application/json' }
         });
@@ -618,7 +644,7 @@
               : [limparUrlBaseML(p.imagemUrl)]
           }));
           if (statusDot) {
-            statusDot.className = 'inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse';
+            statusDot.className = 'inline-block w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-500 animate-pulse flex-shrink-0';
           }
           renderCategoryChips();
           renderProducts();
@@ -630,8 +656,8 @@
           if (totalLotes > 1) {
             loadingBar.classList.remove('hidden');
             for (let lote = 2; lote <= totalLotes; lote++) {
-              loadingText.textContent = `Carregando mais produtos dos seus links (${activeProducts.length} de ${totalGeral})...`;
-              const urlProxLote = API_PRODUTOS_URL + `?lote=${lote}&tamanho=${tamanhoPorLote}&v=rich1`;
+              loadingText.textContent = `Carregando mais produtos (${activeProducts.length} de ${totalGeral})...`;
+              const urlProxLote = API_PRODUTOS_URL + `?lote=${lote}&tamanho=${tamanhoPorLote}&v=mob2`;
               const respLote = await fetch(urlProxLote, {
                 headers: { 'Accept': 'application/json' }
               });
@@ -710,11 +736,13 @@
     }
 
     function mostrarLupaNaPosicao(normX, normY) {
+      // Lupa de mouse ativa apenas no PC (telas >= 1024px) para não travar a rolagem do dedo no celular!
+      if (window.innerWidth < 1024) return;
+
       const stage = document.getElementById('stage-3d-container');
       const lens = document.getElementById('ml-zoom-lens');
       const resultBox = document.getElementById('ml-zoom-result');
       const detailsPanel = document.getElementById('product-details-panel');
-      const imgEl = document.getElementById('zoom-image');
 
       if (!stage || !lens || !viewerState.currentImageUrl) return;
 
@@ -724,8 +752,8 @@
       viewerState.lastNormY = y;
 
       const rect = stage.getBoundingClientRect();
-      const lensW = lens.offsetWidth || 100;
-      const lensH = lens.offsetHeight || 100;
+      const lensW = lens.offsetWidth || 110;
+      const lensH = lens.offsetHeight || 110;
 
       const leftPx = Math.max(0, Math.min(rect.width - lensW, x * rect.width - lensW / 2));
       const topPx = Math.max(0, Math.min(rect.height - lensH, y * rect.height - lensH / 2));
@@ -734,11 +762,7 @@
       lens.style.left = `${leftPx}px`;
       lens.style.top = `${topPx}px`;
 
-      if (window.innerWidth < 1024 && imgEl) {
-        imgEl.style.transformOrigin = `${(x * 100).toFixed(1)}% ${(y * 100).toFixed(1)}%`;
-        imgEl.style.transform = `scale(${Math.max(1.8, viewerState.inlineZoomScale)})`;
-      } else if (resultBox && detailsPanel) {
-        // No PC: enquanto a seta está em cima da foto, abre o Super-Zoom no painel direito!
+      if (resultBox && detailsPanel) {
         resultBox.classList.remove('hidden');
         detailsPanel.classList.add('hidden');
         resultBox.style.backgroundImage = `url("${viewerState.currentImageUrl}")`;
@@ -747,21 +771,37 @@
       }
     }
 
-    // Quando a seta sai da foto -> some o quadrado da lupa e volta a Ficha Técnica do produto!
     function esconderQuadradoDaLupa() {
       const lens = document.getElementById('ml-zoom-lens');
       const resultBox = document.getElementById('ml-zoom-result');
       const detailsPanel = document.getElementById('product-details-panel');
-      const imgEl = document.getElementById('zoom-image');
 
       if (lens) lens.classList.add('hidden');
       if (resultBox) resultBox.classList.add('hidden');
       if (detailsPanel) detailsPanel.classList.remove('hidden');
+    }
 
-      if (window.innerWidth < 1024 && imgEl) {
-        imgEl.style.transformOrigin = '50% 50%';
-        imgEl.style.transform = `scale(${viewerState.inlineZoomScale})`;
+    function selecionarFotoPorIndice(index) {
+      const fotos = viewerState.fotosAtuais;
+      if (!Array.isArray(fotos) || fotos.length === 0) return;
+
+      const total = fotos.length;
+      const idx = ((index % total) + total) % total;
+      viewerState.fotoIndexAtual = idx;
+
+      const counterEl = document.getElementById('photo-counter-badge');
+      if (counterEl) {
+        counterEl.textContent = `${idx + 1} / ${total} ${total > 1 ? 'fotos' : 'foto'}`;
       }
+
+      const thumbsContainer = document.getElementById('zoom-thumbnails');
+      if (thumbsContainer) {
+        thumbsContainer.querySelectorAll('.thumb-angle-btn').forEach((b, bIdx) => {
+          b.className = `thumb-angle-btn w-12 h-12 sm:w-14 sm:h-14 rounded-lg bg-white p-1 border-2 ${bIdx === idx ? 'border-[#3483FA] ring-2 ring-[#3483FA]/20' : 'border-slate-200'} flex-shrink-0 flex items-center justify-center transition hover:border-[#3483FA]`;
+        });
+      }
+
+      definirImagemAtivaNoModal(fotos[idx]);
     }
 
     function definirImagemAtivaNoModal(urlBase) {
@@ -792,12 +832,15 @@
     }
 
     function renderizarMiniaturasNoModal(fotos) {
+      viewerState.fotosAtuais = fotos;
+      viewerState.fotoIndexAtual = 0;
+
       const thumbsContainer = document.getElementById('zoom-thumbnails');
       thumbsContainer.innerHTML = fotos.map((fUrl, i) => `
         <button
           type="button"
           data-thumb-idx="${i}"
-          class="thumb-angle-btn w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-white p-1 border-2 ${i === 0 ? 'border-[#3483FA]' : 'border-slate-200'} flex-shrink-0 flex items-center justify-center transition hover:border-[#3483FA]"
+          class="thumb-angle-btn w-12 h-12 sm:w-14 sm:h-14 rounded-lg bg-white p-1 border-2 ${i === 0 ? 'border-[#3483FA] ring-2 ring-[#3483FA]/20' : 'border-slate-200'} flex-shrink-0 flex items-center justify-center transition hover:border-[#3483FA]"
           title="Foto ${i + 1}"
         >
           <img src="${fUrl}" alt="Foto ${i + 1}" class="max-h-full max-w-full object-contain" />
@@ -807,37 +850,29 @@
       thumbsContainer.querySelectorAll('.thumb-angle-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           const idx = parseInt(btn.getAttribute('data-thumb-idx'), 10);
-          if (fotos[idx]) {
-            definirImagemAtivaNoModal(fotos[idx]);
-            thumbsContainer.querySelectorAll('.thumb-angle-btn').forEach((b, bIdx) => {
-              b.className = `thumb-angle-btn w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-white p-1 border-2 ${bIdx === idx ? 'border-[#3483FA]' : 'border-slate-200'} flex-shrink-0 flex items-center justify-center transition hover:border-[#3483FA]`;
-            });
-          }
+          selecionarFotoPorIndice(idx);
         });
       });
+
+      selecionarFotoPorIndice(0);
     }
 
     function preencherFichaTecnicaNoModal(detalhes) {
       if (!detalhes) return;
 
-      // 1. Atualiza galeria com todas as fotos reais do produto (se encontrou mais fotos)
       if (Array.isArray(detalhes.fotosGaleria) && detalhes.fotosGaleria.length > 0) {
         const fotosLimpas = detalhes.fotosGaleria.map(limparUrlBaseML);
         renderizarMiniaturasNoModal(fotosLimpas);
-        definirImagemAtivaNoModal(fotosLimpas[0]);
       }
 
-      // 2. Atualiza "Novo | +100 mil vendidos"
       if (detalhes.vendidosTexto) {
         document.getElementById('zoom-subtitle-sold').textContent = detalhes.vendidosTexto;
       }
 
-      // 3. Atualiza Loja Oficial
       if (detalhes.lojaOficial) {
         document.getElementById('zoom-official-store').textContent = `✓ Loja Oficial ${detalhes.lojaOficial}`;
       }
 
-      // 4. Atualiza Nota e Quantidade de Avaliações
       if (detalhes.avaliacaoNota) {
         document.getElementById('zoom-rating-score').textContent = detalhes.avaliacaoNota;
       }
@@ -845,12 +880,10 @@
         document.getElementById('zoom-rating-count').textContent = detalhes.avaliacaoQtd;
       }
 
-      // 5. Atualiza Parcelamento real
       if (detalhes.parcelamentoTexto) {
         document.getElementById('zoom-installments').textContent = detalhes.parcelamentoTexto;
       }
 
-      // 6. Atualiza a lista "O que você precisa saber sobre este produto"
       if (Array.isArray(detalhes.caracteristicas) && detalhes.caracteristicas.length > 0) {
         const ul = document.getElementById('zoom-specs-list');
         ul.innerHTML = detalhes.caracteristicas
@@ -878,6 +911,7 @@
       document.getElementById('zoom-title').textContent = item.titulo || `Produto #${item.numero}`;
       document.getElementById('zoom-old-price').textContent = item.precoAntigo || '';
       document.getElementById('zoom-price').textContent = item.precoAtual || 'Ver no Mercado Livre';
+      document.getElementById('zoom-footer-price').textContent = item.precoAtual || 'Ver no App';
       document.getElementById('zoom-subtitle-sold').textContent = item.vendidosTexto || 'Novo • Oferta Verificada';
       document.getElementById('zoom-official-store').textContent = item.lojaOficial ? `✓ Loja Oficial ${item.lojaOficial}` : '✓ Vendedor Verificado';
       document.getElementById('zoom-rating-score').textContent = item.avaliacaoNota || '4.9';
@@ -893,7 +927,6 @@
         discountEl.classList.add('hidden');
       }
 
-      // Lista inicial de especificações
       const ul = document.getElementById('zoom-specs-list');
       if (Array.isArray(item.caracteristicas) && item.caracteristicas.length > 0) {
         ul.innerHTML = item.caracteristicas.map(c => `<li class="text-slate-700">${c}</li>`).join('');
@@ -909,9 +942,7 @@
       renderizarMiniaturasNoModal(fotosIniciais);
       modal.classList.remove('hidden');
       aplicarTransformacao3DPanoramica();
-      definirImagemAtivaNoModal(fotosIniciais[0]);
 
-      // Busca sob demanda TODAS as fotos da galeria e "O que você precisa saber sobre este produto"!
       if (detalhesRichCache.has(item.linkMercadoLivre)) {
         preencherFichaTecnicaNoModal(detalhesRichCache.get(item.linkMercadoLivre));
         return;
@@ -919,7 +950,9 @@
 
       try {
         if (loadingBadge) loadingBadge.classList.remove('hidden');
-        const urlDetalhe = API_PRODUTOS_URL + `?detalhe=1&link=${encodeURIComponent(item.linkMercadoLivre)}`;
+        const urlDetalhe =
+          API_PRODUTOS_URL +
+          `?detalhe=1&link=${encodeURIComponent(item.linkMercadoLivre)}&titulo=${encodeURIComponent(item.titulo || '')}`;
         const resp = await fetch(urlDetalhe, { headers: { 'Accept': 'application/json' } });
         if (resp.ok) {
           const data = await resp.json();
@@ -975,14 +1008,14 @@
       const categoriasUnicas = [...new Set(activeProducts.map(item => item.categoria || 'Geral'))];
 
       const chips = [
-        `<button type="button" data-filter="ALL" class="filter-chip ${currentFilter === 'ALL' ? 'bg-slate-950 text-[#FFE600] font-extrabold' : 'bg-white text-slate-800 font-bold border border-slate-300'} text-[11px] sm:text-xs px-3 sm:px-3.5 py-1.5 rounded-full whitespace-nowrap transition shadow-sm">🔥 Todos os Produtos (${activeProducts.length})</button>`
+        `<button type="button" data-filter="ALL" class="filter-chip ${currentFilter === 'ALL' ? 'bg-slate-950 text-[#FFE600] font-extrabold' : 'bg-white text-slate-800 font-bold border border-slate-300'} text-[11px] sm:text-xs px-3 py-1.5 rounded-full whitespace-nowrap transition shadow-sm">🔥 Todos os Produtos (${activeProducts.length})</button>`
       ];
 
       categoriasUnicas.forEach(cat => {
         const active = currentFilter === cat;
         const qtd = activeProducts.filter(p => (p.categoria || 'Geral') === cat).length;
         chips.push(`
-          <button type="button" data-filter="${cat}" class="filter-chip ${active ? 'bg-slate-950 text-[#FFE600] font-extrabold' : 'bg-white hover:bg-slate-100 text-slate-800 font-bold border border-slate-300'} text-[11px] sm:text-xs px-3 sm:px-3.5 py-1.5 rounded-full whitespace-nowrap transition shadow-sm">
+          <button type="button" data-filter="${cat}" class="filter-chip ${active ? 'bg-slate-950 text-[#FFE600] font-extrabold' : 'bg-white hover:bg-slate-100 text-slate-800 font-bold border border-slate-300'} text-[11px] sm:text-xs px-3 py-1.5 rounded-full whitespace-nowrap transition shadow-sm">
             ${cat} (${qtd})
           </button>
         `);
@@ -1043,10 +1076,10 @@
       }
 
       emptyState.classList.add('hidden');
-      countLabel.textContent = `${filtered.length} ${filtered.length === 1 ? 'produto carregado do Mercado Livre' : 'produtos carregados do Mercado Livre'}`;
+      countLabel.textContent = `${filtered.length} ${filtered.length === 1 ? 'produto verificado disponível' : 'produtos verificados disponíveis'}`;
 
-      // 2 colunas no celular, 3 no tablet, 4 no PC
-      grid.className = 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4';
+      // Grade 100% Responsiva: 2 colunas alinhadas no celular, 3 no tablet, 4 no PC
+      grid.className = 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4';
 
       grid.innerHTML = filtered.map((item, idx) => {
         const tituloExibicao = item.titulo && item.titulo.trim()
@@ -1058,14 +1091,14 @@
         return `
           <article class="bg-white border border-slate-200 hover:border-[#3483FA] hover:shadow-xl rounded-xl sm:rounded-2xl overflow-hidden shadow-sm transition-all duration-200 flex flex-col justify-between">
             
-            <!-- TOPO DO CARD: APENAS NÚMERO E DESCONTO REAL DO ANÚNCIO -->
             <div>
-              <div class="px-2.5 sm:px-3.5 py-1.5 bg-slate-100 border-b border-slate-200/80 flex items-center justify-between gap-1">
-                <span class="bg-slate-900 text-[#FFE600] font-black text-[10px] px-2 py-0.5 rounded">
+              <!-- Topo do Card -->
+              <div class="px-2 sm:px-3.5 py-1.5 bg-slate-100 border-b border-slate-200/80 flex items-center justify-between gap-1">
+                <span class="bg-slate-900 text-[#FFE600] font-black text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 rounded flex-shrink-0">
                   #${item.numero}
                 </span>
                 ${temDescontoReal ? `
-                  <span class="bg-emerald-100 text-[#00A650] text-[9px] sm:text-[10px] font-extrabold px-2 py-0.5 rounded truncate">
+                  <span class="bg-emerald-100 text-[#00A650] text-[9px] sm:text-[10px] font-extrabold px-1.5 py-0.5 rounded truncate">
                     ${item.descontoTag}
                   </span>
                 ` : `
@@ -1075,58 +1108,60 @@
                 `}
               </div>
 
-              <!-- FOTO LIMPA COM FUNDO BRANCO (CLIQUE ABRE MAIS FOTOS E FICHA TÉCNICA!) -->
+              <!-- Foto Limpa -->
               <div
                 data-zoom-index="${idx}"
-                class="btn-zoom-image relative bg-white p-2.5 sm:p-4 flex items-center justify-center h-36 sm:h-48 cursor-pointer group border-b border-slate-100"
-                title="Clique para ver mais fotos, Lupa HD e O que você precisa saber"
+                class="btn-zoom-image relative bg-white p-2 sm:p-4 flex items-center justify-center h-32 sm:h-48 cursor-pointer group border-b border-slate-100"
+                title="Toque para ver todas as fotos e ficha técnica"
               >
                 <img
                   id="card-img-${item.numero}"
                   src="${imgLimpa}"
                   alt="${tituloExibicao.replace(/"/g, '&quot;')}"
                   loading="lazy"
-                  class="hd-sharp-image max-h-32 sm:max-h-40 w-auto max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                  class="hd-sharp-image max-h-28 sm:max-h-40 w-auto max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
 
-              <!-- BARRA ABAIXO DA FOTO: CATEGORIA + BOTÃO VER DETALHES / FOTOS -->
-              <div class="px-2.5 sm:px-3.5 pt-2 flex items-center justify-between gap-1">
-                <span class="text-[9px] sm:text-[10px] font-bold text-slate-400 truncate">
+              <!-- Botão +Fotos & Detalhes -->
+              <div class="px-2 sm:px-3.5 pt-1.5 flex items-center justify-between gap-1">
+                <span class="text-[9px] sm:text-[10px] font-bold text-slate-400 truncate hidden sm:inline">
                   ${item.categoria || 'Mercado Livre'}
                 </span>
                 <button
                   type="button"
                   data-zoom-index="${idx}"
-                  class="btn-zoom-image text-[10px] sm:text-[11px] font-extrabold text-[#3483FA] hover:underline flex items-center gap-0.5 flex-shrink-0"
+                  class="btn-zoom-image text-[10px] sm:text-[11px] font-extrabold text-[#3483FA] hover:underline flex items-center gap-0.5"
                 >
                   🔍 +Fotos & Detalhes
                 </button>
               </div>
 
-              <!-- TÍTULO COMPLETO VISÍVEL (TAMBÉM CLICÁVEL PARA ABRIR DETALHES) -->
-              <div data-zoom-index="${idx}" class="btn-zoom-image px-2.5 sm:px-3.5 pt-1 pb-2 cursor-pointer">
-                <h2 class="text-[11px] sm:text-sm font-semibold text-slate-800 hover:text-[#3483FA] leading-snug break-words transition">
+              <!-- Título Alinhado -->
+              <div data-zoom-index="${idx}" class="btn-zoom-image px-2 sm:px-3.5 pt-1 pb-1.5 cursor-pointer">
+                <h2 class="text-[11px] sm:text-sm font-semibold text-slate-800 hover:text-[#3483FA] leading-snug line-clamp-2 min-h-[2.4rem] sm:min-h-[2.6rem] transition">
                   ${tituloExibicao}
                 </h2>
               </div>
             </div>
 
-            <!-- RODAPÉ DO CARD: PREÇO REAL DO LINK + BOTÃO DE COMPRA -->
-            <div class="p-2.5 sm:p-3.5 pt-1">
-              <div class="mb-2.5">
+            <!-- Rodapé do Card -->
+            <div class="p-2 sm:p-3.5 pt-1">
+              <div class="mb-2">
                 ${item.precoAntigo ? `
                   <span class="text-[10px] sm:text-xs text-slate-400 line-through block leading-none mb-0.5">
                     ${item.precoAntigo}
                   </span>
-                ` : ''}
-                <div class="flex items-baseline gap-1.5 flex-wrap">
-                  <span class="text-base sm:text-2xl font-extrabold text-slate-900 leading-tight">
+                ` : `
+                  <span class="text-[10px] text-transparent select-none block leading-none mb-0.5">.</span>
+                `}
+                <div class="flex items-baseline gap-1 flex-wrap">
+                  <span class="text-sm sm:text-2xl font-extrabold text-slate-900 leading-tight">
                     ${item.precoAtual || 'Ver no App'}
                   </span>
                 </div>
-                <span class="text-[10px] sm:text-[11px] text-[#00A650] font-bold block mt-0.5">
-                  ⚡ Envio Full Mercado Livre
+                <span class="text-[9px] sm:text-[11px] text-[#00A650] font-bold block mt-0.5 truncate">
+                  ⚡ Frete Grátis Full
                 </span>
               </div>
 
@@ -1134,9 +1169,9 @@
                 href="${item.linkMercadoLivre}"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="btn-pulse w-full bg-[#3483FA] hover:bg-blue-600 active:scale-[0.99] text-white font-extrabold text-[11px] sm:text-xs py-2 sm:py-2.5 px-2 sm:px-3 rounded-xl flex items-center justify-center gap-1 transition shadow-sm text-center"
+                class="btn-pulse w-full bg-[#3483FA] hover:bg-blue-600 active:scale-[0.99] text-white font-extrabold text-[11px] sm:text-xs py-2 sm:py-2.5 px-2 rounded-lg sm:rounded-xl flex items-center justify-center gap-1 transition shadow-sm text-center"
               >
-                <span>Comprar Agora</span>
+                <span>Comprar</span>
                 <span>↗</span>
               </a>
 
@@ -1145,10 +1180,10 @@
                   type="button"
                   data-copy-code="${item.codigoBuscaML}"
                   data-item-num="${item.numero}"
-                  class="btn-copy-code mt-1.5 w-full bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-[10px] font-bold py-1 px-2 rounded-lg flex items-center justify-center gap-1 transition"
+                  class="btn-copy-code mt-1.5 w-full bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-[9px] sm:text-[10px] font-bold py-1 px-1.5 rounded-lg flex items-center justify-center gap-1 transition truncate"
                 >
-                  <span>📋 Código:</span>
-                  <code class="text-slate-900 font-mono font-extrabold">${item.codigoBuscaML}</code>
+                  <span>📋</span>
+                  <code class="text-slate-900 font-mono font-extrabold truncate">${item.codigoBuscaML}</code>
                 </button>
               ` : ''}
             </div>
@@ -1241,6 +1276,16 @@
       const sliderTilt = document.getElementById('slider-3d-tilt');
       const sliderZoom = document.getElementById('slider-rotation-360');
 
+      // Setas Anterior / Próxima Foto
+      document.getElementById('btn-prev-photo').addEventListener('click', (e) => {
+        e.stopPropagation();
+        selecionarFotoPorIndice(viewerState.fotoIndexAtual - 1);
+      });
+      document.getElementById('btn-next-photo').addEventListener('click', (e) => {
+        e.stopPropagation();
+        selecionarFotoPorIndice(viewerState.fotoIndexAtual + 1);
+      });
+
       function handlePointerOnStage(clientX, clientY) {
         const rect = stageContainer.getBoundingClientRect();
         if (!rect.width || !rect.height) return;
@@ -1254,17 +1299,6 @@
       });
 
       stageContainer.addEventListener('mouseleave', () => {
-        esconderQuadradoDaLupa();
-      });
-
-      stageContainer.addEventListener('touchmove', (e) => {
-        if (e.touches && e.touches.length > 0) {
-          e.preventDefault();
-          handlePointerOnStage(e.touches[0].clientX, e.touches[0].clientY);
-        }
-      }, { passive: false });
-
-      stageContainer.addEventListener('touchend', () => {
         esconderQuadradoDaLupa();
       });
 
@@ -1313,7 +1347,6 @@
 
       window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-          
           esconderQuadradoDaLupa();
           zoomModal.classList.add('hidden');
           modal.classList.add('hidden');
