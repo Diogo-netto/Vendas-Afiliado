@@ -45,6 +45,13 @@
     .btn-pulse {
       animation: pulse-cta 2.2s infinite;
     }
+    @keyframes pulse-yellow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 230, 0, 0.55); }
+      50% { box-shadow: 0 0 0 10px rgba(255, 230, 0, 0); }
+    }
+    .btn-pulse-yellow {
+      animation: pulse-yellow 1.8s infinite;
+    }
     .custom-scrollbar::-webkit-scrollbar {
       height: 4px;
       width: 5px;
@@ -113,7 +120,7 @@
   </div>
 
   <!-- BARRA TOPO RESPONSIVA -->
-  <div class="bg-slate-950 text-white px-2.5 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs font-extrabold shadow-md sticky top-0 z-40 border-b border-amber-400/30">
+  <div class="bg-slate-950 text-white px-2.5 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs font-extrabold shadow-md sticky top-0 z-30 border-b border-amber-400/30">
     <div class="max-w-6xl mx-auto flex items-center justify-between gap-2">
       <div class="flex items-center gap-1.5 min-w-0">
         <span class="bg-[#FFE600] text-slate-950 px-1.5 sm:px-2 py-0.5 rounded text-[9px] sm:text-[11px] font-black uppercase whitespace-nowrap">
@@ -569,19 +576,19 @@
 
           <h4 class="font-extrabold text-slate-900 text-sm">3. Direitos do Titular</h4>
           <p>
-            Como não armazenamos dados pessoais identificáveis em nossos servidores, não há compartilhamento ou venda de informações a terceiros.Você pode limpar o armazenamento local do seu navegador a qualquer momento nas configurações do seu aparelho.
+            Como não armazenamos dados pessoais identificáveis em nossos servidores, não há compartilhamento ou venda de informações a terceiros. Você pode limpar o armazenamento local do seu navegador a qualquer momento nas configurações do seu aparelho.
           </p>
         </div>
 
         <!-- ABA 2: POLÍTICA DE COOKIES -->
         <div id="legal-content-cookies" class="hidden space-y-3">
           <div class="bg-blue-50 border border-blue-200 text-blue-900 p-3.5 rounded-xl text-xs font-medium">
-            <strong>Para que servem os Cookies neste site?</strong> Utilizamos apenas armazenamento técnico essencial para lembrar que você já fechou o aviso de cookies e links oficiais de atribuição do Programa de Afiliados do Mercado Livre.
+            <strong>Para que servem os Cookies neste site?</strong> Utilizamos apenas armazenamento técnico essencial para lembrar que você já aceitou este aviso e links oficiais de atribuição do Programa de Afiliados do Mercado Livre.
           </div>
 
           <h4 class="font-extrabold text-slate-900 text-sm">1. Armazenamento Técnico Essencial (LocalStorage)</h4>
           <p>
-            Utilizamos o recurso nativo <code>localStorage</code> do seu navegador apenas para registrar a sua confirmação no banner de privacidade (chave <code>lgpd_cookies_accepted_v1</code>), evitando que o aviso apareça repetidamente a cada acesso.
+            Utilizamos o recurso nativo <code>localStorage</code> do seu navegador apenas para registrar a sua confirmação no painel de entrada (chave <code>lgpd_cookies_accepted_v1</code>), liberando seu acesso imediato às ofertas nas próximas visitas.
           </p>
 
           <h4 class="font-extrabold text-slate-900 text-sm">2. Cookies de Atribuição de Afiliado (Mercado Livre)</h4>
@@ -626,33 +633,45 @@
   </div>
 
   <!-- ========================================================================
-       BANNER FLUTUANTE DE CONSENTIMENTO DE COOKIES & LGPD (RODAPÉ)
-       Aparece na 1ª visita e some após clicar em "Aceitar e Fechar"
+       PORTAL OBRIGATÓRIO DE ACEITE DE COOKIES COM GATILHO DE COMPRA
+       - Deixa os produtos visíveis ao fundo (com leve desfoque que dá curiosidade)
+       - Obriga o visitante a clicar no botão para liberar a vitrine, transformando
+         o aceite de cookies num gatilho mental de "Destravar Ofertas & Descontos"!
        ======================================================================== -->
   <div
     id="cookie-consent-banner"
-    class="hidden fixed bottom-0 inset-x-0 z-40 bg-slate-900/95 backdrop-blur-md text-white border-t border-slate-700 p-3 sm:p-4 shadow-2xl"
+    class="hidden fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-[3px] flex items-end sm:items-center justify-center p-3 sm:p-4"
   >
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-      <div class="flex items-start gap-2.5 text-[11px] sm:text-xs text-slate-200 leading-relaxed">
-        <span class="text-lg flex-shrink-0">🍪</span>
-        <p>
-          <strong class="text-[#FFE600]">Privacidade, Cookies e Transparência (LGPD):</strong>
-          Não coletamos dados pessoais nem financeiros. Utilizamos apenas cookies essenciais e links oficiais do Programa de Afiliados para direcionar você com segurança ao aplicativo do Mercado Livre.
-          <button id="btn-banner-open-policy" type="button" class="underline text-amber-300 hover:text-white font-bold ml-1">
-            Ler Política de Privacidade e Cookies
-          </button>
-        </p>
+    <div class="bg-white border-2 border-[#FFE600] rounded-3xl max-w-md w-full p-5 sm:p-6 shadow-2xl text-center relative overflow-hidden">
+      <!-- Faixa Topo Dourada -->
+      <div class="bg-[#FFE600] text-slate-950 text-[11px] font-black uppercase tracking-wider py-1 px-3 rounded-full inline-flex items-center gap-1.5 mb-3 shadow-sm">
+        <span>⚡</span> <span>Acesso Oficial às Ofertas do Dia</span>
       </div>
-      <div class="flex items-center gap-2 w-full sm:w-auto justify-end flex-shrink-0">
-        <button
-          id="btn-accept-cookies"
-          type="button"
-          class="w-full sm:w-auto bg-[#FFE600] hover:bg-yellow-300 text-slate-950 font-black text-xs px-5 py-2.5 rounded-xl transition shadow-md whitespace-nowrap"
-        >
-          Aceitar e Continuar ✓
-        </button>
-      </div>
+
+      <h3 class="text-base sm:text-xl font-black text-slate-900 leading-snug">
+        Liberar Vitrine de Ofertas & Descontos no App
+      </h3>
+
+      <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+        Clique no botão abaixo para ativar o redirecionamento seguro com <strong>Frete Grátis Full e Descontos no Pix</strong> direto no aplicativo oficial do Mercado Livre.
+      </p>
+
+      <!-- Botão Principal que Força o Aceite sem Tirar a Intenção de Compra -->
+      <button
+        id="btn-accept-cookies"
+        type="button"
+        class="btn-pulse-yellow mt-4 w-full bg-[#3483FA] hover:bg-blue-600 active:scale-[0.99] text-white font-black text-xs sm:text-sm py-3.5 px-5 rounded-2xl flex items-center justify-center gap-2 transition shadow-lg"
+      >
+        Aceitar e Continuar ✓
+      </button>
+
+      <!-- Nota de Conformidade LGPD & Cookies -->
+      <p class="text-[10px] sm:text-[11px] text-slate-400 mt-3 leading-normal">
+        🍪 Ao clicar em continuar, você aceita o uso de cookies essenciais de atribuição de afiliado e concorda com nossa
+        <button id="btn-banner-open-policy" type="button" class="underline text-[#3483FA] hover:text-blue-700 font-bold">
+          Ler Política de Privacidade e Cookies
+        </button>.
+      </p>
     </div>
   </div>
 
@@ -776,7 +795,7 @@
       const tamanhoPorLote = 12;
 
       try {
-        const urlLote1 = API_PRODUTOS_URL + `?lote=1&tamanho=${tamanhoPorLote}&v=lgpd1`;
+        const urlLote1 = API_PRODUTOS_URL + `?lote=1&tamanho=${tamanhoPorLote}&v=lgpd2`;
         const resp1 = await fetch(urlLote1, {
           headers: { 'Accept': 'application/json' }
         });
@@ -805,7 +824,7 @@
             loadingBar.classList.remove('hidden');
             for (let lote = 2; lote <= totalLotes; lote++) {
               loadingText.textContent = `Carregando mais produtos (${activeProducts.length} de ${totalGeral})...`;
-              const urlProxLote = API_PRODUTOS_URL + `?lote=${lote}&tamanho=${tamanhoPorLote}&v=lgpd1`;
+              const urlProxLote = API_PRODUTOS_URL + `?lote=${lote}&tamanho=${tamanhoPorLote}&v=lgpd2`;
               const respLote = await fetch(urlProxLote, {
                 headers: { 'Accept': 'application/json' }
               });
@@ -853,6 +872,7 @@
         );
 
         if (targetProd && targetProd.linkMercadoLivre) {
+          aceitarCookiesLGPD();
           const overlay = document.getElementById('redirect-overlay');
           const nameEl = document.getElementById('redirect-product-name');
           const manualBtn = document.getElementById('redirect-manual-link');
@@ -1040,6 +1060,7 @@
     }
 
     async function abrirZoomImagem(item) {
+      aceitarCookiesLGPD();
       const modal = document.getElementById('modal-image-zoom');
       const loadingBadge = document.getElementById('zoom-loading-badge');
       const fotosIniciais = Array.isArray(item.fotosGaleria) && item.fotosGaleria.length > 0
@@ -1356,7 +1377,7 @@
                 href="${item.linkMercadoLivre}"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="btn-pulse w-full bg-[#3483FA] hover:bg-blue-600 active:scale-[0.99] text-white font-extrabold text-[11px] sm:text-xs py-2 sm:py-2.5 px-2 rounded-lg sm:rounded-xl flex items-center justify-center gap-1 transition shadow-sm text-center"
+                class="btn-buy-affiliate btn-pulse w-full bg-[#3483FA] hover:bg-blue-600 active:scale-[0.99] text-white font-extrabold text-[11px] sm:text-xs py-2 sm:py-2.5 px-2 rounded-lg sm:rounded-xl flex items-center justify-center gap-1 transition shadow-sm text-center"
               >
                 <span>Comprar</span>
                 <span>↗</span>
@@ -1399,8 +1420,15 @@
         });
       });
 
+      document.querySelectorAll('.btn-buy-affiliate').forEach(link => {
+        link.addEventListener('click', () => {
+          aceitarCookiesLGPD();
+        });
+      });
+
       document.querySelectorAll('.btn-copy-code').forEach(btn => {
         btn.addEventListener('click', () => {
+          aceitarCookiesLGPD();
           const code = btn.getAttribute('data-copy-code');
           const num = btn.getAttribute('data-item-num');
           copyTextToClipboard(
@@ -1521,7 +1549,6 @@
         }
       });
 
-      // Eventos da Central Jurídica (LGPD, Cookies e Termos)
       const legalModal = document.getElementById('modal-legal-lgpd');
       document.querySelectorAll('.btn-open-legal').forEach(btn => {
         btn.addEventListener('click', () => {
