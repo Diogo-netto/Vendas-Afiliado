@@ -2,11 +2,10 @@
  * ============================================================================
  * API BACK-END SEGURA NA VERCEL — Caminho no projeto: api/produtos.js
  * ============================================================================
- * - Contém os 36 links de afiliado (18 anteriores + 18 novos).
- * - Extrai múltiplas fotos do anúncio (galeria de ângulos) para o Visualizador 3D/360°.
- * - Suporta carregamento em lotes rápidos (?lote=1, 2, 3...) para nunca estourar
- *   o limite de 10 segundos do plano gratuito da Vercel e garantir que TODOS
- *   os 36+ produtos apareçam na vitrine!
+ * - 36 produtos configurados em lotes rápidos.
+ * - Conversor automático de imagem para ULTRA-HD (D_NQ_NP_2X e sufixo -F / -O)
+ *   para a Lupa estilo Mercado Livre nunca embaçar!
+ * - Não mistura fotos de outros produtos recomendados na página social.
  */
 
 const LISTA_LINKS_AFILIADO = [
@@ -53,13 +52,12 @@ const LISTA_LINKS_AFILIADO = [
   { numero: '36', linkMercadoLivre: 'https://meli.la/1Zib8Wr' }
 ];
 
-// Cache por item individual para que nenhum produto se perca e carregue instantâneo
 const itemCache = new Map();
 let cachedOAuthToken = {
   token: null,
   expiresAt: 0
 };
-const CACHE_TTL_MS = 45 * 60 * 1000; // 45 minutos
+const CACHE_TTL_MS = 45 * 60 * 1000;
 
 const DOMINIOS_PERMITIDOS = [
   'meli.la',
@@ -78,6 +76,18 @@ function urlEhSegura(urlString) {
   } catch (e) {
     return false;
   }
+}
+
+/**
+ * Converte qualquer miniatura do Mercado Livre (-P, -V, -W, -I, D_Q_NP)
+ * para a versão Original em Alta Definição (-O.webp / D_NQ_NP_2X) de ~1200px!
+ */
+function converterImagemParaUltraHD(url = '') {
+  if (!url || !url.includes('mlstatic.com')) return url;
+  return url
+    .replace('/D_Q_NP_', '/D_NQ_NP_2X_')
+    .replace('/D_NQ_NP_', '/D_NQ_NP_2X_')
+    .replace(/-[A-Z]\.(webp|jpg|jpeg|png)$/i, '-F.$1');
 }
 
 async function fetchComTimeout(url, options = {}, timeoutMs = 4200) {
@@ -100,6 +110,9 @@ function detectarCategoriaAutomatica(titulo = '', categoriaManual = '') {
   if (/(celular|smartphone|iphone|samsung|galaxy|motorola|moto\s|xiaomi|redmi|poco)/.test(t)) {
     return 'Celulares & Smartphones';
   }
+  if (/(whey|creatina|hipercalórico|hipercalorico|suplemento|max titanium|integralmedica|pré treino|pre treino)/.test(t)) {
+    return 'Suplementos & Fitness';
+  }
   if (/(lençol|lencol|travesseiro|toalha|edredom|cama|colchão|colchao|cortina|tapete)/.test(t)) {
     return 'Cama, Mesa & Banho';
   }
@@ -121,7 +134,7 @@ function detectarCategoriaAutomatica(titulo = '', categoriaManual = '') {
   if (/(tênis|tenis|camisa|camiseta|blusa|calça|calca|mochila|bolsa|óculos|oculos|sapato)/.test(t)) {
     return 'Moda & Acessórios';
   }
-  return 'Black Friday VIP';
+  return 'Ofertas Black Friday';
 }
 
 async function obterTokenOficialMercadoLivre() {
@@ -227,7 +240,6 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
     return null;
   }
 
-  // Verifica se já está no cache em memória e completo
   const cached = itemCache.get(linkLimpo);
   if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
     return cached.data;
@@ -265,7 +277,7 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
     let precoAtualNum = null;
     let precoAntigoNum = null;
 
-    // 1. Tenta via código MLB na API de itens (traz também todas as fotos de vários ângulos!)
+    // 1. Se tiver código MLB do anúncio, busca todas as fotos reais daquele exato produto
     const mlbMatch =
       finalUrl.match(/MLB-?(\d{8,12})/i) ||
       html.match(/MLB-?(\d{8,12})/i);
@@ -283,12 +295,12 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
           if (tituloEhValido(data.title)) titulo = data.title;
           if (Array.isArray(data.pictures) && data.pictures.length > 0) {
             fotosGaleria = data.pictures
-              .slice(0, 8)
-              .map(p => p.secure_url || p.url)
+              .slice(0, 6)
+              .map(p => converterImagemParaUltraHD(p.secure_url || p.url))
               .filter(Boolean);
             imagemUrl = fotosGaleria[0] || '';
           } else if (data.thumbnail) {
-            imagemUrl = data.thumbnail.replace('-I.jpg', '-O.jpg');
+            imagemUrl = converterImagemParaUltraHD(data.thumbnail);
             fotosGaleria = [imagemUrl];
           }
           if (typeof data.price === 'number') precoAtualNum = data.price;
@@ -319,40 +331,17 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
       }
     }
 
-    // 3. Extrai todas as fotos disponíveis no HTML para permitir girar ângulos no Modal 3D/360°
+    // 3. Imagem Principal em ULTRA-HD (Sem puxar fotos de outros produtos recomendados abaixo!)
     if (fotosGaleria.length === 0) {
-      const todasImgs = [
-        ...html.matchAll(/https:\/\/http2\.mlstatic\.com\/D_(?:NQ_)?Q?_?NP_[A-Za-z0-9_-]+\.(?:webp|jpg|png)/gi)
-      ].map(m =>
-        m[0]
-          .replace('D_Q_NP_', 'D_NQ_NP_')
-          .replace(/-I\.(webp|jpg|png)$/i, '-O.$1')
-      );
+      const imgMatch =
+        html.match(/https:\/\/http2\.mlstatic\.com\/D_(?:NQ_)?Q?_?NP_[A-Za-z0-9_-]+\.(?:webp|jpg|png)/i) ||
+        html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i) ||
+        html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
 
-      // Remove fotos duplicadas mantendo a ordem
-      const unicas = [];
-      const vistos = new Set();
-      for (const url of todasImgs) {
-        // Agrupa pelo ID base da imagem para não repetir miniaturas iguais
-        const baseKey = url.replace(/-[A-Z]\.(webp|jpg|png)$/i, '');
-        if (!vistos.has(baseKey)) {
-          vistos.add(baseKey);
-          unicas.push(url);
-        }
-        if (unicas.length >= 6) break;
-      }
-
-      if (unicas.length > 0) {
-        fotosGaleria = unicas;
-        imagemUrl = unicas[0];
-      } else {
-        const ogImg =
-          html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i) ||
-          html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
-        if (ogImg && ogImg[1]) {
-          imagemUrl = ogImg[1];
-          fotosGaleria = [imagemUrl];
-        }
+      if (imgMatch) {
+        const rawUrl = imgMatch[1] || imgMatch[0];
+        imagemUrl = converterImagemParaUltraHD(rawUrl);
+        fotosGaleria = [imagemUrl];
       }
     }
 
@@ -394,7 +383,7 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
     if (precoAntigoNum && precoAtualNum && precoAntigoNum > precoAtualNum) {
       precoAntigo = formatBRL(precoAntigoNum);
       const pct = Math.round(((precoAntigoNum - precoAtualNum) / precoAntigoNum) * 100);
-      descontoTag = `-${pct}% BLACK FRIDAY`;
+      descontoTag = `${pct}% OFF`;
     }
 
     const TemTituloReal = tituloEhValido(titulo);
@@ -412,29 +401,27 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
       titulo: tituloFinal,
       descricao:
         itemConfig.descricao ||
-        'Oferta Black Friday selecionada com compra garantida e envio Full pelo Mercado Livre.',
+        'Oferta selecionada com compra garantida e envio Full pelo Mercado Livre.',
       imagemUrl: imgFinal,
       fotosGaleria: fotosGaleria.length > 0 ? fotosGaleria : [imgFinal],
       precoAntigo,
       precoAtual,
-      parcelamento: 'Condição especial Black Friday no Pix ou Cartão',
+      parcelamento: 'em até 12x ou com desconto extra no Pix',
       descontoTag,
       linkMercadoLivre: linkLimpo,
       codigoBuscaML: itemConfig.codigoBuscaML || '',
-      avaliacoesTexto: '4.9 ★ Oferta Black Friday'
+      avaliacoesTexto: '4.9 ★ Mais Vendido'
     };
 
-    // Só guarda no cache de longo prazo se conseguiu capturar o título e a foto real
     if (TemTituloReal && imagemUrl) {
       itemCache.set(linkLimpo, { timestamp: Date.now(), data: resultado });
     }
 
     return resultado;
   } catch (err) {
-    // Nunca descarta o produto! Entrega o card com o link funcionando mesmo se o ML demorar
     return {
       numero: numFormatado,
-      categoria: itemConfig.categoria || 'Black Friday VIP',
+      categoria: itemConfig.categoria || 'Ofertas Black Friday',
       titulo: `Oferta Especial Black Friday #${numFormatado}`,
       descricao: 'Clique abaixo para abrir o produto com desconto exclusivo no Mercado Livre.',
       imagemUrl:
@@ -443,7 +430,7 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
         'https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.73/mercadolibre/logo_large_25years_v2.png'
       ],
       precoAntigo: '',
-      precoAtual: 'Ver Preço Black Friday',
+      precoAtual: 'Ver Preço Hoje',
       parcelamento: 'Desconto exclusivo no aplicativo oficial',
       descontoTag: 'BLACK FRIDAY',
       linkMercadoLivre: linkLimpo,
@@ -468,7 +455,6 @@ module.exports = async function handler(req, res) {
     obterListaDeLinks()
   ]);
 
-  // Suporte a paginação em lotes (?lote=1&tamanho=12) para carregar 36 a 100+ produtos super rápido!
   const tamanhoLote = Math.min(Math.max(parseInt(req.query.tamanho || '12', 10), 1), 20);
   const loteAtual = parseInt(req.query.lote || '0', 10);
 
