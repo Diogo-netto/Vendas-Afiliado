@@ -239,8 +239,8 @@
       <div class="bg-white border border-slate-200 rounded-xl sm:rounded-2xl p-3 sm:p-4 flex items-start gap-3 shadow-sm">
         <span class="text-lg sm:text-xl bg-blue-50 text-[#3483FA] p-2 rounded-xl">🛡️</span>
         <div>
-          <h3 class="text-xs sm:text-sm font-extrabold text-slate-900">Compra Garantida Oficial</h3>
-          <p class="text-[11px] sm:text-xs text-slate-600 mt-0.5">Você finaliza sua compra diretamente no site ou aplicativo oficial do Mercado Livre.</p>
+          <h3 class="text-xs sm:text-sm font-extrabold text-slate-900">Compra Garantida & LGPD</h3>
+          <p class="text-[11px] sm:text-xs text-slate-600 mt-0.5">Não coletamos senhas, CPF nem cartões. O pagamento ocorre 100% dentro do Mercado Livre.</p>
         </div>
       </div>
       <div class="bg-white border border-slate-200 rounded-xl sm:rounded-2xl p-3 sm:p-4 flex items-start gap-3 shadow-sm">
@@ -278,10 +278,7 @@
   </main>
 
   <!-- ========================================================================
-       MODAL 100% RESPONSIVO (TELA CHEIA NATIVA NO CELULAR / JANELA AMPLA NO PC)
-       - Puxa TODAS as fotos do produto (coluna lateral no PC / carrossel com setas no celular)
-       - Rolagem 100% livre no celular (sem travar o dedo!)
-       - Barra de compra fixa no rodapé do celular!
+       MODAL 100% RESPONSIVO DO PRODUTO (GALERIA DE FOTOS + FICHA TÉCNICA)
        ======================================================================== -->
   <div id="modal-image-zoom" class="hidden fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
     <div class="bg-white sm:border border-slate-200 rounded-t-2xl sm:rounded-2xl max-w-5xl w-full h-[94dvh] sm:h-auto sm:max-h-[92vh] overflow-hidden shadow-2xl flex flex-col">
@@ -315,7 +312,7 @@
         </button>
       </div>
 
-      <!-- ÁREA CENTRAL COM ROLAGEM 100% LIVRE NO CELULAR E NO PC -->
+      <!-- ÁREA CENTRAL COM ROLAGEM LIVRE -->
       <div class="p-3 sm:p-6 bg-white overflow-y-auto overscroll-contain flex-1">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-start">
           
@@ -323,7 +320,7 @@
           <div class="lg:col-span-7 flex flex-col gap-2.5 sm:gap-3 w-full">
             <div class="flex flex-col sm:flex-row gap-2.5 sm:gap-3 items-center sm:items-start w-full">
               
-              <!-- Coluna de Miniaturas de TODAS as Fotos (Vertical à esquerda no PC igual ao print / Horizontal no celular) -->
+              <!-- Coluna de Miniaturas de TODAS as Fotos -->
               <div
                 id="zoom-thumbnails"
                 class="flex sm:flex-col items-center gap-2 overflow-x-auto sm:overflow-y-auto w-full sm:w-auto sm:max-h-[360px] order-2 sm:order-1 py-1 px-0.5 custom-scrollbar flex-shrink-0"
@@ -335,12 +332,10 @@
                   id="stage-3d-container"
                   class="stage-3d-perspective relative bg-white border border-slate-200 rounded-xl w-full h-[220px] sm:h-[360px] flex items-center justify-center overflow-hidden lg:cursor-crosshair select-none"
                 >
-                  <!-- Contador de Fotos (ex: 1 / 6) -->
                   <span id="photo-counter-badge" class="absolute top-2.5 left-2.5 z-20 bg-slate-900/75 text-white text-[10px] sm:text-xs font-bold px-2.5 py-0.5 rounded-full">
                     1 / 1
                   </span>
 
-                  <!-- Botão Foto Anterior (‹) -->
                   <button
                     id="btn-prev-photo"
                     type="button"
@@ -360,7 +355,6 @@
                     />
                   </div>
 
-                  <!-- Botão Próxima Foto (›) -->
                   <button
                     id="btn-next-photo"
                     type="button"
@@ -370,13 +364,12 @@
                     ›
                   </button>
 
-                  <!-- Quadrado da Lente (Só no PC quando o mouse está na foto, e SOME quando sai!) -->
                   <div id="ml-zoom-lens" class="ml-zoom-lens hidden w-28 h-28"></div>
                 </div>
               </div>
             </div>
 
-            <!-- AS 2 BARRAS DE CONTROLE (GIRO 3D SEM AFINAR + APROXIMAR ZOOM) -->
+            <!-- AS 2 BARRAS DE CONTROLE -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 bg-slate-50 p-2.5 sm:p-3 rounded-xl border border-slate-200/80">
               <div class="flex items-center gap-2">
                 <span class="text-[11px] font-extrabold text-slate-700 whitespace-nowrap">🔄 Giro 3D:</span>
@@ -406,8 +399,6 @@
 
           <!-- COLUNA DIREITA (5 COLUNAS NO PC): FICHA TÉCNICA COMPLETA -->
           <div class="lg:col-span-5 flex flex-col relative w-full">
-            
-            <!-- Quadro Flutuante de Super-Zoom no PC (Aparece somente enquanto a seta está na foto!) -->
             <div
               id="ml-zoom-result"
               class="hd-sharp-image hidden w-full h-[360px] rounded-xl border-2 border-[#3483FA] bg-white bg-no-repeat shadow-2xl z-30"
@@ -415,9 +406,7 @@
               <span id="ml-zoom-placeholder" class="hidden"></span>
             </div>
 
-            <!-- Painel de Informações Reais do Produto -->
             <div id="product-details-panel" class="flex flex-col space-y-3 border border-slate-200 rounded-2xl p-3.5 sm:p-5 bg-white shadow-sm">
-              
               <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] sm:text-xs">
                 <span id="zoom-subtitle-sold" class="text-slate-500 font-medium">
                   Novo • Oferta Verificada
@@ -446,7 +435,6 @@
                 </p>
               </div>
 
-              <!-- "O que você precisa saber sobre este produto" -->
               <div id="zoom-specs-container" class="pt-3 border-t border-slate-100">
                 <h4 class="text-xs sm:text-sm font-bold text-slate-900 mb-2">
                   O que você precisa saber sobre este produto
@@ -457,7 +445,6 @@
                 </ul>
               </div>
 
-              <!-- Garantias -->
               <div class="pt-3 border-t border-slate-100 space-y-1.5 text-[11px] sm:text-xs">
                 <div class="flex items-center gap-2 text-slate-800 font-semibold">
                   <span class="text-[#00A650] font-black">⚡ FULL</span>
@@ -479,7 +466,7 @@
         </div>
       </div>
 
-      <!-- RODAPÉ SEMPRE FIXO NO CELULAR E NO PC (PREÇO + BOTÃO COMPRAR AGORA) -->
+      <!-- RODAPÉ SEMPRE FIXO NO CELULAR E NO PC -->
       <div class="px-3.5 sm:px-6 py-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between gap-3 flex-shrink-0">
         <div class="min-w-0">
           <span class="text-[10px] text-slate-500 block font-medium">Preço Oficial no App</span>
@@ -524,6 +511,151 @@
     </div>
   </div>
 
+  <!-- ========================================================================
+       CENTRAL JURÍDICA COMPLETA: POLÍTICA DE PRIVACIDADE (LGPD), COOKIES E TERMOS
+       ======================================================================== -->
+  <div id="modal-legal-lgpd" class="hidden fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-white sm:border border-slate-200 rounded-t-2xl sm:rounded-2xl max-w-3xl w-full h-[90dvh] sm:h-auto sm:max-h-[88vh] overflow-hidden shadow-2xl flex flex-col">
+      
+      <!-- Cabeçalho do Modal Jurídico -->
+      <div class="flex items-center justify-between px-4 sm:px-6 py-3.5 bg-slate-900 text-white border-b border-slate-800 flex-shrink-0">
+        <div class="flex items-center gap-2">
+          <span class="text-lg">🛡️</span>
+          <div>
+            <h3 class="text-xs sm:text-base font-extrabold text-white">
+              Central de Privacidade, Cookies e Termos (LGPD)
+            </h3>
+            <p class="text-[10px] sm:text-xs text-slate-300">
+              Em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018)
+            </p>
+          </div>
+        </div>
+        <button id="btn-close-legal-modal" type="button" class="bg-white/15 hover:bg-white/25 text-white text-xs font-extrabold px-3 py-1.5 rounded-xl transition">
+          Fechar ✕
+        </button>
+      </div>
+
+      <!-- Abas de Navegação Jurídica -->
+      <div class="flex items-center gap-2 px-4 sm:px-6 py-2.5 bg-slate-100 border-b border-slate-200 overflow-x-auto flex-shrink-0">
+        <button type="button" data-legal-tab="privacidade" class="legal-tab-btn bg-[#3483FA] text-white font-extrabold text-xs px-3.5 py-1.5 rounded-lg whitespace-nowrap transition">
+          🔒 Política de Privacidade (LGPD)
+        </button>
+        <button type="button" data-legal-tab="cookies" class="legal-tab-btn bg-white text-slate-700 border border-slate-300 font-bold text-xs px-3.5 py-1.5 rounded-lg whitespace-nowrap transition">
+          🍪 Política de Cookies
+        </button>
+        <button type="button" data-legal-tab="termos" class="legal-tab-btn bg-white text-slate-700 border border-slate-300 font-bold text-xs px-3.5 py-1.5 rounded-lg whitespace-nowrap transition">
+          📄 Termos de Uso & Afiliado
+        </button>
+      </div>
+
+      <!-- Conteúdo das Abas -->
+      <div class="p-4 sm:p-6 overflow-y-auto overscroll-contain flex-1 text-xs sm:text-sm text-slate-700 space-y-4 leading-relaxed">
+        
+        <!-- ABA 1: POLÍTICA DE PRIVACIDADE -->
+        <div id="legal-content-privacidade" class="space-y-3">
+          <div class="bg-emerald-50 border border-emerald-200 text-emerald-900 p-3.5 rounded-xl text-xs font-medium">
+            <strong>Resumo Transparente:</strong> Este site funciona exclusivamente como um catálogo público de curadoria de ofertas. <strong>Nós não exigimos cadastro, não coletamos nome, CPF, e-mail, endereço, telefone nem dados de cartão de crédito ou Pix.</strong>
+          </div>
+
+          <h4 class="font-extrabold text-slate-900 text-sm">1. Coleta e Tratamento de Dados Pessoais (LGPD)</h4>
+          <p>
+            Em cumprimento à <strong>Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018 — LGPD)</strong>, informamos que nossa plataforma não possui banco de dados de usuários finais nem formulários de coleta de informações pessoais sensíveis. Você navega pelas ofertas de forma 100% anônima e segura.
+          </p>
+
+          <h4 class="font-extrabold text-slate-900 text-sm">2. Segurança nas Compras e Pagamentos</h4>
+          <p>
+            Quando você clica em <em>"Comprar"</em> ou <em>"Ir para produto"</em>, você é redirecionado diretamente para o ambiente oficial e criptografado do <strong>Mercado Livre (mercadolivre.com.br)</strong> ou seu aplicativo oficial. Todo o processamento de pagamento (Pix, cartão ou boleto), cálculo de frete, logística de entrega (Envio Full) e emissão de Nota Fiscal são realizados única e exclusivamente pelo Mercado Livre.
+          </p>
+
+          <h4 class="font-extrabold text-slate-900 text-sm">3. Direitos do Titular</h4>
+          <p>
+            Como não armazenamos dados pessoais identificáveis em nossos servidores, não há compartilhamento ou venda de informações a terceiros.Você pode limpar o armazenamento local do seu navegador a qualquer momento nas configurações do seu aparelho.
+          </p>
+        </div>
+
+        <!-- ABA 2: POLÍTICA DE COOKIES -->
+        <div id="legal-content-cookies" class="hidden space-y-3">
+          <div class="bg-blue-50 border border-blue-200 text-blue-900 p-3.5 rounded-xl text-xs font-medium">
+            <strong>Para que servem os Cookies neste site?</strong> Utilizamos apenas armazenamento técnico essencial para lembrar que você já fechou o aviso de cookies e links oficiais de atribuição do Programa de Afiliados do Mercado Livre.
+          </div>
+
+          <h4 class="font-extrabold text-slate-900 text-sm">1. Armazenamento Técnico Essencial (LocalStorage)</h4>
+          <p>
+            Utilizamos o recurso nativo <code>localStorage</code> do seu navegador apenas para registrar a sua confirmação no banner de privacidade (chave <code>lgpd_cookies_accepted_v1</code>), evitando que o aviso apareça repetidamente a cada acesso.
+          </p>
+
+          <h4 class="font-extrabold text-slate-900 text-sm">2. Cookies de Atribuição de Afiliado (Mercado Livre)</h4>
+          <p>
+            Ao clicar nos botões de oferta (links oficiais <code>meli.la</code> / <code>mercadolivre.com.br/social/</code>), a plataforma do Mercado Livre registra um cookie temporário de recomendação (com duração padrão de 24 horas) no seu navegador ou aplicativo para identificar que você conheceu o produto através da nossa vitrine.
+          </p>
+          <ul class="list-disc list-inside space-y-1 text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200">
+            <li><strong>Zero custo adicional:</strong> O preço do produto para você é exatamente o mesmo (ou menor, com os descontos vigentes no anúncio).</li>
+            <li><strong>Privacidade mantida:</strong> Como afiliados, não temos acesso ao seu nome, conta do Mercado Livre, endereço ou compras pessoais.</li>
+          </ul>
+        </div>
+
+        <!-- ABA 3: TERMOS DE USO E TRANSPARÊNCIA DE AFILIADO -->
+        <div id="legal-content-termos" class="hidden space-y-3">
+          <h4 class="font-extrabold text-slate-900 text-sm">1. Declaração de Participação no Programa de Afiliados</h4>
+          <p>
+            Esta página participa oficialmente do <strong>Programa de Afiliados e Criadores do Mercado Livre</strong>. Atuamos como uma vitrine independente de curadoria e divulgação de produtos selecionados, sem vínculo societário ou trabalhista direto com o Mercado Livre.
+          </p>
+
+          <h4 class="font-extrabold text-slate-900 text-sm">2. Preços, Estoques e Atualização Automática</h4>
+          <p>
+            Os títulos, fotos, especificações técnicas e preços exibidos nos cards são sincronizados automaticamente a partir dos anúncios públicos do Mercado Livre. Como as promoções no e-commerce são dinâmicas e os estoques promocionais podem se esgotar rapidamente, <strong>o preço e a condição final válidos serão sempre aqueles exibidos na página oficial do produto no Mercado Livre no momento da conclusão da compra</strong>.
+          </p>
+
+          <h4 class="font-extrabold text-slate-900 text-sm">3. Garantias, Trocas e Devoluções</h4>
+          <p>
+            Todos os produtos divulgados contam com a proteção do programa <strong>Compra Garantida do Mercado Livre</strong> e direito de arrependimento/devolução gratuita conforme o Código de Defesa do Consumidor (Lei nº 8.078/1990), gerenciados diretamente pelo aplicativo ou site oficial do Mercado Livre.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Rodapé do Modal Jurídico -->
+      <div class="px-4 sm:px-6 py-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between gap-3 flex-shrink-0">
+        <span class="text-[11px] text-slate-500">Ambiente 100% transparente e adequado à LGPD</span>
+        <button id="btn-accept-legal-modal" type="button" class="bg-[#00A650] hover:bg-emerald-600 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl transition shadow-sm">
+          Entendi e Aceitar ✓
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       BANNER FLUTUANTE DE CONSENTIMENTO DE COOKIES & LGPD (RODAPÉ)
+       Aparece na 1ª visita e some após clicar em "Aceitar e Fechar"
+       ======================================================================== -->
+  <div
+    id="cookie-consent-banner"
+    class="hidden fixed bottom-0 inset-x-0 z-40 bg-slate-900/95 backdrop-blur-md text-white border-t border-slate-700 p-3 sm:p-4 shadow-2xl"
+  >
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div class="flex items-start gap-2.5 text-[11px] sm:text-xs text-slate-200 leading-relaxed">
+        <span class="text-lg flex-shrink-0">🍪</span>
+        <p>
+          <strong class="text-[#FFE600]">Privacidade, Cookies e Transparência (LGPD):</strong>
+          Não coletamos dados pessoais nem financeiros. Utilizamos apenas cookies essenciais e links oficiais do Programa de Afiliados para direcionar você com segurança ao aplicativo do Mercado Livre.
+          <button id="btn-banner-open-policy" type="button" class="underline text-amber-300 hover:text-white font-bold ml-1">
+            Ler Política de Privacidade e Cookies
+          </button>
+        </p>
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto justify-end flex-shrink-0">
+        <button
+          id="btn-accept-cookies"
+          type="button"
+          class="w-full sm:w-auto bg-[#FFE600] hover:bg-yellow-300 text-slate-950 font-black text-xs px-5 py-2.5 rounded-xl transition shadow-md whitespace-nowrap"
+        >
+          Aceitar e Continuar ✓
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- TOAST DE CONFIRMAÇÃO -->
   <div id="toast-notification" class="fixed bottom-5 right-5 z-50 transform translate-y-24 opacity-0 pointer-events-none transition-all duration-300 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 max-w-sm">
     <span class="text-xl" id="toast-icon">✅</span>
@@ -533,23 +665,39 @@
     </div>
   </div>
 
-  <!-- RODAPÉ CLARO -->
-  <footer class="bg-white border-t border-slate-200 py-6 px-4 text-center text-xs text-slate-500 space-y-2 mt-8">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-      <p class="font-semibold text-slate-700">🔒 Comprar Online — Curadoria independente de ofertas.</p>
-      <p>Pagamento, frete e garantia processados diretamente pelo Mercado Livre.</p>
+  <!-- RODAPÉ OFICIAL COMPLETO COM LINKS CLICÁVEIS DE PRIVACIDADE, COOKIES E TERMOS -->
+  <footer class="bg-white border-t border-slate-200 py-7 px-4 text-center text-xs text-slate-500 space-y-3 mt-8">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="font-bold text-slate-800">🔒 Comprar Online — Vitrine Oficial de Ofertas & Curadoria</p>
+      
+      <!-- Links Jurídicos Clicáveis -->
+      <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-semibold text-slate-600">
+        <button type="button" data-open-legal="privacidade" class="btn-open-legal hover:text-[#3483FA] underline transition">
+          Política de Privacidade (LGPD)
+        </button>
+        <span>•</span>
+        <button type="button" data-open-legal="cookies" class="btn-open-legal hover:text-[#3483FA] underline transition">
+          Política de Cookies
+        </button>
+        <span>•</span>
+        <button type="button" data-open-legal="termos" class="btn-open-legal hover:text-[#3483FA] underline transition">
+          Termos de Uso & Transparência
+        </button>
+      </div>
     </div>
-    <p class="max-w-4xl mx-auto text-[11px] text-slate-400">
-      Aviso Legal: Participamos do Programa de Afiliados do Mercado Livre. Ao clicar nos links, você é direcionado ao site/app oficial sem nenhum custo extra.
+
+    <p class="max-w-4xl mx-auto text-[11px] text-slate-400 leading-relaxed">
+      Aviso Legal e Transparência: Participamos do Programa de Afiliados do Mercado Livre. Este site atua como vitrine independente de recomendações e não armazena dados pessoais ou bancários dos visitantes (em conformidade com a LGPD — Lei nº 13.709/2018). Pagamento, frete e garantia são processados diretamente pelo Mercado Livre sem nenhum custo extra para o comprador.
     </p>
   </footer>
 
   <!-- ========================================================================
-       SCRIPT COMPLETO — GALERIA DE TODAS AS FOTOS + 100% RESPONSIVO NO CELULAR
+       SCRIPT COMPLETO — VITRINE + GALERIA MULTI-FOTOS + CENTRAL LGPD & COOKIES
        ======================================================================== -->
   <script>
     const MEUS_PRODUTOS = [];
     const API_PRODUTOS_URL = '/api/produtos';
+    const COOKIE_CONSENT_KEY = 'lgpd_cookies_accepted_v1';
 
     let activeProducts = [...MEUS_PRODUTOS];
     let currentFilter = 'ALL';
@@ -628,7 +776,7 @@
       const tamanhoPorLote = 12;
 
       try {
-        const urlLote1 = API_PRODUTOS_URL + `?lote=1&tamanho=${tamanhoPorLote}&v=mob2`;
+        const urlLote1 = API_PRODUTOS_URL + `?lote=1&tamanho=${tamanhoPorLote}&v=lgpd1`;
         const resp1 = await fetch(urlLote1, {
           headers: { 'Accept': 'application/json' }
         });
@@ -657,7 +805,7 @@
             loadingBar.classList.remove('hidden');
             for (let lote = 2; lote <= totalLotes; lote++) {
               loadingText.textContent = `Carregando mais produtos (${activeProducts.length} de ${totalGeral})...`;
-              const urlProxLote = API_PRODUTOS_URL + `?lote=${lote}&tamanho=${tamanhoPorLote}&v=mob2`;
+              const urlProxLote = API_PRODUTOS_URL + `?lote=${lote}&tamanho=${tamanhoPorLote}&v=lgpd1`;
               const respLote = await fetch(urlProxLote, {
                 headers: { 'Accept': 'application/json' }
               });
@@ -736,7 +884,6 @@
     }
 
     function mostrarLupaNaPosicao(normX, normY) {
-      // Lupa de mouse ativa apenas no PC (telas >= 1024px) para não travar a rolagem do dedo no celular!
       if (window.innerWidth < 1024) return;
 
       const stage = document.getElementById('stage-3d-container');
@@ -966,6 +1113,52 @@
       }
     }
 
+    // ========================================================================
+    // FUNÇÕES DE PRIVACIDADE, COOKIES E LGPD
+    // ========================================================================
+    function selecionarAbaJuridica(aba = 'privacidade') {
+      const abas = ['privacidade', 'cookies', 'termos'];
+      abas.forEach(nome => {
+        const bloco = document.getElementById(`legal-content-${nome}`);
+        if (bloco) {
+          bloco.classList.toggle('hidden', nome !== aba);
+        }
+      });
+
+      document.querySelectorAll('.legal-tab-btn').forEach(btn => {
+        const ativa = btn.getAttribute('data-legal-tab') === aba;
+        btn.className = ativa
+          ? 'legal-tab-btn bg-[#3483FA] text-white font-extrabold text-xs px-3.5 py-1.5 rounded-lg whitespace-nowrap transition'
+          : 'legal-tab-btn bg-white text-slate-700 border border-slate-300 font-bold text-xs px-3.5 py-1.5 rounded-lg whitespace-nowrap transition';
+      });
+    }
+
+    function abrirModalJuridico(aba = 'privacidade') {
+      selecionarAbaJuridica(aba);
+      document.getElementById('modal-legal-lgpd').classList.remove('hidden');
+    }
+
+    function aceitarCookiesLGPD() {
+      try {
+        localStorage.setItem(COOKIE_CONSENT_KEY, 'accepted');
+      } catch (e) {}
+      const banner = document.getElementById('cookie-consent-banner');
+      if (banner) banner.classList.add('hidden');
+      const modalLegal = document.getElementById('modal-legal-lgpd');
+      if (modalLegal) modalLegal.classList.add('hidden');
+    }
+
+    function verificarBannerCookiesInicial() {
+      try {
+        const jaAceitou = localStorage.getItem(COOKIE_CONSENT_KEY);
+        if (!jaAceitou) {
+          document.getElementById('cookie-consent-banner').classList.remove('hidden');
+        }
+      } catch (e) {
+        document.getElementById('cookie-consent-banner').classList.remove('hidden');
+      }
+    }
+
     function copyTextToClipboard(text, title, subtitle) {
       const done = () => showToast(title, subtitle, '📋');
       if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -1078,7 +1271,6 @@
       emptyState.classList.add('hidden');
       countLabel.textContent = `${filtered.length} ${filtered.length === 1 ? 'produto verificado disponível' : 'produtos verificados disponíveis'}`;
 
-      // Grade 100% Responsiva: 2 colunas alinhadas no celular, 3 no tablet, 4 no PC
       grid.className = 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4';
 
       grid.innerHTML = filtered.map((item, idx) => {
@@ -1092,7 +1284,6 @@
           <article class="bg-white border border-slate-200 hover:border-[#3483FA] hover:shadow-xl rounded-xl sm:rounded-2xl overflow-hidden shadow-sm transition-all duration-200 flex flex-col justify-between">
             
             <div>
-              <!-- Topo do Card -->
               <div class="px-2 sm:px-3.5 py-1.5 bg-slate-100 border-b border-slate-200/80 flex items-center justify-between gap-1">
                 <span class="bg-slate-900 text-[#FFE600] font-black text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 rounded flex-shrink-0">
                   #${item.numero}
@@ -1108,7 +1299,6 @@
                 `}
               </div>
 
-              <!-- Foto Limpa -->
               <div
                 data-zoom-index="${idx}"
                 class="btn-zoom-image relative bg-white p-2 sm:p-4 flex items-center justify-center h-32 sm:h-48 cursor-pointer group border-b border-slate-100"
@@ -1123,7 +1313,6 @@
                 />
               </div>
 
-              <!-- Botão +Fotos & Detalhes -->
               <div class="px-2 sm:px-3.5 pt-1.5 flex items-center justify-between gap-1">
                 <span class="text-[9px] sm:text-[10px] font-bold text-slate-400 truncate hidden sm:inline">
                   ${item.categoria || 'Mercado Livre'}
@@ -1137,7 +1326,6 @@
                 </button>
               </div>
 
-              <!-- Título Alinhado -->
               <div data-zoom-index="${idx}" class="btn-zoom-image px-2 sm:px-3.5 pt-1 pb-1.5 cursor-pointer">
                 <h2 class="text-[11px] sm:text-sm font-semibold text-slate-800 hover:text-[#3483FA] leading-snug line-clamp-2 min-h-[2.4rem] sm:min-h-[2.6rem] transition">
                   ${tituloExibicao}
@@ -1145,7 +1333,6 @@
               </div>
             </div>
 
-            <!-- Rodapé do Card -->
             <div class="p-2 sm:p-3.5 pt-1">
               <div class="mb-2">
                 ${item.precoAntigo ? `
@@ -1246,6 +1433,7 @@
       renderProducts();
       carregarProdutosDaAPI();
       startCountdown();
+      verificarBannerCookiesInicial();
 
       const searchInput = document.getElementById('search-input');
       const clearBtn = document.getElementById('btn-clear-search');
@@ -1276,7 +1464,6 @@
       const sliderTilt = document.getElementById('slider-3d-tilt');
       const sliderZoom = document.getElementById('slider-rotation-360');
 
-      // Setas Anterior / Próxima Foto
       document.getElementById('btn-prev-photo').addEventListener('click', (e) => {
         e.stopPropagation();
         selecionarFotoPorIndice(viewerState.fotoIndexAtual - 1);
@@ -1334,6 +1521,38 @@
         }
       });
 
+      // Eventos da Central Jurídica (LGPD, Cookies e Termos)
+      const legalModal = document.getElementById('modal-legal-lgpd');
+      document.querySelectorAll('.btn-open-legal').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const aba = btn.getAttribute('data-open-legal') || 'privacidade';
+          abrirModalJuridico(aba);
+        });
+      });
+
+      document.querySelectorAll('.legal-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const aba = btn.getAttribute('data-legal-tab') || 'privacidade';
+          selecionarAbaJuridica(aba);
+        });
+      });
+
+      document.getElementById('btn-banner-open-policy').addEventListener('click', () => {
+        abrirModalJuridico('cookies');
+      });
+
+      document.getElementById('btn-accept-cookies').addEventListener('click', aceitarCookiesLGPD);
+      document.getElementById('btn-accept-legal-modal').addEventListener('click', aceitarCookiesLGPD);
+
+      document.getElementById('btn-close-legal-modal').addEventListener('click', () => {
+        legalModal.classList.add('hidden');
+      });
+      legalModal.addEventListener('click', (e) => {
+        if (e.target === legalModal) {
+          legalModal.classList.add('hidden');
+        }
+      });
+
       const modal = document.getElementById('modal-how-to');
       document.getElementById('btn-how-to-code').addEventListener('click', () => {
         modal.classList.remove('hidden');
@@ -1350,6 +1569,7 @@
           esconderQuadradoDaLupa();
           zoomModal.classList.add('hidden');
           modal.classList.add('hidden');
+          legalModal.classList.add('hidden');
         }
       });
     });
