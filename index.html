@@ -444,9 +444,9 @@
     function garantirImagemUltraHD(url = '') {
       if (!url || !url.includes('mlstatic.com')) return url;
       return url
-        .replace('/D_Q_NP_', '/D_NQ_NP_2X_')
-        .replace('/D_NQ_NP_', '/D_NQ_NP_2X_')
-        .replace(/-[A-Z]\.(webp|jpg|jpeg|png)$/i, '-F.$1');
+        .replace('/D_NQ_NP_2X_2X_', '/D_NQ_NP_')
+        .replace('/D_NQ_NP_2X_', '/D_NQ_NP_')
+        .replace('/D_Q_NP_', '/D_NQ_NP_');
     }
 
     async function carregarProdutosDaAPI() {
@@ -456,7 +456,7 @@
       const tamanhoPorLote = 12;
 
       try {
-        const urlLote1 = API_PRODUTOS_URL + `?lote=1&tamanho=${tamanhoPorLote}&v=light1`;
+        const urlLote1 = API_PRODUTOS_URL + `?lote=1&tamanho=${tamanhoPorLote}&v=light2`;
         const resp1 = await fetch(urlLote1, {
           headers: { 'Accept': 'application/json' }
         });
@@ -485,7 +485,7 @@
             loadingBar.classList.remove('hidden');
             for (let lote = 2; lote <= totalLotes; lote++) {
               loadingText.textContent = `Carregando mais ofertas (${activeProducts.length} de ${totalGeral} produtos)...`;
-              const urlProxLote = API_PRODUTOS_URL + `?lote=${lote}&tamanho=${tamanhoPorLote}&v=light1`;
+              const urlProxLote = API_PRODUTOS_URL + `?lote=${lote}&tamanho=${tamanhoPorLote}&v=light2`;
               const respLote = await fetch(urlProxLote, {
                 headers: { 'Accept': 'application/json' }
               });

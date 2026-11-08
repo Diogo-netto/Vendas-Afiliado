@@ -84,10 +84,7 @@ function urlEhSegura(urlString) {
  */
 function converterImagemParaUltraHD(url = '') {
   if (!url || !url.includes('mlstatic.com')) return url;
-  return url
-    .replace('/D_Q_NP_', '/D_NQ_NP_2X_')
-    .replace('/D_NQ_NP_', '/D_NQ_NP_2X_')
-    .replace(/-[A-Z]\.(webp|jpg|jpeg|png)$/i, '-F.$1');
+  return url.replace('/D_Q_NP_', '/D_NQ_NP_');
 }
 
 async function fetchComTimeout(url, options = {}, timeoutMs = 4200) {
