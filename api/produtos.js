@@ -2,9 +2,11 @@
  * ============================================================================
  * API BACK-END SEGURA NA VERCEL — Caminho no projeto: api/produtos.js
  * ============================================================================
- * - 36 produtos configurados em lotes rápidos.
- * - Entrega tanto a URL padrão garantida quanto a URL Matriz Original (-O.webp)
- *   para o navegador carregar a versão mais nítida possível sem nunca quebrar!
+ * - Puxa 100% os dados REAIS do seu link do Mercado Livre (sem inventar selos).
+ * - Só exibe porcentagem de desconto (ex: "40% OFF") se o anúncio realmente
+ *   tiver preço antigo maior que o preço atual lá no Mercado Livre.
+ * - Só exibe selo "BLACK FRIDAY" se o anúncio no Mercado Livre realmente tiver
+ *   o selo oficial de Black Friday na página.
  */
 
 const LISTA_LINKS_AFILIADO = [
@@ -77,9 +79,6 @@ function urlEhSegura(urlString) {
   }
 }
 
-/**
- * Normaliza a URL da imagem do Mercado Livre sem duplicar 2X_
- */
 function normalizarImagemML(url = '') {
   if (!url || !url.includes('mlstatic.com')) return url;
   return url.replace(/\/D_(?:NQ_)?Q?_?NP_(?:2X_)*/i, '/D_NQ_NP_');
@@ -129,7 +128,7 @@ function detectarCategoriaAutomatica(titulo = '', categoriaManual = '') {
   if (/(tênis|tenis|camisa|camiseta|blusa|calça|calca|mochila|bolsa|óculos|oculos|sapato)/.test(t)) {
     return 'Moda & Acessórios';
   }
-  return 'Ofertas Black Friday';
+  return 'Geral';
 }
 
 async function obterTokenOficialMercadoLivre() {
@@ -271,8 +270,14 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
     let fotosGaleria = [];
     let precoAtualNum = null;
     let precoAntigoNum = null;
+    let temBlackFridayNoAnuncio = false;
 
-    // 1. Se tiver código MLB do anúncio, busca todas as fotos reais em alta resolução (-O)
+    // Verifica se o próprio anúncio no Mercado Livre possui selo oficial de Black Friday
+    if (/black\s*friday/i.test(html)) {
+      temBlackFridayNoAnuncio = true;
+    }
+
+    // 1. Se tiver código MLB do anúncio, busca os dados oficiais daquele produto
     const mlbMatch =
       finalUrl.match(/MLB-?(\d{8,12})/i) ||
       html.match(/MLB-?(\d{8,12})/i);
@@ -300,11 +305,14 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
           }
           if (typeof data.price === 'number') precoAtualNum = data.price;
           if (typeof data.original_price === 'number') precoAntigoNum = data.original_price;
+          if (Array.isArray(data.tags) && data.tags.some(t => /black_friday/i.test(t))) {
+            temBlackFridayNoAnuncio = true;
+          }
         }
       } catch (e) {}
     }
 
-    // 2. Extração do Título na página Social (/social/...) ou página do Produto
+    // 2. Extração do Título real na página do link
     if (!tituloEhValido(titulo)) {
       const candidatosTitulo = [
         (html.match(/class=["'][^"']*poly-component__title[^"']*["'][^>]*>([\s\S]*?)<\/(?:a|h[1-6]|span)>/i) || [])[1],
@@ -326,7 +334,7 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
       }
     }
 
-    // 3. Imagem Principal Limpa (sem misturar outros produtos da página social)
+    // 3. Imagem Principal Real do Link
     if (fotosGaleria.length === 0) {
       const imgMatch =
         html.match(/https:\/\/http2\.mlstatic\.com\/D_(?:NQ_)?Q?_?NP_(?:2X_)?[A-Za-z0-9_-]+\.(?:webp|jpg|png)/i) ||
@@ -340,7 +348,7 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
       }
     }
 
-    // 4. Preço Atual e Preço Antigo
+    // 4. Preço Atual e Preço Antigo Reais do Link
     if (!precoAtualNum) {
       const fractionMatches = [
         ...html.matchAll(/andes-money-amount__fraction[^>]*>([\d.]+)<\/span>(?:[\s\S]{0,120}?andes-money-amount__cents[^>]*>(\d{2})<\/span>)?/gi)
@@ -371,20 +379,23 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
     const formatBRL = valor =>
       valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-    const precoAtual = precoAtualNum ? formatBRL(precoAtualNum) : 'Conferir Oferta';
+    const precoAtual = precoAtualNum ? formatBRL(precoAtualNum) : 'Ver no Mercado Livre';
     let precoAntigo = '';
-    let descontoTag = '🔥 BLACK FRIDAY';
+    // NÃO inventa etiqueta se o produto não tiver desconto real no link!
+    let descontoTag = '';
 
     if (precoAntigoNum && precoAtualNum && precoAntigoNum > precoAtualNum) {
       precoAntigo = formatBRL(precoAntigoNum);
       const pct = Math.round(((precoAntigoNum - precoAtualNum) / precoAntigoNum) * 100);
-      descontoTag = `-${pct}% BLACK FRIDAY`;
+      descontoTag = temBlackFridayNoAnuncio ? `${pct}% OFF BLACK FRIDAY` : `${pct}% OFF`;
+    } else if (temBlackFridayNoAnuncio) {
+      descontoTag = 'BLACK FRIDAY';
     }
 
     const TemTituloReal = tituloEhValido(titulo);
     const tituloFinal = TemTituloReal
       ? titulo
-      : `Oferta Black Friday #${numFormatado} — Clique para Ver no Mercado Livre`;
+      : `Produto #${numFormatado} — Clique para Ver no Mercado Livre`;
     const categoriaFinal = detectarCategoriaAutomatica(tituloFinal, itemConfig.categoria);
     const imgFinal =
       imagemUrl ||
@@ -394,18 +405,17 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
       numero: numFormatado,
       categoria: categoriaFinal,
       titulo: tituloFinal,
-      descricao:
-        itemConfig.descricao ||
-        'Oferta Black Friday selecionada com compra garantida e envio Full pelo Mercado Livre.',
+      descricao: itemConfig.descricao || '',
       imagemUrl: imgFinal,
       fotosGaleria: fotosGaleria.length > 0 ? fotosGaleria : [imgFinal],
       precoAntigo,
       precoAtual,
-      parcelamento: 'em até 12x ou com super desconto no Pix',
+      parcelamento: 'Condição oficial no site ou app do Mercado Livre',
       descontoTag,
+      temBlackFriday: temBlackFridayNoAnuncio,
       linkMercadoLivre: linkLimpo,
       codigoBuscaML: itemConfig.codigoBuscaML || '',
-      avaliacoesTexto: '4.9 ★ Oferta Black Friday'
+      avaliacoesTexto: ''
     };
 
     if (TemTituloReal && imagemUrl) {
@@ -416,21 +426,22 @@ async function extrairDadosDoLinkMeli(itemConfig, mlToken) {
   } catch (err) {
     return {
       numero: numFormatado,
-      categoria: itemConfig.categoria || 'Ofertas Black Friday',
-      titulo: `Oferta Especial Black Friday #${numFormatado}`,
-      descricao: 'Clique abaixo para abrir o produto com desconto exclusivo no Mercado Livre.',
+      categoria: itemConfig.categoria || 'Geral',
+      titulo: `Produto #${numFormatado}`,
+      descricao: '',
       imagemUrl:
         'https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.73/mercadolibre/logo_large_25years_v2.png',
       fotosGaleria: [
         'https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.73/mercadolibre/logo_large_25years_v2.png'
       ],
       precoAntigo: '',
-      precoAtual: 'Ver Preço Black Friday',
-      parcelamento: 'Desconto exclusivo no aplicativo oficial',
-      descontoTag: '🔥 BLACK FRIDAY',
+      precoAtual: 'Ver no Mercado Livre',
+      parcelamento: '',
+      descontoTag: '',
+      temBlackFriday: false,
       linkMercadoLivre: linkLimpo,
       codigoBuscaML: itemConfig.codigoBuscaML || '',
-      avaliacoesTexto: '4.9 ★ Oferta Verificada'
+      avaliacoesTexto: ''
     };
   }
 }
