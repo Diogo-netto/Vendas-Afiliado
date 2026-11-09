@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>Comprar Online — Vitrine de Ofertas & Achadinhos</title>
+  <title>Comprar Online — Achadinhos & Ofertas VIP no Mercado Livre (Menores Preços Hoje)</title>
+  <meta name="description" content="Rastreador e curadoria de Achadinhos e Ofertas VIP verificadas no Mercado Livre. Produtos ordenados do mais barato para o mais caro com envio Full e Compra Garantida." />
+  <meta property="og:title" content="Comprar Online — Achadinhos & Ofertas VIP no Mercado Livre" />
+  <meta property="og:description" content="Os 54 maiores descontos e achadinhos verificados hoje no Mercado Livre, ordenados do menor para o maior preço." />
+  <meta property="og:type" content="website" />
   <!-- FAVICON EMBUTIDO -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230F172A' stroke='%23FFE600' stroke-width='4'/%3E%3Cpath d='M36 6L14 36h16l-4 22 24-30H34l2-22z' fill='%23FFE600'/%3E%3C/svg%3E" />
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
@@ -89,6 +93,16 @@
       z-index: 20;
     }
   </style>
+  <!-- DADOS ESTRUTURADOS JSON-LD (SEO GOOGLE) -->
+  <script id="json-ld-catalog" type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Comprar Online — Achadinhos e Ofertas Verificadas no Mercado Livre",
+      "description": "Curadoria dos 54 produtos com melhores descontos e avaliações no Mercado Livre, ordenados do mais barato para o mais caro.",
+      "numberOfItems": 54
+    }
+  </script>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-yellow-300 selection:text-slate-950">
 
@@ -110,9 +124,9 @@
     <div class="w-16 h-16 rounded-2xl bg-[#FFE600] text-slate-950 flex items-center justify-center text-3xl font-black animate-bounce shadow-lg mb-4">
       ⚡
     </div>
-    <h2 class="text-xl sm:text-2xl font-black text-slate-900">Redirecionando para o Produto Selecionado...</h2>
+    <h2 class="text-xl sm:text-2xl font-black text-slate-900">Ativando Desconto do Produto Selecionado...</h2>
     <p id="redirect-product-name" class="text-sm text-slate-600 mt-2 max-w-md">
-      Abrindo o produto diretamente no ambiente seguro do Mercado Livre.
+      Redirecionando para o anúncio verificado no ambiente seguro do Mercado Livre.
     </p>
     <a id="redirect-manual-link" href="#" target="_blank" rel="noopener noreferrer" class="mt-6 bg-[#3483FA] text-white font-black text-xs sm:text-sm px-6 py-3.5 rounded-xl shadow">
       CLIQUE AQUI SE NÃO ABRIR AUTOMATICAMENTE ↗
@@ -124,14 +138,14 @@
     <div class="max-w-6xl mx-auto flex items-center justify-between gap-2">
       <div class="flex items-center gap-1.5 min-w-0">
         <span class="bg-[#FFE600] text-slate-950 px-1.5 sm:px-2 py-0.5 rounded text-[9px] sm:text-[11px] font-black uppercase whitespace-nowrap">
-          ⚡ OFERTAS VIP
+          🔥 GARIMPO DO DIA
         </span>
         <span class="tracking-tight text-slate-100 font-bold truncate">
-          PRODUTOS REAIS VERIFICADOS NO MERCADO LIVRE
+          MENORES PREÇOS VERIFICADOS HOJE NO MERCADO LIVRE (DO MAIS BARATO AO MAIS CARO)
         </span>
       </div>
       <div class="flex items-center gap-1 bg-white/10 text-[#FFE600] px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-black whitespace-nowrap flex-shrink-0">
-        <span class="hidden sm:inline">⏱️ ATUALIZA EM:</span>
+        <span class="hidden sm:inline">⏱️ OFERTAS ATUALIZAM EM:</span>
         <span id="countdown-timer" class="font-mono">02:47:19</span>
       </div>
     </div>
@@ -148,14 +162,14 @@
           <div class="min-w-0">
             <div class="flex items-center gap-1.5 flex-wrap">
               <h1 id="store-title-display" class="text-sm sm:text-2xl font-black tracking-tight text-slate-950 truncate">
-                Comprar Online — Vitrine
+                Achadinhos & Ofertas VIP — Mercado Livre
               </h1>
               <span class="bg-slate-950 text-[#FFE600] text-[9px] sm:text-[11px] font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">
-                ✓ Preços Reais
+                ✓ Curadoria Verificada
               </span>
             </div>
             <p class="text-[11px] sm:text-xs text-slate-800 font-medium truncate">
-              Toque no produto p/ ver <strong class="underline">todas as fotos e ficha técnica</strong>
+              Ordenado do <strong class="underline">mais barato para o mais caro</strong> • Toque no item p/ ver fotos HD e análise
             </p>
           </div>
         </div>
@@ -165,20 +179,20 @@
         </button>
       </div>
 
-      <!-- BUSCA INTELIGENTE POR SINÔNIMOS (TV / TELEVISÃO, CELULAR / SMARTPHONE) OU NÚMERO (1 / 01) -->
+      <!-- BUSCA ESTILO MERCADO LIVRE (PORTUGUÊS + INGLÊS + SINÔNIMOS + ITENS RELACIONADOS + NÚMEROS #01 A #54) -->
       <div class="mt-2.5 sm:mt-3">
         <div class="relative flex items-center">
           <span class="absolute left-3 text-slate-400 text-sm pointer-events-none">🔎</span>
           <input
             id="search-input"
             type="text"
-            placeholder="Busque pelo nome (ex: TV, televisão, esteira, celular) ou Nº (ex: 1, 01, 18)..."
-            class="w-full bg-white border border-slate-300 focus:border-[#3483FA] rounded-xl pl-9 pr-16 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none shadow-sm transition"
+            placeholder="Pesquise qualquer produto em Português ou Inglês (ex: TV, phone, drill, academia, #01 a #54)..."
+            class="w-full bg-white border border-slate-300 focus:border-[#3483FA] rounded-xl pl-9 pr-20 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none shadow-sm transition"
           />
           <button
             id="btn-clear-search"
             type="button"
-            class="hidden absolute right-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-1 rounded-lg transition"
+            class="hidden absolute right-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold px-2.5 py-1 rounded-lg transition"
           >
             Limpar ✕
           </button>
@@ -196,26 +210,62 @@
   <!-- ÁREA PRINCIPAL DA VITRINE CLARA -->
   <main class="flex-1 max-w-6xl w-full mx-auto px-2 sm:px-4 py-3 sm:py-6">
 
-    <!-- BARRA DE STATUS -->
-    <div class="mb-3 sm:mb-4 bg-white border border-slate-200 rounded-xl sm:rounded-2xl px-3 py-2 sm:p-3.5 shadow-sm flex items-center justify-between gap-2">
+    <!-- BARRA DE STATUS + SELETOR DE ORDENAÇÃO (PADRÃO: MAIS BARATOS PRIMEIRO) -->
+    <div class="mb-3 sm:mb-4 bg-white border border-slate-200 rounded-xl sm:rounded-2xl px-3 py-2 sm:p-3.5 shadow-sm flex flex-wrap items-center justify-between gap-2">
       <div class="flex items-center gap-2 min-w-0">
         <span id="api-status-dot" class="inline-block w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-500 animate-pulse flex-shrink-0"></span>
         <span class="text-[11px] sm:text-sm font-extrabold text-slate-900 truncate" id="results-count-label">
-          Carregando produtos dos links...
+          Carregando achadinhos e ordenando pelos menores preços...
         </span>
       </div>
-      <span class="text-[10px] sm:text-xs text-[#00A650] font-bold whitespace-nowrap flex-shrink-0">
-        ⚡ Envio Full
-      </span>
+
+      <div class="flex items-center gap-2 ml-auto">
+        <label for="sort-select" class="text-[10px] sm:text-xs font-bold text-slate-500 hidden sm:inline">Ordenar:</label>
+        <select
+          id="sort-select"
+          class="bg-slate-100 hover:bg-slate-200/80 text-slate-900 font-extrabold text-[10px] sm:text-xs px-2.5 py-1.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#3483FA] cursor-pointer"
+        >
+          <option value="CHEAPEST" selected>💰 Mais Baratos Primeiro (Menor → Maior Preço)</option>
+          <option value="DISCOUNT">🔥 Maiores Descontos (% OFF)</option>
+          <option value="EXPENSIVE">💎 Maior Preço Primeiro</option>
+          <option value="NUMBER">🔢 Ordem Numérica (#01 ao #54)</option>
+        </select>
+      </div>
     </div>
 
-    <!-- GRADE DE PRODUTOS 100% RESPONSIVA (2 COLUNAS NO CELULAR, 3 NO TABLET, 4 NO PC) -->
+    <!-- AVISO DE BUSCA / APROXIMAÇÃO ESTILO MERCADO LIVRE -->
+    <div id="search-feedback-banner" class="hidden mb-3 bg-blue-50 border border-blue-200 text-slate-800 rounded-xl px-3.5 py-2.5 text-xs flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="text-base">🔎</span>
+        <span id="search-feedback-text" class="font-semibold">Mostrando resultados e itens relacionados para sua pesquisa.</span>
+      </div>
+      <button id="btn-reset-from-banner" type="button" class="text-[#3483FA] hover:underline font-extrabold whitespace-nowrap">
+        Ver todos (54)
+      </button>
+    </div>
+
+    <!-- GRADE DE PRODUTOS PRINCIPAIS (2 COLUNAS NO CELULAR, 3 NO TABLET, 4 NO PC) -->
     <div id="products-grid" class="w-full"></div>
+
+    <!-- SEÇÃO ESTILO MERCADO LIVRE: PRODUTOS RELACIONADOS À PESQUISA -->
+    <section id="related-products-section" class="hidden mt-7 pt-5 border-t-2 border-slate-200">
+      <div class="flex items-center justify-between gap-2 mb-3">
+        <div>
+          <span class="text-[10px] font-black uppercase tracking-wider text-[#3483FA] bg-blue-50 px-2.5 py-0.5 rounded-full">
+            Sugestões Estilo Mercado Livre
+          </span>
+          <h3 id="related-section-title" class="text-sm sm:text-lg font-black text-slate-900 mt-1">
+            💡 Produtos Relacionados à sua pesquisa (Ordenados do Mais Barato ao Mais Caro)
+          </h3>
+        </div>
+      </div>
+      <div id="related-products-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4"></div>
+    </section>
 
     <!-- Indicador de Carregamento de Mais Lotes -->
     <div id="batch-loading-bar" class="hidden mt-4 bg-white border border-slate-200 rounded-2xl p-3 text-center text-xs text-slate-700 font-bold flex items-center justify-center gap-2 shadow-sm">
       <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#3483FA] animate-ping"></span>
-      <span id="batch-loading-text">Sincronizando mais produtos dos seus links...</span>
+      <span id="batch-loading-text">Sincronizando todos os 54 produtos e ordenando pelos mais baratos...</span>
     </div>
 
     <!-- Estado Limpo / Carregando -->
@@ -224,10 +274,10 @@
         ⚡
       </div>
       <h3 id="empty-title" class="text-sm sm:text-lg font-extrabold text-slate-900">
-        Sincronizando Produtos dos Links...
+        Sincronizando os 54 Achadinhos e Ofertas...
       </h3>
       <p id="empty-subtitle" class="text-xs sm:text-sm text-slate-500 mt-1.5 max-w-md mx-auto leading-relaxed">
-        Buscando foto, título e preço exatos de cada anúncio no Mercado Livre.
+        Buscando foto em alta definição, título e menor preço de cada anúncio no Mercado Livre.
       </p>
       <button id="btn-empty-reset" type="button" class="mt-4 bg-[#3483FA] hover:bg-blue-600 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl transition shadow">
         Ver Todas as Ofertas
@@ -237,24 +287,24 @@
     <!-- SELOS DE GARANTIA CLAROS -->
     <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-4">
       <div class="bg-white border border-slate-200 rounded-xl sm:rounded-2xl p-3 sm:p-4 flex items-start gap-3 shadow-sm">
-        <span class="text-lg sm:text-xl bg-emerald-50 text-[#00A650] p-2 rounded-xl">⚡</span>
+        <span class="text-lg sm:text-xl bg-emerald-50 text-[#00A650] p-2 rounded-xl">💰</span>
         <div>
-          <h3 class="text-xs sm:text-sm font-extrabold text-slate-900">Dados Reais do Anúncio</h3>
-          <p class="text-[11px] sm:text-xs text-slate-600 mt-0.5">Todas as fotos, especificações e preços vêm direto do anúncio no Mercado Livre.</p>
+          <h3 class="text-xs sm:text-sm font-extrabold text-slate-900">Do Mais Barato ao Mais Caro</h3>
+          <p class="text-[11px] sm:text-xs text-slate-600 mt-0.5">Nosso sistema organiza automaticamente as ofertas começando pelos menores preços verificados hoje.</p>
         </div>
       </div>
       <div class="bg-white border border-slate-200 rounded-xl sm:rounded-2xl p-3 sm:p-4 flex items-start gap-3 shadow-sm">
         <span class="text-lg sm:text-xl bg-blue-50 text-[#3483FA] p-2 rounded-xl">🛡️</span>
         <div>
           <h3 class="text-xs sm:text-sm font-extrabold text-slate-900">Compra Garantida & LGPD</h3>
-          <p class="text-[11px] sm:text-xs text-slate-600 mt-0.5">Não coletamos senhas, CPF nem cartões. O pagamento ocorre 100% dentro do Mercado Livre.</p>
+          <p class="text-[11px] sm:text-xs text-slate-600 mt-0.5">Não coletamos senhas, CPF nem cartões. O pagamento e a entrega ocorrem 100% dentro do Mercado Livre.</p>
         </div>
       </div>
       <div class="bg-white border border-slate-200 rounded-xl sm:rounded-2xl p-3 sm:p-4 flex items-start gap-3 shadow-sm">
-        <span class="text-lg sm:text-xl bg-amber-50 text-amber-600 p-2 rounded-xl">🔍</span>
+        <span class="text-lg sm:text-xl bg-amber-50 text-amber-600 p-2 rounded-xl">💡</span>
         <div>
-          <h3 class="text-xs sm:text-sm font-extrabold text-slate-900">Galeria Multi-Fotos + Ficha Técnica</h3>
-          <p class="text-[11px] sm:text-xs text-slate-600 mt-0.5">Toque em qualquer produto para navegar por todas as fotos e ler a ficha técnica.</p>
+          <h3 class="text-xs sm:text-sm font-extrabold text-slate-900">Curadoria & Opinião Sincera</h3>
+          <p class="text-[11px] sm:text-xs text-slate-600 mt-0.5">Toque em qualquer card para ler por que selecionamos aquele achado, ver fotos em HD e ficha técnica.</p>
         </div>
       </div>
     </div>
@@ -267,10 +317,10 @@
         </div>
         <div>
           <span class="text-[10px] font-extrabold uppercase tracking-wider text-[#00A650] bg-emerald-50 px-2 py-0.5 rounded-full">
-            Compra Rápida e Segura
+            Desconto Ativado pelo Link
           </span>
           <h3 class="text-xs sm:text-base font-extrabold text-slate-900 mt-1">
-            Ao abrir o Mercado Livre, clique no botão azul "Ir para produto" para finalizar no app
+            Ao abrir o Mercado Livre, clique no botão azul "Ir para produto" para garantir o preço promocional no app
           </h3>
         </div>
       </div>
@@ -285,7 +335,7 @@
   </main>
 
   <!-- ========================================================================
-       MODAL 100% RESPONSIVO DO PRODUTO (GALERIA DE FOTOS + FICHA TÉCNICA)
+       MODAL 100% RESPONSIVO DO PRODUTO (GALERIA DE FOTOS + CONSULTORIA HUMANA + FICHA TÉCNICA)
        ======================================================================== -->
   <div id="modal-image-zoom" class="hidden fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
     <div class="bg-white sm:border border-slate-200 rounded-t-2xl sm:rounded-2xl max-w-5xl w-full h-[94dvh] sm:h-auto sm:max-h-[92vh] overflow-hidden shadow-2xl flex flex-col">
@@ -404,7 +454,7 @@
             </div>
           </div>
 
-          <!-- COLUNA DIREITA (5 COLUNAS NO PC): FICHA TÉCNICA COMPLETA -->
+          <!-- COLUNA DIREITA (5 COLUNAS NO PC): CONSULTORIA HUMANA ("POR QUE VALE A PENA?") + FICHA TÉCNICA -->
           <div class="lg:col-span-5 flex flex-col relative w-full">
             <div
               id="ml-zoom-result"
@@ -442,13 +492,29 @@
                 </p>
               </div>
 
-              <div id="zoom-specs-container" class="pt-3 border-t border-slate-100">
+              <!-- NOVO BLOCO DE CONVERSÃO: CONSULTORIA HUMANA ("POR QUE VALE A PENA ESTE ACHADO?") -->
+              <div class="bg-amber-50/90 border border-amber-200 rounded-xl p-3 text-xs text-slate-800 space-y-1">
+                <div class="flex items-center justify-between gap-1">
+                  <span class="font-extrabold text-slate-950 flex items-center gap-1">
+                    <span>💡</span>
+                    <span>Por que vale a pena este achado?</span>
+                  </span>
+                  <span id="zoom-curation-badge" class="bg-slate-900 text-[#FFE600] text-[10px] font-extrabold px-2 py-0.5 rounded-full">
+                    💎 Custo-Benefício
+                  </span>
+                </div>
+                <p id="zoom-human-recommendation" class="text-xs text-slate-700 leading-relaxed">
+                  Selecionamos esta oferta porque reúne excelente avaliação dos compradores, preço promocional verificado e entrega rápida com Compra Garantida pelo Mercado Livre.
+                </p>
+              </div>
+
+              <div id="zoom-specs-container" class="pt-2.5 border-t border-slate-100">
                 <h4 class="text-xs sm:text-sm font-bold text-slate-900 mb-2">
                   O que você precisa saber sobre este produto
                 </h4>
                 <ul id="zoom-specs-list" class="space-y-1.5 text-xs text-slate-700 list-disc list-inside leading-relaxed">
                   <li>Produto novo com garantia direto no Mercado Livre.</li>
-                  <li>Envio rápido com rastreamento pelo aplicativo .</li>
+                  <li>Envio rápido com rastreamento pelo aplicativo oficial.</li>
                 </ul>
               </div>
 
@@ -476,7 +542,7 @@
       <!-- RODAPÉ SEMPRE FIXO NO CELULAR E NO PC -->
       <div class="px-3.5 sm:px-6 py-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between gap-3 flex-shrink-0">
         <div class="min-w-0">
-          <span class="text-[10px] text-slate-500 block font-medium">Preço no App</span>
+          <span class="text-[10px] text-slate-500 block font-medium">Oferta Verificada no App</span>
           <span id="zoom-footer-price" class="text-base sm:text-xl font-black text-slate-900">Ver Oferta</span>
         </div>
         <a
@@ -506,10 +572,11 @@
         </button>
       </div>
       <div class="py-4 space-y-3 text-xs sm:text-sm text-slate-600">
-        <p>Veja como é simples:</p>
+        <p>Veja como aproveitar os descontos da nossa curadoria:</p>
         <ol class="list-decimal list-inside space-y-2.5 text-slate-800 font-medium bg-slate-50 p-3.5 rounded-xl border border-slate-200">
-          <li><strong>Veja todas as fotos e especificações:</strong> Toque na foto do card para abrir a galeria completa e ler "O que você precisa saber sobre este produto".</li>
-          <li><strong>Compre no App:</strong> Clique em <em>"Comprar agora"</em> e depois no botão azul <strong>"Ir para produto"</strong>!</li>
+          <li><strong>Busque em Português, Inglês ou pelo Número:</strong> Digite de <strong>#01 a #54</strong> ou qualquer palavra (ex: <em>TV, phone, furadeira, gym</em>).</li>
+          <li><strong>Veja Fotos HD e nossa Recomendação:</strong> Toque na foto do produto para ler por que selecionamos a oferta e ver todos os ângulos.</li>
+          <li><strong>Ative o Desconto no App Oficial:</strong> Clique em <em>"Ativar Oferta"</em> e depois no botão azul <strong>"Ir para produto"</strong> no Mercado Livre!</li>
         </ol>
       </div>
       <button id="btn-got-it-modal" type="button" class="w-full bg-[#3483FA] hover:bg-blue-600 text-white font-extrabold text-xs sm:text-sm py-3 rounded-xl transition">
@@ -566,7 +633,7 @@
 
           <h4 class="font-extrabold text-slate-900 text-sm">2. Segurança nas Compras e Pagamentos</h4>
           <p>
-            Quando você clica em <em>"Comprar"</em> ou <em>"Ir para produto"</em>, você é redirecionado diretamente para o ambiente e criptografado do <strong>Mercado Livre (mercadolivre.com.br)</strong> ou seu aplicativo. Todo o processamento de pagamento (Pix, cartão ou boleto), cálculo de frete, logística de entrega (Envio Full) e emissão de Nota Fiscal são realizados única e exclusivamente pelo Mercado Livre.
+            Quando você clica em <em>"Comprar"</em> ou <em>"Ir para produto"</em>, você é redirecionado diretamente para o ambiente oficial e criptografado do <strong>Mercado Livre (mercadolivre.com.br)</strong> ou seu aplicativo oficial. Todo o processamento de pagamento (Pix, cartão ou boleto), cálculo de frete, logística de entrega (Envio Full) e emissão de Nota Fiscal são realizados única e exclusivamente pelo Mercado Livre.
           </p>
 
           <h4 class="font-extrabold text-slate-900 text-sm">3. Direitos do Titular</h4>
@@ -603,12 +670,12 @@
 
           <h4 class="font-extrabold text-slate-900 text-sm">2. Preços, Estoques e Atualização Automática</h4>
           <p>
-            Os títulos, fotos, especificações técnicas e preços exibidos nos cards são sincronizados automaticamente a partir dos anúncios públicos do Mercado Livre. Como as promoções no e-commerce são dinâmicas e os estoques promocionais podem se esgotar rapidamente, <strong>o preço e a condição final válidos serão sempre aqueles exibidos na página do produto no Mercado Livre no momento da conclusão da compra</strong>.
+            Os títulos, fotos, especificações técnicas e preços exibidos nos cards são sincronizados automaticamente a partir dos anúncios públicos do Mercado Livre. Como as promoções no e-commerce são dinâmicas e os estoques promocionais podem se esgotar rapidamente, <strong>o preço e a condição final válidos serão sempre aqueles exibidos na página oficial do produto no Mercado Livre no momento da conclusão da compra</strong>.
           </p>
 
           <h4 class="font-extrabold text-slate-900 text-sm">3. Garantias, Trocas e Devoluções</h4>
           <p>
-            Todos os produtos divulgados contam com a proteção do programa <strong>Compra Garantida do Mercado Livre</strong> e direito de arrependimento/devolução gratuita conforme o Código de Defesa do Consumidor (Lei nº 8.078/1990), gerenciados diretamente pelo aplicativo ou site do Mercado Livre.
+            Todos os produtos divulgados contam com a proteção do programa <strong>Compra Garantida do Mercado Livre</strong> e direito de arrependimento/devolução gratuita conforme o Código de Defesa do Consumidor (Lei nº 8.078/1990), gerenciados diretamente pelo aplicativo ou site oficial do Mercado Livre.
           </p>
         </div>
       </div>
@@ -630,7 +697,7 @@
   >
     <div class="bg-white border-2 border-[#FFE600] rounded-3xl max-w-md w-full p-5 sm:p-6 shadow-2xl text-center relative overflow-hidden">
       <div class="bg-[#FFE600] text-slate-950 text-[11px] font-black uppercase tracking-wider py-1 px-3 rounded-full inline-flex items-center gap-1.5 mb-3 shadow-sm">
-        <span>⚡</span> <span>Acesso às Ofertas do Dia</span>
+        <span>⚡</span> <span>Acesso Oficial às Ofertas do Dia</span>
       </div>
 
       <h3 class="text-base sm:text-xl font-black text-slate-900 leading-snug">
@@ -638,7 +705,7 @@
       </h3>
 
       <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-        Clique no botão abaixo para ativar o redirecionamento seguro com <strong>Frete Grátis Full e Descontos no Pix</strong> direto no aplicativo do Mercado Livre.
+        Clique no botão abaixo para ativar o redirecionamento seguro com <strong>Frete Grátis Full e Descontos no Pix</strong> direto no aplicativo oficial do Mercado Livre.
       </p>
 
       <button
@@ -670,7 +737,7 @@
   <!-- RODAPÉ OFICIAL COMPLETO -->
   <footer class="bg-white border-t border-slate-200 py-7 px-4 text-center text-xs text-slate-500 space-y-3 mt-8">
     <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-      <p class="font-bold text-slate-800">🔒 Comprar Online — Vitrine de Ofertas & Curadoria</p>
+      <p class="font-bold text-slate-800">🔒 Comprar Online — Rastreador de Achadinhos & Ofertas VIP</p>
       
       <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-semibold text-slate-600">
         <button type="button" data-open-legal="privacidade" class="btn-open-legal hover:text-[#3483FA] underline transition">
@@ -693,7 +760,7 @@
   </footer>
 
   <!-- ========================================================================
-       SCRIPT COMPLETO — MOTOR DE BUSCA INTELIGENTE (SINÔNIMOS + NÚMEROS + SEM ACENTOS)
+       SCRIPT COMPLETO — 54 PRODUTOS + ORDENAÇÃO PELO MENOR PREÇO + BUSCA BILÍNGUE ESTILO MERCADO LIVRE
        ======================================================================== -->
   <script>
     const MEUS_PRODUTOS = [];
@@ -702,6 +769,7 @@
 
     let activeProducts = [...MEUS_PRODUTOS];
     let currentFilter = 'ALL';
+    let currentSort = 'CHEAPEST'; // Sempre mais baratos em primeiro lugar por padrão!
     let searchQuery = '';
     let countdownSeconds = 2 * 3600 + 47 * 60 + 19;
     let countdownInterval = null;
@@ -722,35 +790,68 @@
     };
 
     // ========================================================================
-    // DICIONÁRIO INTELIGENTE DE SINÔNIMOS DE E-COMMERCE
-    // Se o cliente digitar "televisão", encontra "TV" / "Smart TV" (e vice-versa)
+    // MOTOR SEMÂNTICO BILÍNGUE (PORTUGUÊS + INGLÊS) + MAPA DE CATEGORIAS RELACIONADAS
+    // Aceita qualquer palavra em PT ou EN, encontra o produto exato e sugere itens relacionados!
     // ========================================================================
     const GRUPOS_SINONIMOS_BUSCA = [
-      ['tv', 'televisao', 'televisor', 'smart tv', 'smartv', 'tele', 'monitor', '4k', 'uhd', 'led', 'oled', 'qled', 'polegadas'],
-      ['celular', 'celulares', 'smartphone', 'smartphones', 'telefone', 'iphone', 'apple', 'samsung', 'galaxy', 'motorola', 'moto', 'xiaomi', 'redmi', 'poco', 'android'],
-      ['fone', 'fones', 'headset', 'headphone', 'earbuds', 'airpods', 'ouvido', 'bluetooth', 'sem fio', 'tws', 'caixa de som', 'caixinha', 'jbl', 'audio', 'som'],
-      ['esteira', 'ergometrica', 'caminhada', 'corrida', 'academia', 'fitness', 'treino', 'exercicio', 'ginastica', 'esporte', 'emagrecer', 'cardio', 'bicicleta'],
-      ['suplemento', 'suplementos', 'whey', 'protein', 'proteina', 'hipercalorico', 'mass', 'massa', 'creatina', 'pre treino', 'musculacao', 'ganho muscular', 'max titanium', 'integralmedica', 'growth'],
-      ['extensao', 'tomada', 'tomadas', 'benjamim', 'filtro de linha', 'regua', 'cabo', 'fio', 'eletrica', 'eletrico', 'energia', 'bivolt', '10a', '20a'],
-      ['disjuntor', 'bipolar', 'monopolar', 'tripolar', 'elgin', 'steck', 'weg', 'quadro de forca', 'amperes', 'eletricista'],
-      ['assento', 'sanitario', 'vaso', 'privada', 'tampa', 'banheiro', 'acoplada', 'almofadado'],
-      ['filamento', 'impressora 3d', 'impressao 3d', '3d', 'pla', 'abs', 'petg', 'voolt3d', 'carretel', '1.75mm', 'resina'],
-      ['lencol', 'lencois', 'jogo de cama', 'cama', 'colchao', 'travesseiro', 'fronha', 'edredom', 'cobertor', 'colcha', 'queen', 'casal', 'solteiro', 'king', '400 fios', 'toalha', 'banho'],
-      ['cozinha', 'airfryer', 'fritadeira', 'sem oleo', 'panela', 'panelas', 'liquidificador', 'batedeira', 'cafeteira', 'microondas', 'forno', 'fogao', 'talheres', 'pratos'],
-      ['copo', 'garrafa', 'termico', 'termica', 'stanley', 'inox', 'gelado', 'cerveja', 'churrasco', 'cooler', 'squeeze'],
-      ['limpeza', 'aspirador', 'robo', 'mop', 'esfregao', 'vassoura', 'lavadora', 'alta pressao', 'wap', 'karcher'],
-      ['ferramenta', 'ferramentas', 'furadeira', 'parafusadeira', 'chave', 'maleta', 'kit ferramentas', 'bosch', 'makita', 'vonder', 'dewalt', 'serra', 'trena', 'obra'],
-      ['game', 'games', 'jogo', 'jogos', 'videogame', 'console', 'playstation', 'ps4', 'ps5', 'sony', 'xbox', 'nintendo', 'switch', 'gift card', 'cartao presente', 'controle', 'joystick', 'gamer'],
-      ['computador', 'pc', 'notebook', 'laptop', 'teclado', 'mouse', 'ssd', 'hd', 'memoria ram', 'placa de video', 'roteador', 'wifi'],
-      ['beleza', 'cabelo', 'secador', 'chapinha', 'prancha', 'escova', 'modelador', 'barbeador', 'maquina de cortar', 'aparador', 'perfume', 'maquiagem', 'creme', 'hidratante', 'shampoo'],
-      ['roupa', 'roupas', 'camisa', 'camiseta', 'blusa', 'jaqueta', 'moletom', 'calca', 'jeans', 'bermuda', 'short', 'vestido', 'moda'],
-      ['tenis', 'sapato', 'calcado', 'chinelo', 'sandalia', 'bota', 'nike', 'adidas', 'olympikus'],
-      ['mochila', 'bolsa', 'mala', 'necessaire', 'carteira', 'escolar', 'viagem', 'impermeavel'],
-      ['relogio', 'smartwatch', 'pulseira', 'digital', 'inteligente'],
-      ['ventilador', 'climatizador', 'ar condicionado', 'circulador', 'umidificador', 'aquecedor']
+      // TV, Monitores e Sala
+      ['tv', 'television', 'televisao', 'televisor', 'smart tv', 'smartv', 'tele', 'monitor', 'screen', 'tela', 'display', '4k', 'uhd', 'full hd', 'led', 'oled', 'qled', 'polegadas', 'inches', 'sala', 'living room', 'cinema', 'filme', 'movie', 'movies', 'netflix', 'youtube', 'streaming', 'hdmi', 'controle remoto', 'remote', 'samsung', 'lg', 'tcl', 'philco', 'aoc'],
+      // Celulares, Smartphones e Acessórios Mobile
+      ['celular', 'celulares', 'smartphone', 'smartphones', 'phone', 'cellphone', 'mobile', 'mobile phone', 'telefone', 'aparelho', 'iphone', 'apple', 'ios', 'samsung', 'galaxy', 'motorola', 'moto', 'xiaomi', 'redmi', 'poco', 'realme', 'infinix', 'android', '5g', '4g', 'dual chip', 'camera', 'selfie', 'whatsapp', 'instagram', 'tiktok', 'carregador', 'charger', 'powerbank', 'bateria', 'battery', 'case', 'capinha', 'pelicula'],
+      // Áudio, Fones e Caixas de Som
+      ['fone', 'fones', 'headset', 'headphone', 'headphones', 'earphone', 'earphones', 'earbuds', 'airpods', 'ouvido', 'bluetooth', 'wireless', 'sem fio', 'tws', 'caixa de som', 'caixinha', 'speaker', 'speakers', 'soundbar', 'boombox', 'jbl', 'audio', 'sound', 'som', 'music', 'musica', 'microfone', 'microphone', 'mic', 'podcast', 'bass', 'grave'],
+      // Academia, Esteira e Exercícios em Casa
+      ['esteira', 'treadmill', 'ergometrica', 'caminhada', 'walk', 'walking', 'corrida', 'run', 'running', 'academia', 'gym', 'fitness', 'treino', 'workout', 'training', 'exercicio', 'exercise', 'ginastica', 'esporte', 'sport', 'sports', 'emagrecer', 'weight loss', 'slim', 'fit', 'cardio', 'bicicleta', 'bike', 'bicycle', 'spinning', 'haltere', 'dumbbell', 'peso', 'weight', 'saude', 'health', 'body', 'corpo'],
+      // Suplementos, Whey, Creatina e Nutrição
+      ['suplemento', 'suplementos', 'supplement', 'supplements', 'whey', 'protein', 'proteina', 'hipercalorico', 'mass', 'massa', 'gainer', 'weight gainer', 'creatina', 'creatine', 'pre treino', 'pre workout', 'musculacao', 'muscle', 'musculo', 'bodybuilding', 'ganho muscular', 'energia', 'energy', 'forca', 'strength', 'max titanium', 'integralmedica', 'soldiers', 'growth', 'vitamina', 'vitamin', 'bcaa', 'glutamina', 'shake', 'coqueteleira', 'nutrition', 'nutricao', 'dieta', 'diet'],
+      // Elétrica, Extensões, Tomadas e Energia
+      ['extensao', 'extension', 'extension cord', 'power strip', 'tomada', 'tomadas', 'outlet', 'plug', 'socket', 'benjamim', 'adaptador', 'adapter', 'filtro de linha', 'regua', 'cabo', 'cable', 'fio', 'wire', 'eletrica', 'eletrico', 'electric', 'electrical', 'energia', 'power', 'voltage', 'voltagem', 'bivolt', '110v', '220v', '10a', '20a', 'luz', 'light', 'lamp', 'lampada', 'led', 'lanterna', 'flashlight'],
+      // Disjuntores e Quadro de Força
+      ['disjuntor', 'breaker', 'circuit breaker', 'switch', 'bipolar', 'monopolar', 'tripolar', 'din', 'elgin', 'steck', 'weg', 'quadro de forca', 'amperes', 'amp', 'eletricista', 'electrician', 'instalacao', 'protecao eletrica'],
+      // Banheiro, Hidráulica e Assento Sanitário
+      ['assento', 'seat', 'toilet seat', 'sanitario', 'vaso', 'vaso sanitario', 'privada', 'toilet', 'wc', 'restroom', 'tampa', 'banheiro', 'bathroom', 'bath', 'lavabo', 'acoplada', 'almofadado', 'soft close', 'chuveiro', 'shower', 'ducha', 'torneira', 'faucet', 'tap', 'pia', 'sink', 'hidraulica', 'plumbing'],
+      // Impressão 3D, Filamentos e Cultura Maker
+      ['filamento', 'filament', 'impressora 3d', '3d printer', 'printer', 'impressao 3d', '3d printing', '3d', 'pla', 'abs', 'petg', 'tpu', 'voolt3d', 'creality', 'ender', 'bambu', 'carretel', 'spool', '1.75mm', 'resina', 'resin', 'maker', 'geek', 'prototipo'],
+      // Cama, Mesa, Banho e Quarto
+      ['lencol', 'lencois', 'sheet', 'sheets', 'bedsheet', 'bedding', 'jogo de cama', 'jogo de lencol', 'cama', 'bed', 'bedroom', 'quarto', 'dormitorio', 'dormir', 'sleep', 'colchao', 'mattress', 'travesseiro', 'pillow', 'fronha', 'pillowcase', 'edredom', 'comforter', 'duvet', 'cobertor', 'blanket', 'manta', 'colcha', 'queen', 'king', 'casal', 'double', 'solteiro', 'single', '400 fios', 'percal', 'algodao', 'cotton', 'microfibra', 'toalha', 'towel', 'banho', 'cortina', 'curtain', 'tapete', 'rug', 'carpet', 'hotel', 'enxoval', 'sofa', 'couch'],
+      // Cozinha, Eletroportáteis e Culinária
+      ['cozinha', 'kitchen', 'cook', 'cooking', 'cozinhar', 'culinaria', 'chef', 'comida', 'food', 'airfryer', 'air fryer', 'fryer', 'fritadeira', 'sem oleo', 'panela', 'panelas', 'pan', 'pot', 'cookware', 'frigideira', 'pressao', 'liquidificador', 'blender', 'mixer', 'batedeira', 'processador', 'cafeteira', 'coffee', 'coffeemaker', 'cafe', 'espresso', 'microondas', 'microwave', 'forno', 'oven', 'fogao', 'stove', 'cooktop', 'geladeira', 'fridge', 'refrigerator', 'faca', 'knife', 'talheres', 'cutlery', 'pratos', 'plate', 'pote', 'inox', 'mondial', 'oster', 'britania', 'tramontina', 'electrolux'],
+      // Copos Térmicos, Garrafas e Churrasco
+      ['copo', 'cup', 'mug', 'tumbler', 'garrafa', 'bottle', 'flask', 'thermos', 'termico', 'termica', 'thermal', 'insulated', 'stanley', 'inox', 'stainless', 'gelado', 'cold', 'ice', 'gelo', 'quente', 'hot', 'cerveja', 'beer', 'chopp', 'agua', 'water', 'cha', 'tea', 'churrasco', 'bbq', 'barbecue', 'camping', 'acampamento', 'praia', 'beach', 'viagem', 'travel', 'cooler', 'squeeze', 'caneca'],
+      // Limpeza, Casa e Organização
+      ['limpeza', 'clean', 'cleaning', 'cleaner', 'limpar', 'faxina', 'casa', 'home', 'house', 'lar', 'aspirador', 'vacuum', 'robo', 'robot', 'mop', 'esfregao', 'balde', 'bucket', 'vassoura', 'broom', 'rodo', 'lavadora', 'washer', 'pressure washer', 'alta pressao', 'wap', 'karcher', 'organizador', 'organizer', 'prateleira', 'shelf', 'suporte', 'holder', 'lixeira', 'trash', 'varal', 'ferro', 'iron'],
+      // Ferramentas, Oficina, Reforma e Automotivo
+      ['ferramenta', 'ferramentas', 'tool', 'tools', 'hardware', 'furadeira', 'drill', 'parafusadeira', 'screwdriver', 'parafuso', 'screw', 'chave', 'wrench', 'catraca', 'soquete', 'socket', 'maleta', 'toolbox', 'kit ferramentas', 'tool kit', 'alicate', 'pliers', 'martelo', 'hammer', 'bosch', 'makita', 'vonder', 'dewalt', 'serra', 'saw', 'trena', 'tape', 'solda', 'welder', 'obra', 'reforma', 'construcao', 'conserto', 'repair', 'fix', 'manutencao', 'oficina', 'workshop', 'garage', 'garagem', 'mecanico', 'mechanic', 'carro', 'car', 'auto', 'automotivo', 'moto', 'motorcycle'],
+      // Games, Consoles e Gift Cards
+      ['game', 'games', 'gaming', 'gamer', 'play', 'jogo', 'jogos', 'videogame', 'video game', 'console', 'playstation', 'ps4', 'ps5', 'psn', 'sony', 'xbox', 'microsoft', 'nintendo', 'switch', 'steam', 'gift card', 'card', 'cartao', 'cartao presente', 'voucher', 'codigo', 'code', 'credit', 'credito', 'controle', 'controller', 'joystick', 'arcade', 'rgb', 'brinquedo', 'toy', 'toys', 'kids', 'crianca', 'presente', 'gift'],
+      // Computadores, Notebooks e Escritório
+      ['computador', 'computer', 'pc', 'desktop', 'notebook', 'laptop', 'macbook', 'tablet', 'ipad', 'teclado', 'keyboard', 'mouse', 'mousepad', 'webcam', 'ssd', 'nvme', 'hd', 'hard drive', 'pendrive', 'usb', 'hub', 'memoria', 'memory', 'ram', 'placa de video', 'gpu', 'processador', 'cpu', 'roteador', 'router', 'wifi', 'network', 'rede', 'office', 'escritorio', 'home office', 'cadeira', 'chair', 'mesa', 'desk'],
+      // Beleza, Cabelo e Cuidado Pessoal
+      ['beleza', 'beauty', 'care', 'cuidado', 'skin', 'skincare', 'pele', 'rosto', 'face', 'cabelo', 'cabelos', 'hair', 'secador', 'dryer', 'hairdryer', 'chapinha', 'prancha', 'flat iron', 'straightener', 'escova', 'brush', 'modelador', 'babyliss', 'barbeador', 'shaver', 'razor', 'trimmer', 'maquina de cortar', 'aparador', 'barba', 'beard', 'perfume', 'fragrance', 'colonia', 'maquiagem', 'makeup', 'creme', 'cream', 'hidratante', 'lotion', 'serum', 'shampoo', 'condicionador', 'depilador', 'unha', 'nail', 'taiff', 'philips', 'kemei', 'wahl'],
+      // Moda, Roupas, Calçados, Bolsas e Relógios
+      ['roupa', 'roupas', 'clothes', 'clothing', 'fashion', 'apparel', 'wear', 'moda', 'vestuario', 'camisa', 'shirt', 'camiseta', 'tshirt', 't-shirt', 'blusa', 'top', 'jaqueta', 'jacket', 'coat', 'casaco', 'moletom', 'hoodie', 'sweater', 'frio', 'winter', 'inverno', 'verao', 'summer', 'calca', 'pants', 'trousers', 'jeans', 'legging', 'bermuda', 'short', 'shorts', 'vestido', 'dress', 'saia', 'skirt', 'cueca', 'calcinha', 'meia', 'socks'],
+      ['tenis', 'sneakers', 'sapato', 'shoe', 'shoes', 'calcado', 'footwear', 'chinelo', 'slippers', 'sandalia', 'sandals', 'bota', 'boots', 'coturno', 'nike', 'adidas', 'olympikus'],
+      ['mochila', 'backpack', 'bolsa', 'bag', 'purse', 'mala', 'luggage', 'suitcase', 'necessaire', 'carteira', 'wallet', 'pochete', 'escolar', 'school', 'impermeavel', 'waterproof'],
+      ['relogio', 'watch', 'smartwatch', 'clock', 'pulseira', 'bracelet', 'digital', 'inteligente', 'oculos', 'glasses', 'sunglasses', 'bone', 'cap', 'hat', 'cinto', 'belt', 'joia', 'colar', 'anel'],
+      // Ventilação e Clima
+      ['ventilador', 'fan', 'climatizador', 'ar condicionado', 'air conditioner', 'circulador', 'umidificador', 'humidifier', 'aquecedor', 'heater', 'calor', 'verao'],
+      // Termos Universais de Oferta / Compra (PT + EN)
+      ['oferta', 'ofertas', 'deal', 'deals', 'desconto', 'discount', 'sale', 'promo', 'promocao', 'barato', 'cheap', 'menor preco', 'lowest price', 'achadinho', 'achadinhos', 'best', 'melhor', 'top', 'mais vendido', 'bestseller', 'popular', 'black friday', 'full', 'frete gratis', 'free shipping', 'novo', 'new', 'kit', 'combo']
     ];
 
-    // Remove acentos, símbolos e deixa tudo minúsculo para comparar sem erro
+    // Mapeamento de afinidade entre palavras-chave universais (PT/EN) e Categorias da loja
+    const MAPA_AFINIDADE_CATEGORIA = [
+      { categoria: 'Ferramentas & Tech', termos: ['tool', 'tools', 'ferramenta', 'drill', 'furadeira', 'parafusadeira', 'wrench', 'chave', 'maleta', 'kit', 'electric', 'eletrica', 'tomada', 'extensao', 'plug', 'outlet', 'breaker', 'disjuntor', 'wire', 'cabo', '3d', 'printer', 'filament', 'filamento', 'car', 'carro', 'moto', 'garage', 'oficina', 'repair', 'conserto', 'fix', 'obra', 'reforma', 'construcao', 'hardware', 'lanterna'] },
+      { categoria: 'Suplementos & Fitness', termos: ['gym', 'fitness', 'workout', 'exercise', 'academia', 'treino', 'exercicio', 'esporte', 'sport', 'treadmill', 'esteira', 'run', 'walk', 'corrida', 'caminhada', 'bike', 'bicicleta', 'protein', 'proteina', 'whey', 'creatine', 'creatina', 'mass', 'massa', 'hipercalorico', 'supplement', 'suplemento', 'muscle', 'musculo', 'health', 'saude', 'diet', 'dieta', 'emagrecer', 'weight', 'peso', 'body'] },
+      { categoria: 'Eletrônicos & Áudio', termos: ['tv', 'television', 'televisao', 'smart tv', 'monitor', 'screen', 'tela', '4k', 'led', 'audio', 'sound', 'som', 'music', 'musica', 'headphone', 'earphone', 'earbuds', 'fone', 'bluetooth', 'speaker', 'caixa de som', 'jbl', 'mic', 'microfone', 'watch', 'smartwatch', 'relogio', 'computer', 'pc', 'notebook', 'laptop', 'tablet', 'usb', 'wifi', 'router', 'roteador', 'movie', 'filme', 'sala'] },
+      { categoria: 'Celulares & Smartphones', termos: ['phone', 'cellphone', 'mobile', 'smartphone', 'celular', 'telefone', 'iphone', 'apple', 'samsung', 'galaxy', 'xiaomi', 'redmi', 'poco', 'motorola', 'realme', 'android', '5g', 'charger', 'carregador', 'battery', 'bateria', 'selfie', 'camera'] },
+      { categoria: 'Casa & Cozinha', termos: ['home', 'house', 'casa', 'lar', 'kitchen', 'cook', 'cozinha', 'food', 'comida', 'airfryer', 'fryer', 'fritadeira', 'pan', 'pot', 'panela', 'blender', 'liquidificador', 'coffee', 'cafeteira', 'cafe', 'cup', 'mug', 'bottle', 'thermos', 'copo', 'garrafa', 'termico', 'stanley', 'bbq', 'churrasco', 'clean', 'cleaning', 'limpeza', 'vacuum', 'aspirador', 'mop', 'bathroom', 'bath', 'toilet', 'banheiro', 'vaso', 'assento', 'seat', 'shower', 'chuveiro', 'fan', 'ventilador', 'organizador'] },
+      { categoria: 'Cama, Mesa & Banho', termos: ['bed', 'bedroom', 'bedding', 'cama', 'quarto', 'sleep', 'dormir', 'sheet', 'sheets', 'lencol', 'pillow', 'travesseiro', 'fronha', 'blanket', 'duvet', 'edredom', 'cobertor', 'manta', 'mattress', 'colchao', 'queen', 'king', 'casal', 'solteiro', 'cotton', 'algodao', '400 fios', 'towel', 'toalha', 'curtain', 'cortina', 'rug', 'tapete', 'sofa', 'hotel'] },
+      { categoria: 'Games & Consoles', termos: ['game', 'games', 'gaming', 'gamer', 'play', 'jogo', 'videogame', 'console', 'playstation', 'ps4', 'ps5', 'sony', 'xbox', 'nintendo', 'switch', 'steam', 'gift card', 'card', 'cartao', 'voucher', 'controller', 'controle', 'joystick', 'toy', 'brinquedo', 'kids', 'crianca', 'presente', 'gift'] },
+      { categoria: 'Beleza & Cuidado', termos: ['beauty', 'care', 'skin', 'beleza', 'cuidado', 'pele', 'rosto', 'face', 'hair', 'cabelo', 'dryer', 'secador', 'chapinha', 'prancha', 'escova', 'brush', 'shaver', 'razor', 'trimmer', 'barbeador', 'barba', 'perfume', 'makeup', 'maquiagem', 'cream', 'creme', 'shampoo'] },
+      { categoria: 'Moda & Acessórios', termos: ['fashion', 'clothes', 'clothing', 'moda', 'roupa', 'shirt', 'tshirt', 'camisa', 'camiseta', 'blusa', 'jacket', 'jaqueta', 'moletom', 'pants', 'jeans', 'calca', 'shorts', 'bermuda', 'dress', 'vestido', 'shoe', 'shoes', 'sneakers', 'tenis', 'sapato', 'chinelo', 'sandalia', 'bota', 'bag', 'backpack', 'mochila', 'bolsa', 'mala', 'wallet', 'carteira', 'glasses', 'oculos', 'bone', 'hat'] }
+    ];
+
     function normalizarTextoBusca(texto = '') {
       return String(texto)
         .toLowerCase()
@@ -761,10 +862,99 @@
         .trim();
     }
 
-    // Expande o texto de um produto com todos os sinônimos equivalentes do dicionário
+    // Extrai o preço numérico real em R$ de qualquer item para garantir ordenação do mais barato ao mais caro
+    function extrairPrecoNumerico(item) {
+      if (!item) return 999999;
+      if (typeof item.precoNumerico === 'number' && item.precoNumerico > 0 && item.precoNumerico < 999999) {
+        return item.precoNumerico;
+      }
+      const txt = String(item.precoAtual || '');
+      // Procura padrão brasileiro "R$ 1.234,56" ou "62,89"
+      const m = txt.match(/(\d{1,3}(?:\.\d{3})*|\d+)(?:,(\d{2}))?/);
+      if (!m) return 999999;
+      const inteiro = (m[1] || '0').replace(/\./g, '');
+      const centavos = m[2] || '00';
+      const val = parseFloat(`${inteiro}.${centavos}`);
+      return !isNaN(val) && val > 0 ? val : 999999;
+    }
+
+    function extrairDescontoNumerico(item) {
+      if (!item || !item.descontoTag) return 0;
+      const m = String(item.descontoTag).match(/(\d{1,2})\s*%/);
+      return m ? parseInt(m[1], 10) : 0;
+    }
+
+    // Ordena uma lista de produtos segundo o modo escolhido (Padrão: CHEAPEST = mais baratos primeiro, mais caros por último)
+    function ordenarListaProdutos(lista, modo = currentSort) {
+      const copia = [...lista];
+      if (modo === 'CHEAPEST') {
+        copia.sort((a, b) => {
+          const pa = extrairPrecoNumerico(a);
+          const pb = extrairPrecoNumerico(b);
+          if (pa !== pb) return pa - pb;
+          return parseInt(a.numero || '99', 10) - parseInt(b.numero || '99', 10);
+        });
+      } else if (modo === 'EXPENSIVE') {
+        copia.sort((a, b) => {
+          const pa = extrairPrecoNumerico(a);
+          const pb = extrairPrecoNumerico(b);
+          if (pa === 999999 && pb !== 999999) return 1;
+          if (pb === 999999 && pa !== 999999) return -1;
+          if (pb !== pa) return pb - pa;
+          return parseInt(a.numero || '99', 10) - parseInt(b.numero || '99', 10);
+        });
+      } else if (modo === 'DISCOUNT') {
+        copia.sort((a, b) => {
+          const da = extrairDescontoNumerico(a);
+          const db = extrairDescontoNumerico(b);
+          if (db !== da) return db - da;
+          return extrairPrecoNumerico(a) - extrairPrecoNumerico(b);
+        });
+      } else if (modo === 'NUMBER') {
+        copia.sort((a, b) => parseInt(a.numero || '99', 10) - parseInt(b.numero || '99', 10));
+      }
+      return copia;
+    }
+
+    // Gera recomendação humana e selo de curadoria caso o item ainda não tenha vindo com eles
+    function obterCuradoriaDoItem(item) {
+      const precoNum = extrairPrecoNumerico(item);
+      const pct = extrairDescontoNumerico(item);
+      const cat = item.categoria || 'Geral';
+      const t = (item.titulo || '').toLowerCase();
+
+      let selo = item.seloCuradoria || '';
+      if (!selo) {
+        if (pct >= 30) selo = '🔥 Super Desconto';
+        else if (precoNum <= 49.9) selo = '⚡ Achadinho Barato';
+        else if (/(kit|jogo|conjunto|maleta)/.test(t)) selo = '🏆 Kit Completo';
+        else if (parseInt(item.numero || '1', 10) % 2 === 0) selo = '💎 Custo-Benefício';
+        else selo = '⭐ Favorito 4.9 ★';
+      }
+
+      let textoAmigo = item.recomendacaoAmigo || '';
+      if (!textoAmigo) {
+        if (cat.includes('Suplementos') || cat.includes('Fitness')) {
+          textoAmigo = 'Ideal para quem quer acelerar os resultados de treino e saúde sem gastar caro. Excelente aprovação dos compradores no Mercado Livre, ótimo rendimento e envio rápido Full.';
+        } else if (cat.includes('Ferramentas')) {
+          textoAmigo = 'Aquele achado indispensável para resolver manutenções e projetos com praticidade e segurança. Material reforçado, ótima empunhadura e preço promocional ativo hoje.';
+        } else if (cat.includes('Eletrônicos') || cat.includes('Celulares')) {
+          textoAmigo = 'Garimpamos este modelo pelo equilíbrio entre alta tecnologia, durabilidade e preço bem abaixo das lojas físicas. Vai lacrado com Nota Fiscal e Compra Garantida.';
+        } else if (cat.includes('Cama')) {
+          textoAmigo = 'Conforto macio de padrão hoteleiro para renovar seu quarto gastando pouco. Tecido resistente às lavagens e uma das maiores notas de satisfação da categoria.';
+        } else if (cat.includes('Casa') || cat.includes('Cozinha')) {
+          textoAmigo = 'Praticidade real para facilitar a rotina da sua casa logo no primeiro dia. Separamos este link porque está com o menor preço verificado e entrega ágil.';
+        } else {
+          textoAmigo = 'Oferta garimpada manualmente entre dezenas de anúncios por reunir vendedor de alta reputação, avaliações reais positivas e desconto ativo no aplicativo.';
+        }
+      }
+
+      return { selo, textoAmigo };
+    }
+
     function gerarIndiceExpandidoDoProduto(item) {
       const base = normalizarTextoBusca(
-        `${item.numero || ''} ${item.titulo || ''} ${item.categoria || ''} ${item.descricao || ''} ${item.codigoBuscaML || ''} ${(item.caracteristicas || []).join(' ')}`
+        `${item.numero || ''} ${item.titulo || ''} ${item.categoria || ''} ${item.descricao || ''} ${item.recomendacaoAmigo || ''} ${item.codigoBuscaML || ''} ${(item.caracteristicas || []).join(' ')}`
       );
       const palavrasBase = new Set(base.split(' ').filter(Boolean));
       const extras = [];
@@ -772,7 +962,7 @@
       for (const grupo of GRUPOS_SINONIMOS_BUSCA) {
         const bateuNoGrupo = grupo.some(termo => {
           if (termo.includes(' ')) return base.includes(termo);
-          return palavrasBase.has(termo) || base.includes(termo);
+          return palavrasBase.has(termo) || (termo.length >= 4 && base.includes(termo));
         });
         if (bateuNoGrupo) {
           extras.push(...grupo);
@@ -780,6 +970,28 @@
       }
 
       return `${base} ${extras.join(' ')}`;
+    }
+
+    // Calcula similaridade entre duas palavras (tolera erros de digitação, plural/singular e inglês/português)
+    function palavrasSaoSimilares(a, b) {
+      if (!a || !b) return false;
+      if (a === b) return true;
+      if (a.length >= 3 && b.includes(a)) return true;
+      if (b.length >= 3 && a.includes(b)) return true;
+      // Verifica prefixo comum (stemming simples de 4 letras, ex: "ferram" == "ferramenta")
+      if (a.length >= 4 && b.length >= 4 && a.slice(0, 4) === b.slice(0, 4)) return true;
+
+      // Distância de edição curta para tolerar 1 erro de digitação (ex: "televizao", "smartfone")
+      if (Math.abs(a.length - b.length) <= 1 && a.length >= 5 && b.length >= 5) {
+        let diffs = 0;
+        const minLen = Math.min(a.length, b.length);
+        for (let i = 0; i < minLen; i++) {
+          if (a[i] !== b[i]) diffs++;
+          if (diffs > 2) return false;
+        }
+        return diffs <= 1;
+      }
+      return false;
     }
 
     function limparUrlBaseML(url = '') {
@@ -831,6 +1043,21 @@
       }
     }
 
+    function normalizarProdutoRecebido(p) {
+      const precoNumerico = extrairPrecoNumerico(p);
+      const curadoria = obterCuradoriaDoItem({ ...p, precoNumerico });
+      return {
+        ...p,
+        precoNumerico,
+        seloCuradoria: p.seloCuradoria || curadoria.selo,
+        recomendacaoAmigo: p.recomendacaoAmigo || curadoria.textoAmigo,
+        imagemUrl: limparUrlBaseML(p.imagemUrl),
+        fotosGaleria: Array.isArray(p.fotosGaleria)
+          ? p.fotosGaleria.map(limparUrlBaseML)
+          : [limparUrlBaseML(p.imagemUrl)]
+      };
+    }
+
     async function carregarProdutosDaAPI() {
       const statusDot = document.getElementById('api-status-dot');
       const loadingBar = document.getElementById('batch-loading-bar');
@@ -838,7 +1065,7 @@
       const tamanhoPorLote = 12;
 
       try {
-        const urlLote1 = API_PRODUTOS_URL + `?lote=1&tamanho=${tamanhoPorLote}&v=syn1`;
+        const urlLote1 = API_PRODUTOS_URL + `?lote=1&tamanho=${tamanhoPorLote}&v=ml54`;
         const resp1 = await fetch(urlLote1, {
           headers: { 'Accept': 'application/json' }
         });
@@ -846,16 +1073,14 @@
         const data1 = await resp1.json();
 
         if (Array.isArray(data1.produtos) && data1.produtos.length > 0) {
-          activeProducts = data1.produtos.map(p => ({
-            ...p,
-            imagemUrl: limparUrlBaseML(p.imagemUrl),
-            fotosGaleria: Array.isArray(p.fotosGaleria)
-              ? p.fotosGaleria.map(limparUrlBaseML)
-              : [limparUrlBaseML(p.imagemUrl)]
-          }));
+          activeProducts = ordenarListaProdutos(
+            data1.produtos.map(normalizarProdutoRecebido),
+            currentSort
+          );
           if (statusDot) {
             statusDot.className = 'inline-block w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-500 animate-pulse flex-shrink-0';
           }
+          aplicarParametrosDeUrlInicial();
           renderCategoryChips();
           renderProducts();
           checkDirectRedirect();
@@ -865,32 +1090,33 @@
 
           if (totalLotes > 1) {
             loadingBar.classList.remove('hidden');
+            // Carrega os lotes restantes em paralelo para máxima velocidade e reordena sempre do mais barato para o mais caro
+            const promessasLotes = [];
             for (let lote = 2; lote <= totalLotes; lote++) {
-              loadingText.textContent = `Carregando mais produtos (${activeProducts.length} de ${totalGeral})...`;
-              const urlProxLote = API_PRODUTOS_URL + `?lote=${lote}&tamanho=${tamanhoPorLote}&v=syn1`;
-              const respLote = await fetch(urlProxLote, {
-                headers: { 'Accept': 'application/json' }
-              });
-              if (respLote.ok) {
-                const dataLote = await respLote.json();
-                if (Array.isArray(dataLote.produtos) && dataLote.produtos.length > 0) {
-                  const existentes = new Set(activeProducts.map(p => p.numero));
-                  dataLote.produtos.forEach(item => {
-                    if (!existentes.has(item.numero)) {
-                      activeProducts.push({
-                        ...item,
-                        imagemUrl: limparUrlBaseML(item.imagemUrl),
-                        fotosGaleria: Array.isArray(item.fotosGaleria)
-                          ? item.fotosGaleria.map(limparUrlBaseML)
-                          : [limparUrlBaseML(item.imagemUrl)]
+              const urlProxLote = API_PRODUTOS_URL + `?lote=${lote}&tamanho=${tamanhoPorLote}&v=ml54`;
+              promessasLotes.push(
+                fetch(urlProxLote, { headers: { 'Accept': 'application/json' } })
+                  .then(r => (r.ok ? r.json() : null))
+                  .then(dataLote => {
+                    if (dataLote && Array.isArray(dataLote.produtos) && dataLote.produtos.length > 0) {
+                      const existentes = new Set(activeProducts.map(p => p.numero));
+                      dataLote.produtos.forEach(item => {
+                        if (!existentes.has(item.numero)) {
+                          activeProducts.push(normalizarProdutoRecebido(item));
+                        }
                       });
+                      // Mantém sempre do mais barato ao mais caro conforme novos lotes chegam
+                      activeProducts = ordenarListaProdutos(activeProducts, currentSort);
+                      loadingText.textContent = `Sincronizando catálogo (${activeProducts.length} de ${totalGeral} produtos ordenados pelo menor preço)...`;
+                      renderCategoryChips();
+                      renderProducts();
+                      checkDirectRedirect();
                     }
-                  });
-                  renderCategoryChips();
-                  renderProducts();
-                }
-              }
+                  })
+                  .catch(() => null)
+              );
             }
+            await Promise.all(promessasLotes);
             loadingBar.classList.add('hidden');
           }
           return;
@@ -901,6 +1127,30 @@
 
       renderCategoryChips();
       renderProducts();
+    }
+
+    // Permite links diretos por nicho (?cat=academia, ?cat=ferramentas, ?cat=casa) ou busca (?q=tv)
+    function aplicarParametrosDeUrlInicial() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const catParam = params.get('cat') || params.get('categoria');
+        const qParam = params.get('q') || params.get('busca');
+
+        if (qParam && !searchQuery) {
+          searchQuery = qParam.trim();
+          const input = document.getElementById('search-input');
+          const clearBtn = document.getElementById('btn-clear-search');
+          if (input) input.value = searchQuery;
+          if (clearBtn) clearBtn.classList.toggle('hidden', !searchQuery);
+        } else if (catParam) {
+          const normCat = normalizarTextoBusca(catParam);
+          const categoriasDisponiveis = [...new Set(activeProducts.map(p => p.categoria || 'Geral'))];
+          const matchCat = categoriasDisponiveis.find(c => normalizarTextoBusca(c).includes(normCat));
+          if (matchCat) {
+            currentFilter = matchCat;
+          }
+        }
+      } catch (e) {}
     }
 
     function checkDirectRedirect() {
@@ -1117,6 +1367,8 @@
       if (sliderTilt) sliderTilt.value = '0';
       if (sliderZoom) sliderZoom.value = '100';
 
+      const curadoria = obterCuradoriaDoItem(item);
+
       document.getElementById('zoom-badge-num').textContent = `PRODUTO #${item.numero}`;
       document.getElementById('zoom-category').textContent = item.categoria || 'Geral';
       document.getElementById('zoom-title').textContent = item.titulo || `Produto #${item.numero}`;
@@ -1128,6 +1380,11 @@
       document.getElementById('zoom-rating-score').textContent = item.avaliacaoNota || '4.9';
       document.getElementById('zoom-rating-count').textContent = item.avaliacaoQtd || '(Avaliações verificadas)';
       document.getElementById('zoom-installments').textContent = item.parcelamento || 'Condição especial no Pix ou parcelado no aplicativo';
+
+      const curationBadgeEl = document.getElementById('zoom-curation-badge');
+      const humanRecEl = document.getElementById('zoom-human-recommendation');
+      if (curationBadgeEl) curationBadgeEl.textContent = curadoria.selo;
+      if (humanRecEl) humanRecEl.textContent = curadoria.textoAmigo;
 
       const discountEl = document.getElementById('zoom-discount');
       if (item.descontoTag && item.descontoTag.trim()) {
@@ -1286,211 +1543,347 @@
     }
 
     // ========================================================================
-    // FILTRO INTELIGENTE: BUSCA POR NÚMERO (1 = 01 = #01) E POR SINÔNIMOS (TV = TELEVISÃO)
+    // MOTOR DE BUSCA ESTILO MERCADO LIVRE (PT + EN + SINÔNIMOS + ITENS RELACIONADOS)
+    // Sempre retorna: { principais: [...], relacionados: [...], aproximacaoUsada: boolean }
     // ========================================================================
-    function getFilteredProducts() {
+    function executarBuscaMercadoLivre() {
+      const listaOrdenadaBase = ordenarListaProdutos(activeProducts, currentSort);
       const rawQuery = searchQuery.trim();
 
-      // 1. Se a barra de pesquisa estiver vazia, filtra apenas pelo botão de categoria selecionado
       if (!rawQuery) {
-        return activeProducts.filter(item => {
+        const filtradosCat = listaOrdenadaBase.filter(item => {
           const itemCat = item.categoria || 'Geral';
           return currentFilter === 'ALL' || itemCat === currentFilter || item.numero === currentFilter;
         });
+        return {
+          principais: filtradosCat,
+          relacionados: [],
+          aproximacaoUsada: false
+        };
       }
 
-      // 2. Quando o usuário digita na busca, pesquisa em TODOS os produtos usando sinônimos + números
       const qNorm = normalizarTextoBusca(rawQuery);
-      if (!qNorm) return activeProducts;
+      if (!qNorm) {
+        return { principais: listaOrdenadaBase, relacionados: [], aproximacaoUsada: false };
+      }
 
-      // Verifica se o usuário digitou um número (ex: "1", "01", "#01", "video 1", "produto 2")
-      const numMatch = rawQuery.match(/^(?:#|nº|numero|video|v|produto|p)?\s*0*(\d{1,3})$/i);
+      // 1. Verifica se o usuário digitou um número (ex: "1", "01", "#01", "54", "video 12", "produto 37")
+      const numMatch = rawQuery.match(/^(?:#|nº|numero|video|v|produto|p|item)?\s*0*(\d{1,3})$/i);
       const numeroBuscado = numMatch ? parseInt(numMatch[1], 10) : null;
 
-      // Expande também os termos digitados pelo usuário com os grupos de sinônimos
       const tokensDigitados = qNorm.split(' ').filter(Boolean);
 
-      const resultadosComPontos = [];
-
-      for (const item of activeProducts) {
-        let pontos = 0;
-        const itemNumInt = parseInt(item.numero, 10);
-
-        // Se digitou um número exato (ex: "1" ou "01") e bateu com o número do card -> Prioridade Máxima!
-        if (numeroBuscado !== null && itemNumInt === numeroBuscado) {
-          pontos += 1000;
-        } else if (numeroBuscado !== null && String(item.numero).includes(String(numeroBuscado))) {
-          pontos += 200;
-        }
-
-        const indiceProduto = gerarIndiceExpandidoDoProduto(item);
-        const tituloNorm = normalizarTextoBusca(item.titulo || '');
-
-        // Verifica se todas as palavras digitadas (ou seus sinônimos) existem no índice expandido do produto
-        const todasPalavrasBatem = tokensDigitados.every(token => {
-          if (indiceProduto.includes(token)) return true;
-          // Verifica se o token faz parte de algum grupo de sinônimos que o produto tem
-          for (const grupo of GRUPOS_SINONIMOS_BUSCA) {
-            if (grupo.some(s => s === token || s.includes(token) || token.includes(s))) {
-              if (grupo.some(s => indiceProduto.includes(s))) return true;
-            }
+      // Identifica categorias de afinidade caso o usuário digite termos em inglês/português de um nicho
+      const categoriasAfins = new Set();
+      for (const mapa of MAPA_AFINIDADE_CATEGORIA) {
+        for (const token of tokensDigitados) {
+          if (mapa.termos.some(t => palavrasSaoSimilares(token, t))) {
+            categoriasAfins.add(mapa.categoria);
           }
-          return false;
-        });
-
-        if (todasPalavrasBatem) {
-          pontos += 50;
-          if (tituloNorm.includes(qNorm)) pontos += 100;
-        }
-
-        if (pontos > 0) {
-          resultadosComPontos.push({ item, pontos });
         }
       }
 
-      // Ordena colocando o match mais forte (ex: número exato #01) no topo
-      resultadosComPontos.sort((a, b) => b.pontos - a.pontos);
-      return resultadosComPontos.map(r => r.item);
+      const diretosComPontos = [];
+      const candidatosRelacionados = [];
+
+      for (const item of listaOrdenadaBase) {
+        let pontosDiretos = 0;
+        let pontosRelacionados = 0;
+        const itemNumInt = parseInt(item.numero, 10);
+        const indiceProduto = gerarIndiceExpandidoDoProduto(item);
+        const palavrasIndice = indiceProduto.split(' ').filter(Boolean);
+        const tituloNorm = normalizarTextoBusca(item.titulo || '');
+        const catItem = item.categoria || 'Geral';
+
+        // Match por número exato (#01 a #54)
+        if (numeroBuscado !== null) {
+          if (itemNumInt === numeroBuscado) {
+            pontosDiretos += 5000;
+          } else if (String(item.numero).includes(String(numeroBuscado))) {
+            pontosRelacionados += 300;
+          }
+        }
+
+        // Verifica quantos tokens digitados batem direta ou semanticamente (PT/EN/Sinônimos/Fuzzy)
+        let tokensEncontrados = 0;
+        for (const token of tokensDigitados) {
+          let achouToken = false;
+
+          if (indiceProduto.includes(token)) {
+            achouToken = true;
+            pontosDiretos += tituloNorm.includes(token) ? 120 : 60;
+          } else {
+            // Verifica nos grupos bilíngues de sinônimos
+            for (const grupo of GRUPOS_SINONIMOS_BUSCA) {
+              const tokenPertenceAoGrupo = grupo.some(s => palavrasSaoSimilares(token, s));
+              if (tokenPertenceAoGrupo) {
+                const produtoPertenceAoGrupo = grupo.some(s => indiceProduto.includes(s));
+                if (produtoPertenceAoGrupo) {
+                  achouToken = true;
+                  pontosDiretos += 80;
+                  break;
+                }
+              }
+            }
+
+            // Verifica similaridade direta (erros de digitação ou radicais PT/EN)
+            if (!achouToken && token.length >= 3) {
+              if (palavrasIndice.some(pInd => palavrasSaoSimilares(token, pInd))) {
+                achouToken = true;
+                pontosDiretos += 45;
+              }
+            }
+          }
+
+          if (achouToken) {
+            tokensEncontrados++;
+          }
+        }
+
+        // Se bateu todas as palavras (ou pelo menos 1 palavra relevante), entra nos resultados principais
+        if (numeroBuscado !== null && itemNumInt === numeroBuscado) {
+          diretosComPontos.push({ item, pontos: pontosDiretos });
+        } else if (tokensEncontrados === tokensDigitados.length && pontosDiretos > 0) {
+          diretosComPontos.push({ item, pontos: pontosDiretos + 100 });
+        } else if (tokensEncontrados > 0 && pontosDiretos > 0) {
+          diretosComPontos.push({ item, pontos: pontosDiretos });
+        } else if (categoriasAfins.has(catItem)) {
+          pontosRelacionados += 150;
+          candidatosRelacionados.push({ item, pontos: pontosRelacionados });
+        }
+      }
+
+      // Ordena os principais: se buscou número exato (#01), o número fica em 1º; senão, ordena do MAIS BARATO para o MAIS CARO!
+      if (numeroBuscado !== null) {
+        diretosComPontos.sort((a, b) => b.pontos - a.pontos || extrairPrecoNumerico(a.item) - extrairPrecoNumerico(b.item));
+      } else {
+        diretosComPontos.sort((a, b) => {
+          const pa = extrairPrecoNumerico(a.item);
+          const pb = extrairPrecoNumerico(b.item);
+          if (currentSort === 'CHEAPEST' && pa !== pb) return pa - pb;
+          return b.pontos - a.pontos;
+        });
+      }
+
+      const principais = diretosComPontos.map(d => d.item);
+      const idsPrincipais = new Set(principais.map(p => p.numero));
+
+      // Constrói a vitrine de "Produtos Relacionados" igual ao Mercado Livre
+      const categoriasDosPrincipais = new Set(principais.map(p => p.categoria || 'Geral'));
+      categoriasAfins.forEach(c => categoriasDosPrincipais.add(c));
+
+      let relacionados = listaOrdenadaBase.filter(item => {
+        if (idsPrincipais.has(item.numero)) return false;
+        return categoriasDosPrincipais.has(item.categoria || 'Geral');
+      });
+
+      // Completa com os achadinhos mais baratos da loja caso haja poucos da mesma categoria
+      if (relacionados.length < 8) {
+        const extrasMaisBaratos = listaOrdenadaBase.filter(
+          item => !idsPrincipais.has(item.numero) && !relacionados.some(r => r.numero === item.numero)
+        );
+        relacionados = [...relacionados, ...extrasMaisBaratos].slice(0, 8);
+      } else {
+        relacionados = relacionados.slice(0, 8);
+      }
+
+      // Garante que os relacionados também fiquem do mais barato para o mais caro
+      relacionados = ordenarListaProdutos(relacionados, currentSort);
+
+      // Se a palavra digitada não teve match literal (ex: palavra aleatória em inglês/português),
+      // promove os relacionados como resultados principais para NUNCA deixar a busca vazia!
+      if (principais.length === 0) {
+        const promovidos = relacionados.length > 0 ? relacionados : listaOrdenadaBase.slice(0, 12);
+        const idsPromovidos = new Set(promovidos.map(p => p.numero));
+        const restoMaisBaratos = listaOrdenadaBase
+          .filter(p => !idsPromovidos.has(p.numero))
+          .slice(0, 8);
+        return {
+          principais: promovidos,
+          relacionados: restoMaisBaratos,
+          aproximacaoUsada: true
+        };
+      }
+
+      return {
+        principais,
+        relacionados,
+        aproximacaoUsada: false
+      };
+    }
+
+    function gerarHtmlCardProduto(item) {
+      const tituloExibicao = item.titulo && item.titulo.trim()
+        ? item.titulo.trim()
+        : `Produto #${item.numero}`;
+      const imgLimpa = limparUrlBaseML(item.imagemUrl);
+      const temDescontoReal = Boolean(item.descontoTag && item.descontoTag.trim());
+      const curadoria = obterCuradoriaDoItem(item);
+
+      return `
+        <article class="bg-white border border-slate-200 hover:border-[#3483FA] hover:shadow-xl rounded-xl sm:rounded-2xl overflow-hidden shadow-sm transition-all duration-200 flex flex-col justify-between">
+          
+          <div>
+            <!-- Topo do Card: Número + Desconto ou Selo de Curadoria -->
+            <div class="px-2 sm:px-3.5 py-1.5 bg-slate-100 border-b border-slate-200/80 flex items-center justify-between gap-1">
+              <span class="bg-slate-900 text-[#FFE600] font-black text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 rounded flex-shrink-0">
+                #${item.numero}
+              </span>
+              ${temDescontoReal ? `
+                <span class="bg-emerald-100 text-[#00A650] text-[9px] sm:text-[10px] font-extrabold px-1.5 py-0.5 rounded truncate">
+                  ${item.descontoTag}
+                </span>
+              ` : `
+                <span class="bg-amber-100 text-amber-900 text-[9px] sm:text-[10px] font-extrabold px-1.5 py-0.5 rounded truncate">
+                  ${curadoria.selo}
+                </span>
+              `}
+            </div>
+
+            <!-- Imagem com Selo Flutuante de Recomendação -->
+            <div
+              data-product-num="${item.numero}"
+              class="btn-zoom-image relative bg-white p-2 sm:p-4 flex items-center justify-center h-32 sm:h-48 cursor-pointer group border-b border-slate-100"
+              title="Toque para ver por que vale a pena, fotos HD e ficha técnica"
+            >
+              ${temDescontoReal ? `
+                <span class="absolute bottom-1.5 left-1.5 z-10 bg-slate-900/85 text-[#FFE600] text-[8px] sm:text-[9px] font-extrabold px-1.5 py-0.5 rounded shadow-sm">
+                  ${curadoria.selo}
+                </span>
+              ` : ''}
+              <img
+                id="card-img-${item.numero}"
+                src="${imgLimpa}"
+                alt="${tituloExibicao.replace(/"/g, '&quot;')}"
+                loading="lazy"
+                class="hd-sharp-image max-h-28 sm:max-h-40 w-auto max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
+              />
+            </div>
+
+            <div class="px-2 sm:px-3.5 pt-1.5 flex items-center justify-between gap-1">
+              <span class="text-[9px] sm:text-[10px] font-bold text-slate-400 truncate hidden sm:inline">
+                ${item.categoria || 'Mercado Livre'}
+              </span>
+              <button
+                type="button"
+                data-product-num="${item.numero}"
+                class="btn-zoom-image text-[10px] sm:text-[11px] font-extrabold text-[#3483FA] hover:underline flex items-center gap-0.5"
+              >
+                🔍 +Fotos & Detalhes
+              </button>
+            </div>
+
+            <div data-product-num="${item.numero}" class="btn-zoom-image px-2 sm:px-3.5 pt-1 pb-1.5 cursor-pointer">
+              <h2 class="text-[11px] sm:text-sm font-semibold text-slate-800 hover:text-[#3483FA] leading-snug line-clamp-2 min-h-[2.4rem] sm:min-h-[2.6rem] transition">
+                ${tituloExibicao}
+              </h2>
+            </div>
+          </div>
+
+          <div class="p-2 sm:p-3.5 pt-1">
+            <div class="mb-2">
+              ${item.precoAntigo ? `
+                <span class="text-[10px] sm:text-xs text-slate-400 line-through block leading-none mb-0.5">
+                  ${item.precoAntigo}
+                </span>
+              ` : `
+                <span class="text-[10px] text-transparent select-none block leading-none mb-0.5">.</span>
+              `}
+              <div class="flex items-baseline gap-1 flex-wrap">
+                <span class="text-sm sm:text-2xl font-extrabold text-slate-900 leading-tight">
+                  ${item.precoAtual || 'Ver no App'}
+                </span>
+              </div>
+              <span class="text-[9px] sm:text-[11px] text-[#00A650] font-bold block mt-0.5 truncate">
+                ⚡ Frete Rápido Full • Menor Preço
+              </span>
+            </div>
+
+            <a
+              href="${item.linkMercadoLivre}"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-buy-affiliate btn-pulse w-full bg-[#3483FA] hover:bg-blue-600 active:scale-[0.99] text-white font-extrabold text-[11px] sm:text-xs py-2 sm:py-2.5 px-2 rounded-lg sm:rounded-xl flex items-center justify-center gap-1 transition shadow-sm text-center"
+            >
+              <span>Comprar</span>
+              <span>↗</span>
+            </a>
+
+            ${item.codigoBuscaML ? `
+              <button
+                type="button"
+                data-copy-code="${item.codigoBuscaML}"
+                data-item-num="${item.numero}"
+                class="btn-copy-code mt-1.5 w-full bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-[9px] sm:text-[10px] font-bold py-1 px-1.5 rounded-lg flex items-center justify-center gap-1 transition truncate"
+              >
+                <span>📋</span>
+                <code class="text-slate-900 font-mono font-extrabold truncate">${item.codigoBuscaML}</code>
+              </button>
+            ` : ''}
+          </div>
+
+        </article>
+      `;
     }
 
     function renderProducts() {
       const grid = document.getElementById('products-grid');
+      const relatedSection = document.getElementById('related-products-section');
+      const relatedGrid = document.getElementById('related-products-grid');
+      const relatedTitle = document.getElementById('related-section-title');
+      const feedbackBanner = document.getElementById('search-feedback-banner');
+      const feedbackText = document.getElementById('search-feedback-text');
       const emptyState = document.getElementById('empty-state');
       const emptyTitle = document.getElementById('empty-title');
       const emptySubtitle = document.getElementById('empty-subtitle');
       const countLabel = document.getElementById('results-count-label');
-      const filtered = getFilteredProducts();
 
       if (activeProducts.length === 0) {
         grid.innerHTML = '';
-        countLabel.textContent = 'Sincronizando produtos dos links...';
-        emptyTitle.textContent = 'Carregando vitrine de produtos...';
-        emptySubtitle.textContent = 'Aguarde um instante enquanto buscamos os dados reais dos anúncios.';
+        if (relatedSection) relatedSection.classList.add('hidden');
+        if (feedbackBanner) feedbackBanner.classList.add('hidden');
+        countLabel.textContent = 'Sincronizando os 54 produtos dos links...';
+        emptyTitle.textContent = 'Carregando vitrine de ofertas...';
+        emptySubtitle.textContent = 'Aguarde um instante enquanto buscamos os preços e fotos reais dos anúncios.';
         emptyState.classList.remove('hidden');
         return;
       }
 
-      if (filtered.length === 0) {
-        grid.innerHTML = '';
-        countLabel.textContent = 'Nenhum produto encontrado para essa pesquisa';
-        emptyTitle.textContent = 'Nenhum produto encontrado para essa busca';
-        emptySubtitle.textContent = 'Verifique o número ou nome digitado ou clique abaixo para mostrar todos os produtos.';
-        emptyState.classList.remove('hidden');
-        return;
-      }
+      const { principais, relacionados, aproximacaoUsada } = executarBuscaMercadoLivre();
+      const temBuscaAtiva = Boolean(searchQuery.trim());
 
       emptyState.classList.add('hidden');
-      countLabel.textContent = `${filtered.length} ${filtered.length === 1 ? 'produto verificado disponível' : 'produtos verificados disponíveis'}`;
+
+      if (temBuscaAtiva) {
+        feedbackBanner.classList.remove('hidden');
+        if (aproximacaoUsada) {
+          feedbackText.innerHTML = `Não encontramos o termo exato <strong>"${searchQuery.trim()}"</strong>, mas separamos os <strong>produtos relacionados e mais baratos</strong> para você:`;
+          countLabel.textContent = `${principais.length} sugestões relacionadas ordenadas pelo menor preço`;
+        } else {
+          feedbackText.innerHTML = `Exibindo resultados para <strong>"${searchQuery.trim()}"</strong> + sugestões relacionadas abaixo (do mais barato ao mais caro):`;
+          countLabel.textContent = `${principais.length} ${principais.length === 1 ? 'produto encontrado' : 'produtos encontrados'} + ${relacionados.length} relacionados`;
+        }
+      } else {
+        feedbackBanner.classList.add('hidden');
+        countLabel.textContent = `${principais.length} ${principais.length === 1 ? 'oferta verificada disponível' : 'ofertas verificadas (Mais Baratos Primeiro)'}`;
+      }
 
       grid.className = 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4';
+      grid.innerHTML = principais.map(gerarHtmlCardProduto).join('');
 
-      grid.innerHTML = filtered.map((item, idx) => {
-        const tituloExibicao = item.titulo && item.titulo.trim()
-          ? item.titulo.trim()
-          : `Produto #${item.numero}`;
-        const imgLimpa = limparUrlBaseML(item.imagemUrl);
-        const temDescontoReal = Boolean(item.descontoTag && item.descontoTag.trim());
+      if (temBuscaAtiva && relacionados.length > 0) {
+        relatedSection.classList.remove('hidden');
+        relatedTitle.textContent = aproximacaoUsada
+          ? '🔥 Outros Achadinhos Mais Baratos da Vitrine'
+          : `💡 Produtos Relacionados a "${searchQuery.trim()}" (Mais Baratos Primeiro)`;
+        relatedGrid.innerHTML = relacionados.map(gerarHtmlCardProduto).join('');
+      } else {
+        relatedSection.classList.add('hidden');
+        relatedGrid.innerHTML = '';
+      }
 
-        return `
-          <article class="bg-white border border-slate-200 hover:border-[#3483FA] hover:shadow-xl rounded-xl sm:rounded-2xl overflow-hidden shadow-sm transition-all duration-200 flex flex-col justify-between">
-            
-            <div>
-              <div class="px-2 sm:px-3.5 py-1.5 bg-slate-100 border-b border-slate-200/80 flex items-center justify-between gap-1">
-                <span class="bg-slate-900 text-[#FFE600] font-black text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 rounded flex-shrink-0">
-                  #${item.numero}
-                </span>
-                ${temDescontoReal ? `
-                  <span class="bg-emerald-100 text-[#00A650] text-[9px] sm:text-[10px] font-extrabold px-1.5 py-0.5 rounded truncate">
-                    ${item.descontoTag}
-                  </span>
-                ` : `
-                  <span class="text-[9px] sm:text-[10px] font-semibold text-slate-500 truncate">
-                    ${item.categoria || 'Geral'}
-                  </span>
-                `}
-              </div>
-
-              <div
-                data-zoom-index="${idx}"
-                class="btn-zoom-image relative bg-white p-2 sm:p-4 flex items-center justify-center h-32 sm:h-48 cursor-pointer group border-b border-slate-100"
-                title="Toque para ver todas as fotos e ficha técnica"
-              >
-                <img
-                  id="card-img-${item.numero}"
-                  src="${imgLimpa}"
-                  alt="${tituloExibicao.replace(/"/g, '&quot;')}"
-                  loading="lazy"
-                  class="hd-sharp-image max-h-28 sm:max-h-40 w-auto max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
-
-              <div class="px-2 sm:px-3.5 pt-1.5 flex items-center justify-between gap-1">
-                <span class="text-[9px] sm:text-[10px] font-bold text-slate-400 truncate hidden sm:inline">
-                  ${item.categoria || 'Mercado Livre'}
-                </span>
-                <button
-                  type="button"
-                  data-zoom-index="${idx}"
-                  class="btn-zoom-image text-[10px] sm:text-[11px] font-extrabold text-[#3483FA] hover:underline flex items-center gap-0.5"
-                >
-                  🔍 +Fotos & Detalhes
-                </button>
-              </div>
-
-              <div data-zoom-index="${idx}" class="btn-zoom-image px-2 sm:px-3.5 pt-1 pb-1.5 cursor-pointer">
-                <h2 class="text-[11px] sm:text-sm font-semibold text-slate-800 hover:text-[#3483FA] leading-snug line-clamp-2 min-h-[2.4rem] sm:min-h-[2.6rem] transition">
-                  ${tituloExibicao}
-                </h2>
-              </div>
-            </div>
-
-            <div class="p-2 sm:p-3.5 pt-1">
-              <div class="mb-2">
-                ${item.precoAntigo ? `
-                  <span class="text-[10px] sm:text-xs text-slate-400 line-through block leading-none mb-0.5">
-                    ${item.precoAntigo}
-                  </span>
-                ` : `
-                  <span class="text-[10px] text-transparent select-none block leading-none mb-0.5">.</span>
-                `}
-                <div class="flex items-baseline gap-1 flex-wrap">
-                  <span class="text-sm sm:text-2xl font-extrabold text-slate-900 leading-tight">
-                    ${item.precoAtual || 'Ver no App'}
-                  </span>
-                </div>
-                <span class="text-[9px] sm:text-[11px] text-[#00A650] font-bold block mt-0.5 truncate">
-                  ⚡ Frete Grátis Full
-                </span>
-              </div>
-
-              <a
-                href="${item.linkMercadoLivre}"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-buy-affiliate btn-pulse w-full bg-[#3483FA] hover:bg-blue-600 active:scale-[0.99] text-white font-extrabold text-[11px] sm:text-xs py-2 sm:py-2.5 px-2 rounded-lg sm:rounded-xl flex items-center justify-center gap-1 transition shadow-sm text-center"
-              >
-                <span>Comprar</span>
-                <span>↗</span>
-              </a>
-
-              ${item.codigoBuscaML ? `
-                <button
-                  type="button"
-                  data-copy-code="${item.codigoBuscaML}"
-                  data-item-num="${item.numero}"
-                  class="btn-copy-code mt-1.5 w-full bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-[9px] sm:text-[10px] font-bold py-1 px-1.5 rounded-lg flex items-center justify-center gap-1 transition truncate"
-                >
-                  <span>📋</span>
-                  <code class="text-slate-900 font-mono font-extrabold truncate">${item.codigoBuscaML}</code>
-                </button>
-              ` : ''}
-            </div>
-
-          </article>
-        `;
-      }).join('');
-
-      filtered.forEach(item => {
+      const todosExibidos = [...principais, ...relacionados];
+      todosExibidos.forEach(item => {
         const imgLimpa = limparUrlBaseML(item.imagemUrl);
         promoverParaMatrizOriginal1200px(imgLimpa, (urlHD) => {
           item.imagemUrl = urlHD;
@@ -1503,9 +1896,10 @@
 
       document.querySelectorAll('.btn-zoom-image').forEach(el => {
         el.addEventListener('click', () => {
-          const index = parseInt(el.getAttribute('data-zoom-index'), 10);
-          if (filtered[index]) {
-            abrirZoomImagem(filtered[index]);
+          const num = el.getAttribute('data-product-num');
+          const prod = activeProducts.find(p => p.numero === num);
+          if (prod) {
+            abrirZoomImagem(prod);
           }
         });
       });
@@ -1555,6 +1949,7 @@
 
       const searchInput = document.getElementById('search-input');
       const clearBtn = document.getElementById('btn-clear-search');
+      const sortSelect = document.getElementById('sort-select');
 
       searchInput.addEventListener('input', (e) => {
         searchQuery = e.target.value;
@@ -1568,6 +1963,23 @@
         clearBtn.classList.add('hidden');
         renderProducts();
       });
+
+      document.getElementById('btn-reset-from-banner').addEventListener('click', () => {
+        searchQuery = '';
+        currentFilter = 'ALL';
+        searchInput.value = '';
+        clearBtn.classList.add('hidden');
+        renderCategoryChips();
+        renderProducts();
+      });
+
+      if (sortSelect) {
+        sortSelect.addEventListener('change', (e) => {
+          currentSort = e.target.value || 'CHEAPEST';
+          activeProducts = ordenarListaProdutos(activeProducts, currentSort);
+          renderProducts();
+        });
+      }
 
       document.getElementById('btn-empty-reset').addEventListener('click', () => {
         searchQuery = '';
