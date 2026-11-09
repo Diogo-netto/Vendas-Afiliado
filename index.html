@@ -165,14 +165,14 @@
         </button>
       </div>
 
-      <!-- BUSCA RÁPIDA POR NÚMERO OU NOME -->
+      <!-- BUSCA INTELIGENTE POR SINÔNIMOS (TV / TELEVISÃO, CELULAR / SMARTPHONE) OU NÚMERO (1 / 01) -->
       <div class="mt-2.5 sm:mt-3">
         <div class="relative flex items-center">
           <span class="absolute left-3 text-slate-400 text-sm pointer-events-none">🔎</span>
           <input
             id="search-input"
             type="text"
-            placeholder="Buscar produto ou Nº do vídeo (ex: 01, 12, 36)..."
+            placeholder="Busque pelo nome (ex: TV, televisão, esteira, celular) ou Nº (ex: 1, 01, 18)..."
             class="w-full bg-white border border-slate-300 focus:border-[#3483FA] rounded-xl pl-9 pr-16 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none shadow-sm transition"
           />
           <button
@@ -524,7 +524,6 @@
   <div id="modal-legal-lgpd" class="hidden fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
     <div class="bg-white sm:border border-slate-200 rounded-t-2xl sm:rounded-2xl max-w-3xl w-full h-[90dvh] sm:h-auto sm:max-h-[88vh] overflow-hidden shadow-2xl flex flex-col">
       
-      <!-- Cabeçalho do Modal Jurídico -->
       <div class="flex items-center justify-between px-4 sm:px-6 py-3.5 bg-slate-900 text-white border-b border-slate-800 flex-shrink-0">
         <div class="flex items-center gap-2">
           <span class="text-lg">🛡️</span>
@@ -542,7 +541,6 @@
         </button>
       </div>
 
-      <!-- Abas de Navegação Jurídica -->
       <div class="flex items-center gap-2 px-4 sm:px-6 py-2.5 bg-slate-100 border-b border-slate-200 overflow-x-auto flex-shrink-0">
         <button type="button" data-legal-tab="privacidade" class="legal-tab-btn bg-[#3483FA] text-white font-extrabold text-xs px-3.5 py-1.5 rounded-lg whitespace-nowrap transition">
           🔒 Política de Privacidade (LGPD)
@@ -555,10 +553,7 @@
         </button>
       </div>
 
-      <!-- Conteúdo das Abas -->
       <div class="p-4 sm:p-6 overflow-y-auto overscroll-contain flex-1 text-xs sm:text-sm text-slate-700 space-y-4 leading-relaxed">
-        
-        <!-- ABA 1: POLÍTICA DE PRIVACIDADE -->
         <div id="legal-content-privacidade" class="space-y-3">
           <div class="bg-emerald-50 border border-emerald-200 text-emerald-900 p-3.5 rounded-xl text-xs font-medium">
             <strong>Resumo Transparente:</strong> Este site funciona exclusivamente como um catálogo público de curadoria de ofertas. <strong>Nós não exigimos cadastro, não coletamos nome, CPF, e-mail, endereço, telefone nem dados de cartão de crédito ou Pix.</strong>
@@ -580,7 +575,6 @@
           </p>
         </div>
 
-        <!-- ABA 2: POLÍTICA DE COOKIES -->
         <div id="legal-content-cookies" class="hidden space-y-3">
           <div class="bg-blue-50 border border-blue-200 text-blue-900 p-3.5 rounded-xl text-xs font-medium">
             <strong>Para que servem os Cookies neste site?</strong> Utilizamos apenas armazenamento técnico essencial para lembrar que você já aceitou este aviso e links oficiais de atribuição do Programa de Afiliados do Mercado Livre.
@@ -601,7 +595,6 @@
           </ul>
         </div>
 
-        <!-- ABA 3: TERMOS DE USO E TRANSPARÊNCIA DE AFILIADO -->
         <div id="legal-content-termos" class="hidden space-y-3">
           <h4 class="font-extrabold text-slate-900 text-sm">1. Declaração de Participação no Programa de Afiliados</h4>
           <p>
@@ -618,10 +611,8 @@
             Todos os produtos divulgados contam com a proteção do programa <strong>Compra Garantida do Mercado Livre</strong> e direito de arrependimento/devolução gratuita conforme o Código de Defesa do Consumidor (Lei nº 8.078/1990), gerenciados diretamente pelo aplicativo ou site oficial do Mercado Livre.
           </p>
         </div>
-
       </div>
 
-      <!-- Rodapé do Modal Jurídico -->
       <div class="px-4 sm:px-6 py-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between gap-3 flex-shrink-0">
         <span class="text-[11px] text-slate-500">Ambiente 100% transparente e adequado à LGPD</span>
         <button id="btn-accept-legal-modal" type="button" class="bg-[#00A650] hover:bg-emerald-600 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl transition shadow-sm">
@@ -632,18 +623,12 @@
     </div>
   </div>
 
-  <!-- ========================================================================
-       PORTAL OBRIGATÓRIO DE ACEITE DE COOKIES COM GATILHO DE COMPRA
-       - Deixa os produtos visíveis ao fundo (com leve desfoque que dá curiosidade)
-       - Obriga o visitante a clicar no botão para liberar a vitrine, transformando
-         o aceite de cookies num gatilho mental de "Destravar Ofertas & Descontos"!
-       ======================================================================== -->
+  <!-- PORTAL DE ACEITE DE COOKIES COM GATILHO DE OFERTAS -->
   <div
     id="cookie-consent-banner"
     class="hidden fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-[3px] flex items-end sm:items-center justify-center p-3 sm:p-4"
   >
     <div class="bg-white border-2 border-[#FFE600] rounded-3xl max-w-md w-full p-5 sm:p-6 shadow-2xl text-center relative overflow-hidden">
-      <!-- Faixa Topo Dourada -->
       <div class="bg-[#FFE600] text-slate-950 text-[11px] font-black uppercase tracking-wider py-1 px-3 rounded-full inline-flex items-center gap-1.5 mb-3 shadow-sm">
         <span>⚡</span> <span>Acesso Oficial às Ofertas do Dia</span>
       </div>
@@ -656,7 +641,6 @@
         Clique no botão abaixo para ativar o redirecionamento seguro com <strong>Frete Grátis Full e Descontos no Pix</strong> direto no aplicativo oficial do Mercado Livre.
       </p>
 
-      <!-- Botão Principal que Força o Aceite sem Tirar a Intenção de Compra -->
       <button
         id="btn-accept-cookies"
         type="button"
@@ -665,7 +649,6 @@
         Aceitar e Continuar ✓
       </button>
 
-      <!-- Nota de Conformidade LGPD & Cookies -->
       <p class="text-[10px] sm:text-[11px] text-slate-400 mt-3 leading-normal">
         🍪 Ao clicar em continuar, você aceita o uso de cookies essenciais de atribuição de afiliado e concorda com nossa
         <button id="btn-banner-open-policy" type="button" class="underline text-[#3483FA] hover:text-blue-700 font-bold">
@@ -684,12 +667,11 @@
     </div>
   </div>
 
-  <!-- RODAPÉ OFICIAL COMPLETO COM LINKS CLICÁVEIS DE PRIVACIDADE, COOKIES E TERMOS -->
+  <!-- RODAPÉ OFICIAL COMPLETO -->
   <footer class="bg-white border-t border-slate-200 py-7 px-4 text-center text-xs text-slate-500 space-y-3 mt-8">
     <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
       <p class="font-bold text-slate-800">🔒 Comprar Online — Vitrine Oficial de Ofertas & Curadoria</p>
       
-      <!-- Links Jurídicos Clicáveis -->
       <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-semibold text-slate-600">
         <button type="button" data-open-legal="privacidade" class="btn-open-legal hover:text-[#3483FA] underline transition">
           Política de Privacidade (LGPD)
@@ -711,7 +693,7 @@
   </footer>
 
   <!-- ========================================================================
-       SCRIPT COMPLETO — VITRINE + GALERIA MULTI-FOTOS + CENTRAL LGPD & COOKIES
+       SCRIPT COMPLETO — MOTOR DE BUSCA INTELIGENTE (SINÔNIMOS + NÚMEROS + SEM ACENTOS)
        ======================================================================== -->
   <script>
     const MEUS_PRODUTOS = [];
@@ -738,6 +720,67 @@
       lastNormX: 0.5,
       lastNormY: 0.5
     };
+
+    // ========================================================================
+    // DICIONÁRIO INTELIGENTE DE SINÔNIMOS DE E-COMMERCE
+    // Se o cliente digitar "televisão", encontra "TV" / "Smart TV" (e vice-versa)
+    // ========================================================================
+    const GRUPOS_SINONIMOS_BUSCA = [
+      ['tv', 'televisao', 'televisor', 'smart tv', 'smartv', 'tele', 'monitor', '4k', 'uhd', 'led', 'oled', 'qled', 'polegadas'],
+      ['celular', 'celulares', 'smartphone', 'smartphones', 'telefone', 'iphone', 'apple', 'samsung', 'galaxy', 'motorola', 'moto', 'xiaomi', 'redmi', 'poco', 'android'],
+      ['fone', 'fones', 'headset', 'headphone', 'earbuds', 'airpods', 'ouvido', 'bluetooth', 'sem fio', 'tws', 'caixa de som', 'caixinha', 'jbl', 'audio', 'som'],
+      ['esteira', 'ergometrica', 'caminhada', 'corrida', 'academia', 'fitness', 'treino', 'exercicio', 'ginastica', 'esporte', 'emagrecer', 'cardio', 'bicicleta'],
+      ['suplemento', 'suplementos', 'whey', 'protein', 'proteina', 'hipercalorico', 'mass', 'massa', 'creatina', 'pre treino', 'musculacao', 'ganho muscular', 'max titanium', 'integralmedica', 'growth'],
+      ['extensao', 'tomada', 'tomadas', 'benjamim', 'filtro de linha', 'regua', 'cabo', 'fio', 'eletrica', 'eletrico', 'energia', 'bivolt', '10a', '20a'],
+      ['disjuntor', 'bipolar', 'monopolar', 'tripolar', 'elgin', 'steck', 'weg', 'quadro de forca', 'amperes', 'eletricista'],
+      ['assento', 'sanitario', 'vaso', 'privada', 'tampa', 'banheiro', 'acoplada', 'almofadado'],
+      ['filamento', 'impressora 3d', 'impressao 3d', '3d', 'pla', 'abs', 'petg', 'voolt3d', 'carretel', '1.75mm', 'resina'],
+      ['lencol', 'lencois', 'jogo de cama', 'cama', 'colchao', 'travesseiro', 'fronha', 'edredom', 'cobertor', 'colcha', 'queen', 'casal', 'solteiro', 'king', '400 fios', 'toalha', 'banho'],
+      ['cozinha', 'airfryer', 'fritadeira', 'sem oleo', 'panela', 'panelas', 'liquidificador', 'batedeira', 'cafeteira', 'microondas', 'forno', 'fogao', 'talheres', 'pratos'],
+      ['copo', 'garrafa', 'termico', 'termica', 'stanley', 'inox', 'gelado', 'cerveja', 'churrasco', 'cooler', 'squeeze'],
+      ['limpeza', 'aspirador', 'robo', 'mop', 'esfregao', 'vassoura', 'lavadora', 'alta pressao', 'wap', 'karcher'],
+      ['ferramenta', 'ferramentas', 'furadeira', 'parafusadeira', 'chave', 'maleta', 'kit ferramentas', 'bosch', 'makita', 'vonder', 'dewalt', 'serra', 'trena', 'obra'],
+      ['game', 'games', 'jogo', 'jogos', 'videogame', 'console', 'playstation', 'ps4', 'ps5', 'sony', 'xbox', 'nintendo', 'switch', 'gift card', 'cartao presente', 'controle', 'joystick', 'gamer'],
+      ['computador', 'pc', 'notebook', 'laptop', 'teclado', 'mouse', 'ssd', 'hd', 'memoria ram', 'placa de video', 'roteador', 'wifi'],
+      ['beleza', 'cabelo', 'secador', 'chapinha', 'prancha', 'escova', 'modelador', 'barbeador', 'maquina de cortar', 'aparador', 'perfume', 'maquiagem', 'creme', 'hidratante', 'shampoo'],
+      ['roupa', 'roupas', 'camisa', 'camiseta', 'blusa', 'jaqueta', 'moletom', 'calca', 'jeans', 'bermuda', 'short', 'vestido', 'moda'],
+      ['tenis', 'sapato', 'calcado', 'chinelo', 'sandalia', 'bota', 'nike', 'adidas', 'olympikus'],
+      ['mochila', 'bolsa', 'mala', 'necessaire', 'carteira', 'escolar', 'viagem', 'impermeavel'],
+      ['relogio', 'smartwatch', 'pulseira', 'digital', 'inteligente'],
+      ['ventilador', 'climatizador', 'ar condicionado', 'circulador', 'umidificador', 'aquecedor']
+    ];
+
+    // Remove acentos, símbolos e deixa tudo minúsculo para comparar sem erro
+    function normalizarTextoBusca(texto = '') {
+      return String(texto)
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9\s]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    // Expande o texto de um produto com todos os sinônimos equivalentes do dicionário
+    function gerarIndiceExpandidoDoProduto(item) {
+      const base = normalizarTextoBusca(
+        `${item.numero || ''} ${item.titulo || ''} ${item.categoria || ''} ${item.descricao || ''} ${item.codigoBuscaML || ''} ${(item.caracteristicas || []).join(' ')}`
+      );
+      const palavrasBase = new Set(base.split(' ').filter(Boolean));
+      const extras = [];
+
+      for (const grupo of GRUPOS_SINONIMOS_BUSCA) {
+        const bateuNoGrupo = grupo.some(termo => {
+          if (termo.includes(' ')) return base.includes(termo);
+          return palavrasBase.has(termo) || base.includes(termo);
+        });
+        if (bateuNoGrupo) {
+          extras.push(...grupo);
+        }
+      }
+
+      return `${base} ${extras.join(' ')}`;
+    }
 
     function limparUrlBaseML(url = '') {
       if (!url || !url.includes('mlstatic.com')) return url;
@@ -795,7 +838,7 @@
       const tamanhoPorLote = 12;
 
       try {
-        const urlLote1 = API_PRODUTOS_URL + `?lote=1&tamanho=${tamanhoPorLote}&v=lgpd2`;
+        const urlLote1 = API_PRODUTOS_URL + `?lote=1&tamanho=${tamanhoPorLote}&v=syn1`;
         const resp1 = await fetch(urlLote1, {
           headers: { 'Accept': 'application/json' }
         });
@@ -824,7 +867,7 @@
             loadingBar.classList.remove('hidden');
             for (let lote = 2; lote <= totalLotes; lote++) {
               loadingText.textContent = `Carregando mais produtos (${activeProducts.length} de ${totalGeral})...`;
-              const urlProxLote = API_PRODUTOS_URL + `?lote=${lote}&tamanho=${tamanhoPorLote}&v=lgpd2`;
+              const urlProxLote = API_PRODUTOS_URL + `?lote=${lote}&tamanho=${tamanhoPorLote}&v=syn1`;
               const respLote = await fetch(urlProxLote, {
                 headers: { 'Accept': 'application/json' }
               });
@@ -1134,9 +1177,6 @@
       }
     }
 
-    // ========================================================================
-    // FUNÇÕES DE PRIVACIDADE, COOKIES E LGPD
-    // ========================================================================
     function selecionarAbaJuridica(aba = 'privacidade') {
       const abas = ['privacidade', 'cookies', 'termos'];
       abas.forEach(nome => {
@@ -1245,22 +1285,72 @@
       });
     }
 
+    // ========================================================================
+    // FILTRO INTELIGENTE: BUSCA POR NÚMERO (1 = 01 = #01) E POR SINÔNIMOS (TV = TELEVISÃO)
+    // ========================================================================
     function getFilteredProducts() {
-      return activeProducts.filter(item => {
-        const itemCat = item.categoria || 'Geral';
-        const matchesChip = currentFilter === 'ALL' || itemCat === currentFilter || item.numero === currentFilter;
-        if (!matchesChip) return false;
-        if (!searchQuery.trim()) return true;
+      const rawQuery = searchQuery.trim();
 
-        const q = searchQuery.trim().toLowerCase();
-        return (
-          (item.numero || '').toLowerCase().includes(q) ||
-          (item.titulo || '').toLowerCase().includes(q) ||
-          (item.descricao || '').toLowerCase().includes(q) ||
-          itemCat.toLowerCase().includes(q) ||
-          (item.codigoBuscaML || '').toLowerCase().includes(q)
-        );
-      });
+      // 1. Se a barra de pesquisa estiver vazia, filtra apenas pelo botão de categoria selecionado
+      if (!rawQuery) {
+        return activeProducts.filter(item => {
+          const itemCat = item.categoria || 'Geral';
+          return currentFilter === 'ALL' || itemCat === currentFilter || item.numero === currentFilter;
+        });
+      }
+
+      // 2. Quando o usuário digita na busca, pesquisa em TODOS os produtos usando sinônimos + números
+      const qNorm = normalizarTextoBusca(rawQuery);
+      if (!qNorm) return activeProducts;
+
+      // Verifica se o usuário digitou um número (ex: "1", "01", "#01", "video 1", "produto 2")
+      const numMatch = rawQuery.match(/^(?:#|nº|numero|video|v|produto|p)?\s*0*(\d{1,3})$/i);
+      const numeroBuscado = numMatch ? parseInt(numMatch[1], 10) : null;
+
+      // Expande também os termos digitados pelo usuário com os grupos de sinônimos
+      const tokensDigitados = qNorm.split(' ').filter(Boolean);
+
+      const resultadosComPontos = [];
+
+      for (const item of activeProducts) {
+        let pontos = 0;
+        const itemNumInt = parseInt(item.numero, 10);
+
+        // Se digitou um número exato (ex: "1" ou "01") e bateu com o número do card -> Prioridade Máxima!
+        if (numeroBuscado !== null && itemNumInt === numeroBuscado) {
+          pontos += 1000;
+        } else if (numeroBuscado !== null && String(item.numero).includes(String(numeroBuscado))) {
+          pontos += 200;
+        }
+
+        const indiceProduto = gerarIndiceExpandidoDoProduto(item);
+        const tituloNorm = normalizarTextoBusca(item.titulo || '');
+
+        // Verifica se todas as palavras digitadas (ou seus sinônimos) existem no índice expandido do produto
+        const todasPalavrasBatem = tokensDigitados.every(token => {
+          if (indiceProduto.includes(token)) return true;
+          // Verifica se o token faz parte de algum grupo de sinônimos que o produto tem
+          for (const grupo of GRUPOS_SINONIMOS_BUSCA) {
+            if (grupo.some(s => s === token || s.includes(token) || token.includes(s))) {
+              if (grupo.some(s => indiceProduto.includes(s))) return true;
+            }
+          }
+          return false;
+        });
+
+        if (todasPalavrasBatem) {
+          pontos += 50;
+          if (tituloNorm.includes(qNorm)) pontos += 100;
+        }
+
+        if (pontos > 0) {
+          resultadosComPontos.push({ item, pontos });
+        }
+      }
+
+      // Ordena colocando o match mais forte (ex: número exato #01) no topo
+      resultadosComPontos.sort((a, b) => b.pontos - a.pontos);
+      return resultadosComPontos.map(r => r.item);
     }
 
     function renderProducts() {
