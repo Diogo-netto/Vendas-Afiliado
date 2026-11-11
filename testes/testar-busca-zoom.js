@@ -108,6 +108,11 @@ const confirmado = JSON.parse(vm.runInContext(`JSON.stringify(normalizarProdutoR
   precoConfirmado:true,precoFonte:'api-oficial-sale-price-channel-marketplace',
   linkMercadoLivre:'https://meli.la/19z8oa8'
 }))`,ctx));
-assert.equal(confirmado.precoAtual,'R$ 267,00');
+// Até validação real do catálogo, mesmo payload com marcador oficial não exibe preço.
+assert.equal(confirmado.precoAtual,'Consultar preço no anúncio');
+assert.equal(confirmado.precoAntigo,'');
+assert.equal(confirmado.precoConfirmado,false);
+assert.equal(confirmado.descontoTag,'');
+assert.equal(confirmado.precoNumerico,999999);
 
 console.log('OK: 54 registros, aliases TV/regionais, código #35 primeiro, relacionados pertinentes, busca vazia e zoom por resolução.');

@@ -989,10 +989,15 @@
       }
     }
 
+    // V5: medida temporária de segurança para NÃO publicar qualquer preço
+    // antes de validar de ponta a ponta cada anúncio e o canal autorizado.
+    // Não mudar esta chave sem testes reais, autorização e revisão do catálogo.
+    const PRECOS_SUSPENSOS_ATE_VALIDACAO = true;
+
     function normalizarProdutoRecebido(p) {
-      // Defesa adicional: se a API não confirmar a origem OFICIAL do preço,
-      // ignorar quaisquer números e selos recebidos, mesmo se vierem no JSON.
-      const precoValido = p.precoConfirmado === true &&
+      // Números, parcelas e descontos externos NÃO entram na vitrine.
+      const precoValido = !PRECOS_SUSPENSOS_ATE_VALIDACAO &&
+        p.precoConfirmado === true &&
         p.precoFonte === 'api-oficial-sale-price-channel-marketplace' &&
         Number.isFinite(p.precoNumerico) && p.precoNumerico > 0 && p.precoNumerico < 999999;
       const seguro = precoValido ? p : {
@@ -1066,7 +1071,7 @@
                       });
                       // Mantém sempre do mais barato ao mais caro conforme novos lotes chegam
                       activeProducts = ordenarListaProdutos(activeProducts, currentSort);
-                      loadingText.textContent = `Sincronizando catálogo (${activeProducts.length} de ${totalGeral} produtos ordenados pelo menor preço)...`;
+                      loadingText.textContent = `Carregando catálogo (${activeProducts.length} de ${totalGeral} produtos)...`;
                       renderCategoryChips();
                       renderProducts();
                       checkDirectRedirect();
