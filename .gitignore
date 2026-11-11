@@ -1,3 +1,15 @@
 .env
 .env.local
 node_modules/
+# Credenciais / ambiente local
+.env.*
+!.env.example
+# Dependências, artefatos e dados locais
+.vercel/
+dist/
+*.log
+*.bak
+.DS_Store
+
+.vercel
+.env*

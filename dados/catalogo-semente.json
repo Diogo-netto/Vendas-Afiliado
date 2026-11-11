@@ -1,0 +1,330 @@
+{
+  "schemaVersion": 1,
+  "origem": "V4",
+  "produtos": [
+    {
+      "numero": "01",
+      "linkMercadoLivre": "https://meli.la/2PySxJz",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "02",
+      "linkMercadoLivre": "https://meli.la/1oUjudQ",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "03",
+      "linkMercadoLivre": "https://meli.la/1iqhiaQ",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "04",
+      "linkMercadoLivre": "https://meli.la/2NELsie",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "05",
+      "linkMercadoLivre": "https://meli.la/28R1rTN",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "06",
+      "linkMercadoLivre": "https://meli.la/2ygKFoV",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "07",
+      "linkMercadoLivre": "https://meli.la/18PAVkX",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "08",
+      "linkMercadoLivre": "https://meli.la/2R8x15H",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "09",
+      "linkMercadoLivre": "https://meli.la/19k8FKN",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "10",
+      "linkMercadoLivre": "https://meli.la/23d3jrZ",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "11",
+      "linkMercadoLivre": "https://meli.la/2dhqHqC",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "12",
+      "linkMercadoLivre": "https://meli.la/2anpjd3",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "13",
+      "linkMercadoLivre": "https://meli.la/1GfEE37",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "14",
+      "linkMercadoLivre": "https://meli.la/27KWSzY",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "15",
+      "linkMercadoLivre": "https://meli.la/1p6g6E4",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "16",
+      "linkMercadoLivre": "https://meli.la/2hTfzEg",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "17",
+      "linkMercadoLivre": "https://meli.la/1xsU2sV",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "18",
+      "linkMercadoLivre": "https://meli.la/1fHMNJY",
+      "codigoBuscaML": "2WT0PJ-NL8A",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "19",
+      "linkMercadoLivre": "https://meli.la/2t1b8fz",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "20",
+      "linkMercadoLivre": "https://meli.la/2Lf2TL1",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "21",
+      "linkMercadoLivre": "https://meli.la/2LuPfwu",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "22",
+      "linkMercadoLivre": "https://meli.la/19z8oa8",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "23",
+      "linkMercadoLivre": "https://meli.la/1VhJjtV",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "24",
+      "linkMercadoLivre": "https://meli.la/1azx2fa",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "25",
+      "linkMercadoLivre": "https://meli.la/28FYDKM",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "26",
+      "linkMercadoLivre": "https://meli.la/1Tb8UbS",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "27",
+      "linkMercadoLivre": "https://meli.la/2gjob76",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "28",
+      "linkMercadoLivre": "https://meli.la/16wkLWy",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "29",
+      "linkMercadoLivre": "https://meli.la/1SiCt92",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "30",
+      "linkMercadoLivre": "https://meli.la/2HwaEUR",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "31",
+      "linkMercadoLivre": "https://meli.la/2bHThvM",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "32",
+      "linkMercadoLivre": "https://meli.la/2AhCALu",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "33",
+      "linkMercadoLivre": "https://meli.la/1bpKWQS",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "34",
+      "linkMercadoLivre": "https://meli.la/2pdqm3W",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "35",
+      "linkMercadoLivre": "https://meli.la/15vRaYV",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "36",
+      "linkMercadoLivre": "https://meli.la/1Zib8Wr",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "37",
+      "linkMercadoLivre": "https://meli.la/2kTnvBH",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "38",
+      "linkMercadoLivre": "https://meli.la/18QMLho",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "39",
+      "linkMercadoLivre": "https://meli.la/2zYw37j",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "40",
+      "linkMercadoLivre": "https://meli.la/1jhyWja",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "41",
+      "linkMercadoLivre": "https://meli.la/1n16mQq",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "42",
+      "linkMercadoLivre": "https://meli.la/2UsBwWX",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "43",
+      "linkMercadoLivre": "https://meli.la/14Z2kip",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "44",
+      "linkMercadoLivre": "https://meli.la/2UmEAJ6",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "45",
+      "linkMercadoLivre": "https://meli.la/1DJjjPw",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "46",
+      "linkMercadoLivre": "https://meli.la/1PnpV5m",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "47",
+      "linkMercadoLivre": "https://meli.la/2yQKQkM",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "48",
+      "linkMercadoLivre": "https://meli.la/2jxtrix",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "49",
+      "linkMercadoLivre": "https://meli.la/1iYSLkf",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "50",
+      "linkMercadoLivre": "https://meli.la/1KKe6oC",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "51",
+      "linkMercadoLivre": "https://meli.la/2zjSj19",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "52",
+      "linkMercadoLivre": "https://meli.la/2qQ1gwC",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "53",
+      "linkMercadoLivre": "https://meli.la/1UPqCNE",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    },
+    {
+      "numero": "54",
+      "linkMercadoLivre": "https://meli.la/2zyX3xy",
+      "codigoBuscaML": "",
+      "status": "pendente_validacao"
+    }
+  ]
+}
